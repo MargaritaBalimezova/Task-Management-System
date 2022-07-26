@@ -31,7 +31,7 @@ public static class Validator
 
     public static void ValidateStringLength(string toValidate, int minLen, int maxLen, string field)
     {
-        if(toValidate.Length < minLen || toValidate.Length > maxLen)
+        if (toValidate.Length < minLen || toValidate.Length > maxLen)
         {
             throw new ArgumentException(string.Format(StringLenErrorMsg, field, minLen, maxLen));
         }
