@@ -1,4 +1,5 @@
 ﻿using System;
+using TaskManagement.Models;
 
 namespace TaskManagement
 {
@@ -6,7 +7,6 @@ namespace TaskManagement
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
         }
     }
 }
