@@ -17,7 +17,9 @@ Each member must have a **name**, list of **tasks** and **activity history**.
 Each board must have a **name**, list of **tasks** and **activity history**.
 
 - Name must be unique in the team.
-- Name is a string between 5 and 10 symbols. There are 3 types of tasks: **bug**, **story,** and **feedback**. Bug
+- Name is a string between 5 and 10 symbols. 
+
+There are 3 types of tasks: **bug**, **story,** and **feedback**. 
 
 ## Bug
 Bugs must have an ID, a title, a description, a list of steps to reproduce it, a priority, a severity, a status, an assignee, a list of comments and a list of changes history.
