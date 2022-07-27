@@ -6,19 +6,16 @@ using System.Threading.Tasks;
 
 namespace TaskManagement.Models.Contracts
 {
-    internal interface IBoard 
+    internal interface IBoard : IActivityLog
     {
         public string Name { get; }
 
         public List<ITask> BoardTasks { get; }
-
-        public List<IEventLog> BoardHistory { get; }
 
         void AddTaskToBoard(ITask task);
 
         void RemoveTaskFromBoard(ITask task);
 
         string ViewBoardHistory();
-
     }
 }

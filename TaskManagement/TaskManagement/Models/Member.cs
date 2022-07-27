@@ -18,8 +18,8 @@ namespace TaskManagement.Models
         private const string MEMBER_HEADER = "--MEMBER--";
 
         private string name;
-        private readonly IList<ITask> tasks;
 
+        private readonly IList<ITask> tasks;
         private readonly IList<IEventLog> activityLog;
 
         public Member(string name)
@@ -82,7 +82,7 @@ namespace TaskManagement.Models
             return string.Join(Environment.NewLine, this.activityLog.Select(e => e.ViewInfo()));
         }
 
-        protected void AddEventLog(string desc)
+        public void AddEventLog(string desc)
         {
             this.activityLog.Add(new EventLog(desc));
         }

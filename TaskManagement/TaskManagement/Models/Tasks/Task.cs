@@ -22,7 +22,7 @@ namespace TaskManagement.Models
         private string title;
         private string description;
         private readonly List<IComment> comments;
-        private readonly List<IEventLog> history;
+        private readonly IList<IEventLog> activityLog;
 
         public Task(string title, string description)
         {
@@ -30,7 +30,7 @@ namespace TaskManagement.Models
             this.Description = description;
 
             comments = new List<IComment>();
-            history = new List<IEventLog>();
+            activityLog = new List<IEventLog>();
 
             Task.id++;
 
@@ -38,6 +38,7 @@ namespace TaskManagement.Models
         }
 
         #region Properties
+
         public string Title
         {
             get
@@ -76,11 +77,11 @@ namespace TaskManagement.Models
             }
         }
 
-        public List<IEventLog> Logs
+        public IList<IEventLog> ActivityLog
         {
             get
             {
-                return new List<IEventLog>(this.history);
+                return new List<IEventLog>(this.activityLog);
             }
         }
 
@@ -91,9 +92,11 @@ namespace TaskManagement.Models
                 return Task.id;
             }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
+
         public void AddComment(IComment comment)
         {
             comments.Add(comment);
@@ -108,14 +111,15 @@ namespace TaskManagement.Models
 
         public string ViewHistory()
         {
-            return string.Join(Environment.NewLine, this.history.Select(e => e.ViewInfo()));
+            return string.Join(Environment.NewLine, this.activityLog.Select(e => e.ViewInfo()));
         }
 
-        protected void AddEventLog(string desc)
+        public void AddEventLog(string desc)
         {
-            this.history.Add(new EventLog(desc));
+            this.activityLog.Add(new EventLog(desc));
         }
 
+        //TODO ChangeStatus
 
         public abstract string AdditionalInfo();
 
@@ -131,7 +135,6 @@ namespace TaskManagement.Models
 
             return sb.ToString();
         }
-
 
         private string PrintComments()
         {
@@ -155,6 +158,7 @@ namespace TaskManagement.Models
 
             return sb.ToString();
         }
-        #endregion
+
+        #endregion Methods
     }
 }

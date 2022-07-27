@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace TaskManagement.Models.Contracts
 {
-    public interface IMember
+    public interface IMember : IActivityLog
     {
         string Name { get; }
         IList<ITask> Tasks { get; }
-
-        IList<IEventLog> ActivityLog { get; }
 
         void AddTask(ITask task);
 

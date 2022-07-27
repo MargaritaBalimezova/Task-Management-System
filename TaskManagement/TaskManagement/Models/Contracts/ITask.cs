@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace TaskManagement.Models.Contracts
 {
-    public interface ITask : IHasID, ICommentable
+    public interface ITask : IHasID, ICommentable, IActivityLog
     {
         //TODO
         //status???
 
         public string Title { get; }
 
-        public string Description { get;}
-
-        public List<IEventLog> Logs { get; }
+        public string Description { get; }
     }
 }

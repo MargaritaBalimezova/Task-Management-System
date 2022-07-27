@@ -20,20 +20,18 @@ namespace TaskManagement.Models
         private const string TASK_HEADER = "--TASK--";
         private const string BOARD_HEADER = "--BOARD--";
 
-
         private string name;
         private readonly List<ITask> boardTasks;
-        private readonly List<IEventLog> boardHistory;
+        private readonly IList<IEventLog> activytLog;
 
-        public Board (string name)
+        public Board(string name)
         {
             this.name = name;
 
             boardTasks = new List<ITask>();
-            boardHistory = new List<IEventLog>();
+            activytLog = new List<IEventLog>();
 
             AddEventLog(string.Format(BOARD_CREATED_MSG, GetType().Name, this.Name));
-
         }
 
         #region Properties
@@ -62,36 +60,35 @@ namespace TaskManagement.Models
             }
         }
 
-        public List<IEventLog> BoardHistory
+        public IList<IEventLog> ActivityLog
         {
             get
             {
-                var copy = new List<IEventLog>(this.boardHistory);
+                var copy = new List<IEventLog>(this.activytLog);
                 return copy;
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
         private void AddEventLog(string desc)
         {
-            this.boardHistory.Add(new EventLog(desc));
+            this.activytLog.Add(new EventLog(desc));
         }
 
         public void AddTaskToBoard(ITask task)
         {
-            Validator.ValidateArgumentIsNotNull(task,"Task");
+            Validator.ValidateArgumentIsNotNull(task, "Task");
 
             if (boardTasks.Contains(task))
             {
                 throw new InvalidOperationException($"Task: {task.Title} with ID: {task.Id}  is already on board {this.Name}.");
             }
-            
+
             this.boardTasks.Add(task);
             AddEventLog(string.Format(TASK_ADDED_MSG, task.GetType().Name, task.Id, this.Name));
-
         }
 
         public void RemoveTaskFromBoard(ITask task)
@@ -108,9 +105,9 @@ namespace TaskManagement.Models
 
         public string ViewBoardHistory()
         {
-            StringBuilder sb = new StringBuilder();            
+            StringBuilder sb = new StringBuilder();
 
-            foreach (IEventLog item in boardHistory)
+            foreach (IEventLog item in activytLog)
             {
                 sb.AppendLine(item.ViewInfo());
             }
@@ -122,7 +119,7 @@ namespace TaskManagement.Models
         {
             StringBuilder sb = new StringBuilder();
 
-            if (boardHistory.Count == 0)
+            if (activytLog.Count == 0)
             {
                 sb.AppendLine(NO_TASKS_TO_SHOW_HEADER);
             }
@@ -133,9 +130,8 @@ namespace TaskManagement.Models
                     sb.AppendLine(TASK_HEADER);
                     sb.AppendLine(item.ToString());
                     sb.AppendLine(TASK_HEADER);
-
                 }
-            }     
+            }
             return sb.ToString();
         }
 
@@ -149,7 +145,6 @@ namespace TaskManagement.Models
             return sb.ToString();
         }
 
-        #endregion
-
+        #endregion Methods
     }
 }
