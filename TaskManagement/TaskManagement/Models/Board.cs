@@ -98,7 +98,7 @@ namespace TaskManagement.Models
                 throw new InvalidOperationException($"Task: {task.Title} with ID: {task.Id} does not exist on board {this.Name}.");
             }
 
-            this.boardTasks.Add(task);
+            this.boardTasks.Remove(task);
 
             AddEventLog(string.Format(TASK_REMOVE_MSG, task.GetType().Name, task.Id, this.Name));
         }
@@ -125,12 +125,13 @@ namespace TaskManagement.Models
             }
             else
             {
+                sb.AppendLine(TASK_HEADER);
                 foreach (ITask item in boardTasks)
                 {
-                    sb.AppendLine(TASK_HEADER);
-                    sb.AppendLine(item.ToString());
-                    sb.AppendLine(TASK_HEADER);
+                    sb.AppendLine(item.ToString());                 
                 }
+                sb.AppendLine(TASK_HEADER);
+
             }
             return sb.ToString();
         }
