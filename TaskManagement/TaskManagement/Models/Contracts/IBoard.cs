@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TaskManagement.Models.Contracts
 {
-    internal interface IBoard : IActivityLog
+    public interface IBoard : IActivityLog
     {
         public string Name { get; }
 

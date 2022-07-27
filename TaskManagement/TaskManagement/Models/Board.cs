@@ -73,7 +73,7 @@ namespace TaskManagement.Models
 
         #region Methods
 
-        private void AddEventLog(string desc)
+        public void AddEventLog(string desc)
         {
             this.activytLog.Add(new EventLog(desc));
         }
@@ -145,7 +145,6 @@ namespace TaskManagement.Models
 
             return sb.ToString();
         }
-
         #endregion Methods
     }
 }

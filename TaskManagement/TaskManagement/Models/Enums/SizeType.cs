@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TaskManagement.Models.Enums
 {
-    public enum Status
+    public enum SizeType
     {
-        NotDone,
-        InProgress,
-        Done
+        Large,
+        Medium,
+        Small
     }
 }
