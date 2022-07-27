@@ -32,6 +32,8 @@ namespace TaskManagement.Models
             AddEventLog(string.Format(MEMBER_CREATED_MSG, this.GetType().Name, this.Name));
         }
 
+        #region Properties
+
         public string Name
         {
             get
@@ -56,6 +58,10 @@ namespace TaskManagement.Models
         {
             get { return new List<IEventLog>(this.activityLog); }
         }
+
+        #endregion Properties
+
+        #region Methods
 
         public void AddTask(ITask task)
         {
@@ -115,5 +121,7 @@ namespace TaskManagement.Models
 
             return sb.ToString();
         }
+
+        #endregion Methods
     }
 }
