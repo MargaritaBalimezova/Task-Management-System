@@ -26,7 +26,7 @@ namespace TaskManagement.Models
 
         public Board(string name)
         {
-            this.name = name;
+            this.Name = name;
 
             boardTasks = new List<ITask>();
             activytLog = new List<IEventLog>();
