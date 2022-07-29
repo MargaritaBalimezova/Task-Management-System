@@ -17,10 +17,11 @@ namespace TaskManagement.Tests.Models.Tests
 
         static string title;
         static string desctription;
+        static int id;
         static Board board;
         static PriorityType priority;
         static Severity severity;
-        static string assignee;
+        static IMember assignee;
         static IList<string> steps;
         static Bug bug;
 
@@ -32,13 +33,15 @@ namespace TaskManagement.Tests.Models.Tests
 
             title = "Task title";
             desctription = "Task description";
+            id = 1;
             priority = PriorityType.Medium;
             severity = Severity.Major;
-            assignee = "Test Assignee";
+            assignee = new Member("Test Assignee");
             steps = new List<string>();
 
-            bug = new Bug(title, desctription, 1, priority, severity, assignee, steps);
+            bug = new Bug(title, desctription,id, priority, severity, assignee, steps);
         }
+
 
         [TestMethod]
         public void AddEventLog_Should_AddElement_When_InstanceIsCreated()

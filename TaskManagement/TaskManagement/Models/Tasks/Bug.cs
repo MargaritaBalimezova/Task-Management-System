@@ -4,27 +4,24 @@ using System.Linq;
 using System.Text;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
+using TaskManagement.Models.Enums.BugStatus;
 
 namespace TaskManagement.Models.Tasks
 {
     public class Bug : Task, IBug
     {        
-        private string assignee;
+        private Status status;
+        private IList<string> stepsToReproduce;               
 
-        private IList<string> stepsToReproduce;
-
-        //TODO
-        //Assignee
-        //Status
-
-        public Bug(string title, string description, int id, PriorityType priority, Severity severity, string assignee, IList<string> steps)
+        public Bug(string title, string description, int id, PriorityType priority, Severity severity, IMember assignee, IList<string> steps)
              : base(title, description, id)
         {
             this.stepsToReproduce = new List<string>();
 
             this.Priority = priority;
             this.Severity = severity;
-            //this.Assignee = assignee;
+            this.Assignee = assignee;
+            this.Status = Status.Active;
         
         }
 
@@ -57,6 +54,18 @@ namespace TaskManagement.Models.Tasks
                 var copy = new List<string>(this.stepsToReproduce);
                 return copy;
             }           
+        }
+
+        public Status Status
+        {
+            get
+            {
+                return this.status;
+            }
+            private set
+            {
+                this.status = value;
+            }
         }
 
         #endregion

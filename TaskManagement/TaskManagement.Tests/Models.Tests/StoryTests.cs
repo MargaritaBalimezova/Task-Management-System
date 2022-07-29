@@ -24,10 +24,10 @@ namespace TaskManagement.Tests.Models.Tests
             //Arrange
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
-
+            string assignee = new string('x', MEMBER_NAME_MAX_LENGTH - 1);
+            int id = 1;
             //Act
-            var story = new Story(title, description, 1, PriorityType.High,
+            var story = new Story(title, description,id, PriorityType.High,
                 SizeType.Medium, assignee);
             //Assert
             Assert.AreEqual(title, story.Title, "Story constructor failed!");
