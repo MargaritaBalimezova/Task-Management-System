@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Models.Enums;
+using TaskManagement.Models.Enums.BugStatus;
 
 namespace TaskManagement.Models.Contracts
 {
     internal interface IBug : ITask
     {
-        public string Assignee { get; }
+        IMember Assignee { get; }
 
-        public PriorityType Priority { get; }
+        PriorityType Priority { get; }
 
-        public Severity Severity { get; }
+        Severity Severity { get; }
         
-        public IList<string> StepsToReproduce { get; }
+        IList<string> StepsToReproduce { get; }
+
+        Status Status { get; }
     }
 }

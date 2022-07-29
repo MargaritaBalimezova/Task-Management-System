@@ -11,6 +11,7 @@ namespace TaskManagement.Models.Tasks
     public class Bug : Task, IBug
     {        
         private Status status;
+        private IMember assignee;
         private IList<string> stepsToReproduce;               
 
         public Bug(string title, string description, int id, PriorityType priority, Severity severity, IMember assignee, IList<string> steps)
@@ -27,7 +28,7 @@ namespace TaskManagement.Models.Tasks
 
         #region Properties
 
-        public string Assignee
+        public IMember Assignee
         {
             get
             {
