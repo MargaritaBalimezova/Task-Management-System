@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
+using TaskManagement.Models.Enums.FeedbackStatus;
 
 namespace TaskManagement.Models.Tasks
 {
@@ -12,12 +13,13 @@ namespace TaskManagement.Models.Tasks
     {
         private PriorityType priority;
         private SizeType size;
-        private Member assignee;
+        private IMember assignee;
+        private Status status;
 
-        public Story(string title, string description, PriorityType priority, SizeType size, string assignee)
-        :base(title, description)
+        public Story(string title, string description, int id, PriorityType priority, SizeType size, IMember assignee)
+        :base(title, description, id)
         {
-            this.assignee = new Member(assignee);
+            this.assignee = assignee;
             this.size = size;
             this.priority = priority;
         }
@@ -38,11 +40,23 @@ namespace TaskManagement.Models.Tasks
             }
         }
 
-        public Member Assignee
+        public IMember Assignee
         {
             get
             {
                 return this.assignee;
+            }
+        }
+
+        public Status Status
+        {
+            get
+            {
+                return this.status;
+            }
+            protected set
+            {
+                this.status = value;
             }
         }
 

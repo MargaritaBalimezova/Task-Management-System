@@ -12,8 +12,8 @@ namespace TaskManagement.Models
         private const int NameMaxLen = 15;
 
         private string name;
-        private List<IMember> members;
-        private List<IBoard> boards;
+        private List<IMember> members = new List<IMember>();
+        private List<IBoard> boards = new List<IBoard>();
 
         public Team(string name)
         {

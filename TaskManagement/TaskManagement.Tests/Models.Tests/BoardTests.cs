@@ -37,7 +37,7 @@ namespace TaskManagement.Tests.Models.Tests
             assignee = "Test Assignee";
             steps = new List<string>();
 
-            bug = new Bug(title, desctription, priority, severity, assignee, steps);
+            bug = new Bug(title, desctription, 1, priority, severity, assignee, steps);
         }
 
         [TestMethod]

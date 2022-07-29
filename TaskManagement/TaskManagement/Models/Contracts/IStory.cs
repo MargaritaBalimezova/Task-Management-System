@@ -16,7 +16,7 @@ namespace TaskManagement.Models.Contracts
 
         public SizeType Size { get; }
 
-        public Member Assignee { get; }
+        public IMember Assignee { get; }
 
     }
 }

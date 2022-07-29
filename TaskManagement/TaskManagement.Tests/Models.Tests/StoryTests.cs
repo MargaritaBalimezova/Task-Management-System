@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TaskManagement.Models;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Tasks;
 
@@ -23,10 +24,10 @@ namespace TaskManagement.Tests.Models.Tests
             //Arrange
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen - 1);
-            string assignee = new string('x', MEMBER_NAME_MAX_LENGTH - 1);
+            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
 
             //Act
-            var story = new Story(title, description, PriorityType.High,
+            var story = new Story(title, description, 1, PriorityType.High,
                 SizeType.Medium, assignee);
             //Assert
             Assert.AreEqual(title, story.Title, "Story constructor failed!");

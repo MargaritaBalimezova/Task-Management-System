@@ -17,8 +17,8 @@ namespace TaskManagement.Models.Tasks
         //Assignee
         //Status
 
-        public Bug(string title, string description, PriorityType priority, Severity severity, string assignee, IList<string> steps)
-             : base(title, description)
+        public Bug(string title, string description, int id, PriorityType priority, Severity severity, string assignee, IList<string> steps)
+             : base(title, description, id)
         {
             this.stepsToReproduce = new List<string>();
 

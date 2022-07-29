@@ -19,7 +19,7 @@ namespace TaskManagement
             var assignee = "Test Assignee";
             IList<string> steps = new List<string>();
 
-            Bug bug = new Bug(title, desctription, priority, severity, assignee, steps);
+            Bug bug = new Bug(title, desctription, 1, priority, severity, assignee, steps);
             // Act
             board.AddTaskToBoard(bug);
             Console.WriteLine(board.PrintBoardTasks());
