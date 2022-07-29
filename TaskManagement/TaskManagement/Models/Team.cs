@@ -60,6 +60,12 @@ namespace TaskManagement.Models
             this.boards.Add(board);
         }
 
+        public void RemoveBoard(IBoard board)
+        {
+            Validator.ValidateArgumentIsNotNull(board, "Team's board");
+            this.boards.Remove(board);
+        }
+
         public void AddMember(IMember memmber)
         {
             Validator.ValidateArgumentIsNotNull(members, "Team's member");

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
-using TaskManagement.Models.Enums.FeedbackStatus;
+using TaskManagement.Models.Enums.StoryStatus;
 
 namespace TaskManagement.Models.Tasks
 {
@@ -22,6 +22,8 @@ namespace TaskManagement.Models.Tasks
             this.assignee = assignee;
             this.size = size;
             this.priority = priority;
+
+            this.Status = Status.NotDone;
         }
 
         public PriorityType Priority

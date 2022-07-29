@@ -8,7 +8,7 @@ using TaskManagement.Models.Enums.FeedbackStatus;
 
 namespace TaskManagement.Models.Tasks
 {
-    internal class FeedBack : Task, IFeedback
+    public class FeedBack : Task, IFeedback
     {
         private const int RATING_MIN_VALUE = 1;
         private const int RATING_MAX_VALUE = 100;
