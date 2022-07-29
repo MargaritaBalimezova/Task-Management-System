@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Models.Contracts;
-using TaskManagement.Models.Enums;
+using TaskManagement.Models.Enums.FeedbackStatus;
 
 namespace TaskManagement.Models.Tasks
 {
@@ -16,13 +16,13 @@ namespace TaskManagement.Models.Tasks
         private const string FEEDBACK_HEADER = "--FEEDBACKS--";
 
         private int rating;
-        private FeedbackStatus status;
+        private Status status;
 
-        public FeedBack(string title, string description, int rating)
-            : base(title, description)
+        public FeedBack(string title, string description, int id, int rating)
+            : base(title, description, id)
         {
             this.Rating = rating;
-            this.Status = FeedbackStatus.New;
+            this.Status = Status.New;
         }
 
         #region Properties
@@ -40,7 +40,7 @@ namespace TaskManagement.Models.Tasks
             }
         }
 
-        public FeedbackStatus Status
+        public Status Status
         {
             get { return this.status; }
             private set

@@ -18,21 +18,21 @@ namespace TaskManagement.Models
         private const string COMMENT_HEADER = "--COMMENTS--";
         private const string TASK_CREATED_MSG = "Successfuly created {0} with id {1}!";
 
-        private static int id = 0;
         private string title;
         private string description;
         private readonly List<IComment> comments;
         private readonly IList<IEventLog> activityLog;
 
-        public Task(string title, string description)
+        public Task(string title, string description, int id)
         {
             this.Title = title;
             this.Description = description;
+            this.Id = id;
 
             comments = new List<IComment>();
             activityLog = new List<IEventLog>();
 
-            Task.id++;
+           
 
             AddEventLog(string.Format(TASK_CREATED_MSG, this.GetType().Name, this.Id));
         }
@@ -85,13 +85,7 @@ namespace TaskManagement.Models
             }
         }
 
-        public int Id
-        {
-            get
-            {
-                return Task.id;
-            }
-        }
+        public int Id { get; }
 
         #endregion Properties
 
