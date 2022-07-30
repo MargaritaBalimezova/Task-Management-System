@@ -7,7 +7,7 @@ using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.StoryStatus;
 using TaskManagement.Models.Tasks;
 
-namespace TaskManagement.Tests.Models.Tests
+namespace TaskManagement.Tests.Models.Tests.Task.Tests
 {
     [TestClass]
     public class StoryTests
@@ -43,7 +43,7 @@ namespace TaskManagement.Tests.Models.Tests
             string description = new string('x', TaskDescriptionMaxLen + 1);
             var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             int id = 1;
-            
+
             //Act && Assert
             var story = new Story(title, description, id: id, PriorityType.High,
                 SizeType.Medium, assignee);
@@ -58,7 +58,7 @@ namespace TaskManagement.Tests.Models.Tests
             var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             int id = 1;
 
-            //Act 
+            //Act
             var story = new Story(title, description, id: id, PriorityType.High,
                 SizeType.Medium, assignee);
 
@@ -110,7 +110,6 @@ namespace TaskManagement.Tests.Models.Tests
 
             var story = new Story(title, description, 1, PriorityType.High,
                 SizeType.Medium, assignee);
-            
 
             story.AddComment(comment);
 
@@ -138,6 +137,5 @@ namespace TaskManagement.Tests.Models.Tests
             //Assert
             Assert.AreEqual(1, story.ActivityLog.Count, "Remove comment failed!");
         }
-
     }
 }

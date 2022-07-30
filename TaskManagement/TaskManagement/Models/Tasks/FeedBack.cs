@@ -67,11 +67,18 @@ namespace TaskManagement.Models.Tasks
             }
         }
 
-        public void ChangeRating(string number)
+        public void ChangeRating(int number)
         {
-            int prevRating = this.Rating;
-            this.Rating = int.Parse(number);
-            AddEventLog($"Rating of feedback with ID {this.Id} {this.Title} was changed from {prevRating} to {this.Rating}.");
+            if (this.rating == number)
+            {
+                AddEventLog($"Rating of feedback with ID {this.Id} {this.Title} is already at {this.rating}.");
+            }
+            else
+            {
+                int prevRating = this.Rating;
+                this.Rating = number;
+                AddEventLog($"Rating of feedback with ID {this.Id} {this.Title} was changed from {prevRating} to {this.Rating}.");
+            }
         }
 
         public override string AdditionalInfo()

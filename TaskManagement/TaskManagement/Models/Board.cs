@@ -128,10 +128,9 @@ namespace TaskManagement.Models
                 sb.AppendLine(TASK_HEADER);
                 foreach (ITask item in boardTasks)
                 {
-                    sb.AppendLine(item.ToString());                 
+                    sb.AppendLine(item.ToString());
                 }
                 sb.AppendLine(TASK_HEADER);
-
             }
             return sb.ToString();
         }
@@ -145,6 +144,7 @@ namespace TaskManagement.Models
 
             return sb.ToString();
         }
+
         #endregion Methods
     }
 }

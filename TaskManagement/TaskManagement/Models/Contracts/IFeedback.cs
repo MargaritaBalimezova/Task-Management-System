@@ -13,6 +13,6 @@ namespace TaskManagement.Models.Contracts
         int Rating { get; }
         Status Status { get; }
 
-        void ChangeRating(string number);
+        void ChangeRating(int number);
     }
 }

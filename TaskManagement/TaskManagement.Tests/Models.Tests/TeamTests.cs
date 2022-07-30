@@ -6,9 +6,8 @@ using TaskManagement.Models;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Tasks;
 
-namespace TaskManagement.Tests
+namespace TaskManagement.Tests.Models.Tests
 {
-
     [TestClass]
     public class TeamTests
     {
@@ -121,7 +120,7 @@ namespace TaskManagement.Tests
         }
 
         [TestMethod]
-        public void AddTaskToBoard_Should_AddTaskToGivenBoard() 
+        public void AddTaskToBoard_Should_AddTaskToGivenBoard()
         {
             //Arrange
             Board board = new Board(new string('x', NameMinLen + 1));
