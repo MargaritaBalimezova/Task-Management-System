@@ -102,7 +102,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),"You can not change to the same status that is already assigned!")]
-        public void ChangeStatusMethod_ShouldNot_ChangeStatus_When_StatusIsTheSame()
+        public void ChangeStatusMethod_ShouldThrow_When_SameStatusIsPassed()
         {
             bug.ChangeStatus(Status.Fixed);
         }
