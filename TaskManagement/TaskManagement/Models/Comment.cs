@@ -10,7 +10,7 @@ namespace TaskManagement.Models
 
     public class Comment : IComment
     {
-            private string content;
+        private string content;
         private string author;
 
         public Comment(string content, string author)

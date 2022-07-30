@@ -48,6 +48,12 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             Assert.AreEqual("Test Member", assignee.Name,"Bug created successfully!");
         }
 
+        [TestCleanup()]
+        public void BugTests_Clean()
+        {
+            bug = new Bug(title, description, id, PriorityType.Medium, Severity.Major, assignee, stepsToReproduce);
+        }
+
         [TestMethod]
         public void Consctor_Should_SetActiveStatusAsDefault_When_CreateBug()
         {
@@ -98,21 +104,42 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         {
             bug.ChangeStatus(Status.Fixed);
             Assert.AreEqual(Status.Fixed, bug.Status,"Status changed successfully!");
+            BugTests_Clean();
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException),"You can not change to the same status that is already assigned!")]
+        
         public void ChangeStatusMethod_ShouldThrow_When_SameStatusIsPassed()
-        {
-            bug.ChangeStatus(Status.Fixed);
+        {            
+            bug.ChangeStatus(Status.Active);
         }
 
         [TestMethod]
         public void EventLog_Should_AddEveryEventHappened()
         {
-            bug.ChangeStatus(Status.Active);
-            Assert.AreEqual(3, bug.ActivityLog.Count,"All of the events are savet successfully!");
+            bug.ChangeStatus(Status.Fixed);
+            Assert.AreEqual(2, bug.ActivityLog.Count,"All of the events are savet successfully!");
         }
+
+        [TestMethod]
+        public void ConstructorShould_AddComment()
+        {
+            var comment = new Comment("Test content", "Test Author");
+
+            bug.AddComment(comment);
+            Assert.AreEqual(1, bug.Comments.Count,"Comment added successfully!");
+        }
+
+        [TestMethod]
+        public void ConstructorShould_RemoveComment()
+        {
+            var comment = new Comment("Test content", "Test Author");
+
+            bug.RemoveComment(comment);
+            Assert.AreEqual(0, bug.Comments.Count, "Comment removed successfully!");
+        }
+
 
 
     }
