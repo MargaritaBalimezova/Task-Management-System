@@ -150,7 +150,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             feedback.AddComment(comment);
 
             //Assert
-            Assert.AreEqual(2, feedback.ActivityLog.Count, "Added activity log successfuly!");
+            Assert.AreEqual(2, feedback.ActivityLog.Count, "Activity log is implemented correctly!");
         }
 
         [TestMethod]

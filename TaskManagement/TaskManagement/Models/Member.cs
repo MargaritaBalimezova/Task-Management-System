@@ -42,8 +42,8 @@ namespace TaskManagement.Models
             }
             private set
             {
-                Validator.ValidateArgumentIsNotNull(value, "Title");
-                Validator.ValidateStringLength(value, MEMBER_NAME_MIN_LENGTH, MEMBER_NAME_MAX_LENGTH, "Title");
+                Validator.ValidateArgumentIsNotNull(value, "Member name");
+                Validator.ValidateStringLength(value, MEMBER_NAME_MIN_LENGTH, MEMBER_NAME_MAX_LENGTH, "Member name");
 
                 this.name = value;
             }
@@ -116,7 +116,7 @@ namespace TaskManagement.Models
 
             sb.AppendLine(MEMBER_HEADER);
             sb.AppendLine($"Member Name: {this.Name}");
-            sb.AppendLine($"  {this.PrintTasks()}");
+            sb.Append($"{this.PrintTasks()}");
             sb.AppendLine(MEMBER_HEADER);
 
             return sb.ToString();

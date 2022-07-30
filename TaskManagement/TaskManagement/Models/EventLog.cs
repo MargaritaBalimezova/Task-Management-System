@@ -33,7 +33,7 @@ namespace TaskManagement.Models
 
         public string ViewInfo()
         {
-            return $"[{this.Time.ToString("yyyyMMdd|HH:mm:ss.ffff")}]{this.Description}";
+            return $"[{this.Time.ToString("yyyy:MM:dd|HH:mm:ss")}]{this.Description}";
         }
     }
 }
