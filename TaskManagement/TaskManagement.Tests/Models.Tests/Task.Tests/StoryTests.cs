@@ -50,6 +50,40 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         }
 
         [TestMethod]
+        public void PriorityGetter_Should_ReturnValidData()
+        {
+            //Arrange
+            string title = new string('x', TaskTitleMinLen + 1);
+            string description = new string('x', TaskDescriptionMaxLen - 1);
+            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
+            var priority = PriorityType.High;
+            int id = 1;
+            //Act
+            var story = new Story(title, description, id: id, priority,
+                SizeType.Medium, assignee);
+            //Assert
+            Assert.AreEqual(priority, story.Priority, "Priority getter failed to return valid data!");
+        }
+
+
+        [TestMethod]
+        public void SizeGetter_Should_ReturnValidData()
+        {
+            //Arrange
+            string title = new string('x', TaskTitleMinLen + 1);
+            string description = new string('x', TaskDescriptionMaxLen - 1);
+            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
+            var priority = PriorityType.High;
+            var size = SizeType.Medium;
+            int id = 1;
+            //Act
+            var story = new Story(title, description, id: id, priority,
+                size, assignee);
+            //Assert
+            Assert.AreEqual(size, story.Size, "Size getter failed to return valid data!"); ;
+        }
+
+        [TestMethod]
         public void Assignee_Should_ReturnValidPrintableData()
         {
             //Arrange
@@ -136,6 +170,43 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
 
             //Assert
             Assert.AreEqual(1, story.ActivityLog.Count, "Remove comment failed!");
+        }
+
+        [TestMethod]
+        public void ChangeStatus_Should_ChangeStatus_When_NewStatusPassed()
+        {
+            string title = new string('x', TaskTitleMinLen + 1);
+            string description = new string('x', TaskDescriptionMaxLen - 1);
+            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
+            int id = 1;
+            var status = Status.InProgress;
+            var story = new Story(title, description, id: id, PriorityType.High,
+                SizeType.Medium, assignee);
+            //Act
+            story.ChangeStatus(status);
+            //Assert
+            Assert.AreEqual(status, story.Status, "ChangeStatus failed in Story class!");
+        }
+
+        [TestMethod]
+        public void ChangeStatus_ShouldNot_ChangeStatus_When_SameStatusPassed()
+        {
+            string title = new string('x', TaskTitleMinLen + 1);
+            string description = new string('x', TaskDescriptionMaxLen - 1);
+            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
+            int id = 1;
+            var status = Status.NotDone;
+            var story = new Story(title, description, id: id, PriorityType.High,
+                SizeType.Medium, assignee);
+
+            var expected = $"Status of Story with ID {story.Id} {story.Title} is already at {story.Status}.";
+            
+            //Act
+
+            story.ChangeStatus(status);
+            
+            //Assert
+            Assert.AreEqual(expected, story.ActivityLog[story.ActivityLog.Count - 1].Description , "ChangeStatus failed in Story class!");
         }
     }
 }

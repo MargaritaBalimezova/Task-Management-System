@@ -26,6 +26,7 @@ namespace TaskManagement.Models.Tasks
             this.Status = Status.NotDone;
         }
 
+        #region Properties
         public PriorityType Priority
         {
             get
@@ -61,6 +62,21 @@ namespace TaskManagement.Models.Tasks
                 this.status = value;
             }
         }
+        #endregion
+
+        #region Methods
+        public void ChangeStatus(Status status)
+        {
+            if(this.Status != status)
+            {
+                AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Status} to {status}.");
+                this.Status = status;
+            }
+            else
+            {
+                AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Status}.");
+            }
+        }
 
         public override string AdditionalInfo()
         {
@@ -71,5 +87,6 @@ namespace TaskManagement.Models.Tasks
 
             return sb.ToString();
         }
+        #endregion
     }
 }

@@ -32,8 +32,6 @@ namespace TaskManagement.Models
             comments = new List<IComment>();
             activityLog = new List<IEventLog>();
 
-           
-
             AddEventLog(string.Format(TASK_CREATED_MSG, this.GetType().Name, this.Id));
         }
 
