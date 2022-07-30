@@ -36,10 +36,7 @@ namespace TaskManagement.Models.Tasks
             }
             private set
             {
-                Validator.ValidateArgumentIsNotNull(value, "Assignee");
-                //TODO
-                //Check if assigne exists in team members list and add it or throw an exception.
-
+                Validator.ValidateArgumentIsNotNull(value, "Assignee");                
                 this.assignee = value;
             }
         }
@@ -72,6 +69,21 @@ namespace TaskManagement.Models.Tasks
         #endregion
 
         #region Methods
+
+        public void ChangeStatus(Status newStatus)
+        {
+            if (newStatus == this.status)
+            {
+               throw new InvalidOperationException
+                    ($"Status of bug with ID {this.Id} {this.Title} is already at {this.status}.");
+            }
+            else
+            {
+                Status lastStatus = this.Status;
+                this.status = newStatus;
+                AddEventLog($"Status of bug with ID {this.Id} {this.Title} was changed from {lastStatus} to {this.status}.");
+            }
+        }
 
         public override string AdditionalInfo()
         {
