@@ -53,11 +53,25 @@ namespace TaskManagement.Models.Tasks
 
         #region Methods
 
+        public void ChangeStatus(Status status)
+        {
+            if (this.status == status)
+            {
+                AddEventLog($"Status of feedback with ID {this.Id} {this.Title} is already at {this.status}.");
+            }
+            else
+            {
+                Status prevStatus = this.status;
+                this.status = status;
+                AddEventLog($"Status of feedback with ID {this.Id} {this.Title} was changed from {prevStatus} to {this.status}.");
+            }
+        }
+
         public void ChangeRating(string number)
         {
             int prevRating = this.Rating;
             this.Rating = int.Parse(number);
-            AddEventLog($"Rating with ID {this.Id} {this.Title} was changed from {prevRating} to {this.Rating}");
+            AddEventLog($"Rating of feedback with ID {this.Id} {this.Title} was changed from {prevRating} to {this.Rating}.");
         }
 
         public override string AdditionalInfo()
