@@ -6,7 +6,7 @@ using TaskManagement.Models.Enums.BugStatus;
 
 namespace TaskManagement.Models.Contracts
 {
-    internal interface IBug : ITask
+    public interface IBug : ITask
     {
         IMember Assignee { get; }
 

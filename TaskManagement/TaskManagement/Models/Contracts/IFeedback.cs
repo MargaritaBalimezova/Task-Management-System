@@ -8,7 +8,7 @@ using TaskManagement.Models.Enums.FeedbackStatus;
 
 namespace TaskManagement.Models.Contracts
 {
-    internal interface IFeedback
+    public interface IFeedback
     {
         int Rating { get; }
         Status Status { get; }
