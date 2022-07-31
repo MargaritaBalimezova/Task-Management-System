@@ -17,7 +17,7 @@ namespace TaskManagement.Models.Tasks
         public Bug(string title, string description, int id, PriorityType priority, Severity severity, IMember assignee, IList<string> steps)
              : base(title, description, id)
         {
-            this.stepsToReproduce = new List<string>();
+            this.stepsToReproduce = new List<string>(steps);
 
             this.Priority = priority;
             this.Severity = severity;
