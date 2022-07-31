@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
+using TaskManagement.Models;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
+using TaskManagement.Models.Tasks;
 
 namespace TaskManagement.Core
 {
@@ -123,12 +126,24 @@ namespace TaskManagement.Core
 
         public IStory CreateStory(string title, string description, int id, PriorityType priority, SizeType size, IMember assignee)
         {
-            throw new NotImplementedException();
+            var story = new Story(title, description, this.id, priority, size, assignee);
+            this.id++;
+            this.stories.Add(story);
+
+            return story;
         }
 
         public ITeam CreateTeam(string name)
         {
-            throw new NotImplementedException();
+            if (this.names.Contains(name))
+            {
+                throw new NameExistsException("Team's name should be unique in the aplication!");
+            }
+
+            var team = new Team(name);
+            this.teams.Add(team);
+
+            return team;
         }
 
         public IBoard FindBoardByName(string name)
@@ -148,7 +163,15 @@ namespace TaskManagement.Core
 
         public ITeam FindTeamByName(string name)
         {
-            throw new NotImplementedException();
+            foreach (var team in teams)
+            {
+                if(team.Name == name)
+                {
+                    return team;
+                }
+            }
+
+            throw new EntityNotFoundException($"There is no team with name {name}!");
         }
 
         public bool IsBoardInTeam(ITeam team, IBoard board)
@@ -158,7 +181,12 @@ namespace TaskManagement.Core
 
         public bool IsMemberInTeam(ITeam team, IMember member)
         {
-            throw new NotImplementedException();
+            if (team.Members.Contains(member))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
     #endregion

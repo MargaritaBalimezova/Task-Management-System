@@ -122,6 +122,21 @@ namespace TaskManagement.Models
             return sb.ToString();
         }
 
+
+        public override bool Equals(object obj)
+        {
+            return this.Equals((IMember)obj);
+        }
+
+        public bool Equals(IMember other)
+        {
+            if(this.Name == other.Name)
+            {
+                return true;
+            }
+
+            return false;
+        }
         #endregion Methods
     }
 }
