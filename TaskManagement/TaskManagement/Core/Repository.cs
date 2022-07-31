@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
@@ -181,7 +182,7 @@ namespace TaskManagement.Core
 
         public bool IsMemberInTeam(ITeam team, IMember member)
         {
-            if (team.Members.Contains(member))
+            if(team.Members.Any(mem => mem.Name == member.Name))
             {
                 return true;
             }
