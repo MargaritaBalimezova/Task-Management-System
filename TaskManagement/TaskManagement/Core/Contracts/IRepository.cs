@@ -22,18 +22,18 @@ namespace TaskManagement.Core.Contracts
 
         public IList<IStory> Stories { get; }
 
-        public void CreateTeam(string name);
+        public ITeam CreateTeam(string name);
 
-        public void CreateMember(string name);
+        public IMember CreateMember(string name);
 
-        public void CreateBoard(string board);
+        public IBoard CreateBoard(string board);
 
-        public void CreateBug(string title, string description, PriorityType priority,
+        public IBug CreateBug(string title, string description, PriorityType priority,
             Severity severity, IMember assignee, IList<string> steps);
 
-        public void CreateFeedBack(string title, string description, int rating);
+        public IFeedback CreateFeedBack(string title, string description, int rating);
 
-        public void CreateStory(string title, string description, int id, PriorityType priority,
+        public IStory CreateStory(string title, string description, int id, PriorityType priority,
             SizeType size, IMember assignee);
 
         public ITask FindTaskById(int id);

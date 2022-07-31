@@ -101,32 +101,32 @@ namespace TaskManagement.Core
 
         #region Methods
 
-        public void CreateBoard(string board)
+        public IBoard CreateBoard(string board)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateBug(string title, string description, PriorityType priority, Severity severity, IMember assignee, IList<string> steps)
+        public IBug CreateBug(string title, string description, PriorityType priority, Severity severity, IMember assignee, IList<string> steps)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateFeedBack(string title, string description, int rating)
+        public IFeedback CreateFeedBack(string title, string description, int rating)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateMember(string name)
+        public IMember CreateMember(string name)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateStory(string title, string description, int id, PriorityType priority, SizeType size, IMember assignee)
+        public IStory CreateStory(string title, string description, int id, PriorityType priority, SizeType size, IMember assignee)
         {
             throw new NotImplementedException();
         }
 
-        public void CreateTeam(string name)
+        public ITeam CreateTeam(string name)
         {
             throw new NotImplementedException();
         }
