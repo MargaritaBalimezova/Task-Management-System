@@ -174,7 +174,8 @@ namespace TaskManagement.Core
 
         public ITask FindTaskById(int id)
         {
-            throw new NotImplementedException();
+            List<ITask> tasks = bugs.Cast<ITask>().Concat(feedbacks.Cast<ITask>()).Concat(stories.Cast<ITask>()).ToList();
+            return tasks.FirstOrDefault(x => x.Id == id);
         }
 
         public ITeam FindTeamByName(string name)
