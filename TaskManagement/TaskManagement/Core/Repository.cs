@@ -116,7 +116,7 @@ namespace TaskManagement.Core
         {
             IBug bug = new Bug(title, description, id + 1, priority, severity, assignee, steps);
             this.id++;
-            this.bugs.Add(bug);            
+            this.bugs.Add(bug);
             return bug;
         }
 
@@ -124,9 +124,7 @@ namespace TaskManagement.Core
         {
             var feedback = new FeedBack(title, description, id + 1, rating);
             id++;
-
             this.feedbacks.Add(feedback);
-
             return feedback;
         }
 
@@ -169,7 +167,7 @@ namespace TaskManagement.Core
 
         public IBoard FindBoardByName(string name)
         {
-            return this.boards.FirstOrDefault(x=>x.Name == name)?? throw new EntityNotFoundException($"There is no board with name {name}");
+            return this.boards.FirstOrDefault(x => x.Name == name) ?? throw new EntityNotFoundException($"There is no board with name {name}");
         }
 
         public IMember FindMemberByName(string name)
@@ -193,8 +191,8 @@ namespace TaskManagement.Core
             if (team.Boards.Any(item => item.Name == board.Name))
             {
                 return true;
-            }         
-            
+            }
+
             return false;
         }
 
