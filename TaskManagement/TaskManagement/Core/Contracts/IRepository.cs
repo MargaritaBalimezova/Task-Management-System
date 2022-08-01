@@ -42,7 +42,7 @@ namespace TaskManagement.Core.Contracts
 
         public IMember FindMemberByName(string name);
 
-        public IBoard FindBoardByName(string name);
+        public IBoard FindBoardByNameInTeam(ITeam team, string name);
 
         public bool IsMemberInTeam(ITeam team, IMember member);
 

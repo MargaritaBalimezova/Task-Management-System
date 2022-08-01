@@ -18,7 +18,6 @@ namespace TaskManagement.Core
         private readonly IList<string> names;
         private readonly IList<ITeam> teams;
         private readonly IList<IMember> members;
-        private readonly IList<IBoard> boards;
         private readonly IList<IBug> bugs;
         private readonly IList<IFeedback> feedbacks;
         private readonly IList<IStory> stories;
@@ -108,7 +107,6 @@ namespace TaskManagement.Core
         public IBoard CreateBoard(string board)
         {
             IBoard newBoard = new Board(board);
-            boards.Add(newBoard);
             return newBoard;
         }
 
@@ -160,14 +158,15 @@ namespace TaskManagement.Core
             }
 
             var team = new Team(name);
+            this.names.Add(name);
             this.teams.Add(team);
 
             return team;
         }
 
-        public IBoard FindBoardByName(string name)
+        public IBoard FindBoardByNameInTeam(ITeam team, string name)
         {
-            return this.boards.FirstOrDefault(x => x.Name == name) ?? throw new EntityNotFoundException($"There is no board with name {name}");
+            return team.Boards.FirstOrDefault(x=>x.Name == name)?? throw new EntityNotFoundException($"There is no board with name {name} in team {team.Name}!");
         }
 
         public IMember FindMemberByName(string name)

@@ -9,7 +9,9 @@ using TaskManagement.Models.Enums.BugStatus;
 namespace TaskManagement.Models.Tasks
 {
     public class Bug : Task, IBug
-    {        
+    {
+        private Severity severity;
+        private PriorityType priority;
         private Status status;
         private IMember assignee;
         private IList<string> stepsToReproduce;               
@@ -41,9 +43,29 @@ namespace TaskManagement.Models.Tasks
             }
         }
 
-        public PriorityType Priority { get; }
+        public PriorityType Priority
+        {
+            get
+            {
+                return this.priority;
+            }
+            private set
+            {
+                this.priority = value;
+            }
+        }
 
-        public Severity Severity { get; }
+        public Severity Severity
+        {
+            get
+            {
+                return this.severity;
+            }
+            private set
+            {
+                this.severity = value;
+            }
+        }
 
         public IList<string> StepsToReproduce 
         {
@@ -82,6 +104,36 @@ namespace TaskManagement.Models.Tasks
                 Status lastStatus = this.Status;
                 this.status = newStatus;
                 AddEventLog($"Status of bug with ID {this.Id} {this.Title} was changed from {lastStatus} to {this.status}.");
+            }
+        }
+
+        public void ChangeSeverity(Severity newSeverity)
+        {
+            if (newSeverity == this.severity)
+            {
+                throw new InvalidOperationException
+                     ($"Severity of bug with ID {this.Id} {this.Title} is already at {this.severity}!");
+            }
+            else
+            {
+                Severity lastSeverity = this.Severity;
+                this.severity = newSeverity;
+                AddEventLog($"Severity of bug with ID {this.Id} {this.Title} was changed from {lastSeverity} to {this.severity}!");
+            }
+        }
+
+        public void ChangePriority(PriorityType newPriority)
+        {
+            if (newPriority == this.priority)
+            {
+                throw new InvalidOperationException
+                     ($"Priority of bug with ID {this.Id} {this.Title} is already at {this.priority}!");
+            }
+            else
+            {
+                PriorityType lastPriority = this.priority;
+                this.priority = newPriority;
+                AddEventLog($"Priority of bug with ID {this.Id} {this.Title} was changed from {lastPriority} to {this.priority}!");
             }
         }
 

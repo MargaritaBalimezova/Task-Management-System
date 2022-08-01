@@ -17,5 +17,12 @@ namespace TaskManagement.Models.Contracts
         IList<string> StepsToReproduce { get; }
 
         Status Status { get; }
+
+        void ChangeSeverity(Severity newSeverity);
+
+        void ChangePriority(PriorityType newPriority);
+
+        void ChangeStatus(Status newStatus);
+
     }
 }
