@@ -169,16 +169,7 @@ namespace TaskManagement.Core
 
         public IBoard FindBoardByName(string name)
         {
-
-            foreach (var item in boards)
-            {
-                if (item.Name == name)
-                {
-                    return item;
-                }
-            }
-
-            throw new EntityNotFoundException($"There is no board with name {name}"); 
+            return this.boards.FirstOrDefault(x=>x.Name == name)?? throw new EntityNotFoundException($"There is no board with name {name}");
         }
 
         public IMember FindMemberByName(string name)
