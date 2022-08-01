@@ -169,13 +169,13 @@ namespace TaskManagement.Core
 
         public IMember FindMemberByName(string name)
         {
-            return this.members.FirstOrDefault(x => x.Name == name);
+            return this.members.FirstOrDefault(x => x.Name == name) ?? throw new EntityNotFoundException($"There is no member with name {name}!");
         }
 
         public ITask FindTaskById(int id)
         {
             List<ITask> tasks = bugs.Cast<ITask>().Concat(feedbacks.Cast<ITask>()).Concat(stories.Cast<ITask>()).ToList();
-            return tasks.FirstOrDefault(x => x.Id == id);
+            return tasks.FirstOrDefault(x => x.Id == id) ?? throw new EntityNotFoundException($"There is no task with id {id}!");
         }
 
         public ITeam FindTeamByName(string name)
