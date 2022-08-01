@@ -194,15 +194,7 @@ namespace TaskManagement.Core
 
         public ITeam FindTeamByName(string name)
         {
-            foreach (var team in teams)
-            {
-                if (team.Name == name)
-                {
-                    return team;
-                }
-            }
-
-            throw new EntityNotFoundException($"There is no team with name {name}!");
+            return this.teams.FirstOrDefault(team => team.Name == name) ?? throw new EntityNotFoundException($"There is no team with name {name}!");
         }
 
         public bool IsBoardInTeam(ITeam team, IBoard board)
