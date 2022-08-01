@@ -15,9 +15,9 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count < 4)
+            if (this.CommandParameters.Count < 5)
             {
-                throw new ArgumentException($"Invalid number of arguments. Expected: 4, Received: {this.CommandParameters.Count}");
+                throw new ArgumentException($"Invalid number of arguments. Expected: 5, Received: {this.CommandParameters.Count}");
             }
 
             // Parameters:
@@ -25,14 +25,18 @@ namespace TaskManagement.Commands
             //  [1] - description
             //  [2] - rating
             //  [3] - boardName
+            //  [4] - teamName
             string title = base.CommandParameters[0];
             string description = base.CommandParameters[1];
             int rating = int.Parse(base.CommandParameters[2]);
             string boardName = base.CommandParameters[3];
+            string teamName = base.CommandParameters[4];
 
             var feedback = this.Repository.CreateFeedBack(title, description, rating);
 
-            var board = Repository.FindBoardByName(boardName);
+            var team = Repository.FindTeamByName(teamName);
+
+            var board = Repository.FindBoardByNameInTeam(team, boardName);
 
             board.AddTaskToBoard((ITask)feedback);
 

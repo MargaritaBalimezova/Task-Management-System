@@ -27,7 +27,6 @@ namespace TaskManagement.Core
             this.names = new List<string>();
             this.teams = new List<ITeam>();
             this.members = new List<IMember>();
-            this.boards = new List<IBoard>();
             this.bugs = new List<IBug>();
             this.feedbacks = new List<IFeedback>();
             this.stories = new List<IStory>();
@@ -60,15 +59,6 @@ namespace TaskManagement.Core
             get
             {
                 var copy = new List<IMember>(this.members);
-                return copy;
-            }
-        }
-
-        public IList<IBoard> Boards
-        {
-            get
-            {
-                var copy = new List<IBoard>(this.boards);
                 return copy;
             }
         }
@@ -166,7 +156,7 @@ namespace TaskManagement.Core
 
         public IBoard FindBoardByNameInTeam(ITeam team, string name)
         {
-            return team.Boards.FirstOrDefault(x=>x.Name == name)?? throw new EntityNotFoundException($"There is no board with name {name} in team {team.Name}!");
+            return team.Boards.FirstOrDefault(x => x.Name == name) ?? throw new EntityNotFoundException($"There is no board with name {name} in team {team.Name}!");
         }
 
         public IMember FindMemberByName(string name)

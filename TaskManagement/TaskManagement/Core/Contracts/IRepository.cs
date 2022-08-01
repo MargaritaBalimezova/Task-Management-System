@@ -14,8 +14,6 @@ namespace TaskManagement.Core.Contracts
 
         public IList<IMember> Members { get; }
 
-        public IList<IBoard> Boards { get; }
-
         public IList<IBug> Bugs { get; }
 
         public IList<IFeedback> Feedbacks { get; }
