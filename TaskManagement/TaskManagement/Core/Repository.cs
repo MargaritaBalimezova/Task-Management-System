@@ -101,7 +101,7 @@ namespace TaskManagement.Core
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -117,17 +117,32 @@ namespace TaskManagement.Core
 
         public IFeedback CreateFeedBack(string title, string description, int rating)
         {
-            throw new NotImplementedException();
+            var feedback = new FeedBack(title, description, id + 1, rating);
+            id++;
+
+            this.feedbacks.Add(feedback);
+
+            return feedback;
         }
 
         public IMember CreateMember(string name)
         {
-            throw new NotImplementedException();
+            if (this.names.Contains(name))
+            {
+                throw new NameExistsException("Members's name should be unique in the aplication!");
+            }
+
+            var member = new Member(name);
+
+            this.members.Add(member);
+            this.names.Add(name);
+
+            return member;
         }
 
         public IStory CreateStory(string title, string description, int id, PriorityType priority, SizeType size, IMember assignee)
         {
-            var story = new Story(title, description, this.id, priority, size, assignee);
+            var story = new Story(title, description, this.id + 1, priority, size, assignee);
             this.id++;
             this.stories.Add(story);
 
@@ -154,7 +169,7 @@ namespace TaskManagement.Core
 
         public IMember FindMemberByName(string name)
         {
-            throw new NotImplementedException();
+            return this.members.FirstOrDefault(x => x.Name == name);
         }
 
         public ITask FindTaskById(int id)
@@ -166,7 +181,7 @@ namespace TaskManagement.Core
         {
             foreach (var team in teams)
             {
-                if(team.Name == name)
+                if (team.Name == name)
                 {
                     return team;
                 }
@@ -182,7 +197,7 @@ namespace TaskManagement.Core
 
         public bool IsMemberInTeam(ITeam team, IMember member)
         {
-            if(team.Members.Any(mem => mem.Name == member.Name))
+            if (team.Members.Any(mem => mem.Name == member.Name))
             {
                 return true;
             }
@@ -190,5 +205,6 @@ namespace TaskManagement.Core
             return false;
         }
     }
-    #endregion
+
+    #endregion Methods
 }
