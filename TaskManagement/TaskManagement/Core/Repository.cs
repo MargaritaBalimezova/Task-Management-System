@@ -107,12 +107,17 @@ namespace TaskManagement.Core
 
         public IBoard CreateBoard(string board)
         {
-            throw new NotImplementedException();
+            IBoard newBoard = new Board(board);
+            boards.Add(newBoard);
+            return newBoard;
         }
 
         public IBug CreateBug(string title, string description, PriorityType priority, Severity severity, IMember assignee, IList<string> steps)
         {
-            throw new NotImplementedException();
+            IBug bug = new Bug(title, description, id + 1, priority, severity, assignee, steps);
+            this.id++;
+            this.bugs.Add(bug);            
+            return bug;
         }
 
         public IFeedback CreateFeedBack(string title, string description, int rating)
@@ -164,7 +169,16 @@ namespace TaskManagement.Core
 
         public IBoard FindBoardByName(string name)
         {
-            throw new NotImplementedException();
+
+            foreach (var item in boards)
+            {
+                if (item.Name == name)
+                {
+                    return item;
+                }
+            }
+
+            throw new EntityNotFoundException($"There is no board with name {name}"); 
         }
 
         public IMember FindMemberByName(string name)
@@ -193,7 +207,12 @@ namespace TaskManagement.Core
 
         public bool IsBoardInTeam(ITeam team, IBoard board)
         {
-            throw new NotImplementedException();
+            if (team.Boards.Any(item => item.Name == board.Name))
+            {
+                return true;
+            }         
+            
+            return false;
         }
 
         public bool IsMemberInTeam(ITeam team, IMember member)
