@@ -22,27 +22,48 @@ namespace TaskManagement.Core
 
             switch (commandName.ToLower())
             {
-                /*case "createcategory":
-                    return new CreateCategoryCommand(commandParameters, repository);
-                case "createshampoo":
-                    return new CreateShampooCommand(commandParameters, repository);
-                case "createtoothpaste":
-                    return new CreateToothpasteCommand(commandParameters, repository);
-                case "createcream":
-                    return new CreateCreamCommand(commandParameters, repository);
-                case "addtocategory":
-                    return new AddToCategoryCommand(commandParameters, repository);
-                case "removefromcategory":
-                    return new RemoveFromCategoryCommand(commandParameters, repository);
-                case "addtoshoppingcart":
-                    return new AddToShoppingCartCommand(commandParameters, repository);
-                case "removefromshoppingcart":
-                    return new RemoveFromShoppingCartCommand(commandParameters, repository);
-                case "showcategory":
-                    return new ShowCategoryCommand(commandParameters, repository);
-                case "totalprice":
-                    return new TotalPriceCommand(repository);
-                */
+                case "createbug":
+                    return new CreateBugCommand(commandParameters, repository);
+                case "createfeedback":
+                    return new CreateFeedbackCommand(commandParameters, repository);
+                case "createstory":
+                    return new CreateStoryCommand(commandParameters, repository);
+                case "createboardinteam":
+                    return new CreateBoardInTeamCommand(commandParameters, repository);
+                case "createmember":
+                    return new CreateMemberCommand(commandParameters, repository);
+                case "createteam":
+                    return new CreateTeamCommand(commandParameters, repository);
+                case "addbugtoboard":
+                    return new AddBugToBoardCommand(commandParameters, repository);               
+                case "changebug":
+                    return new ChangeBugCommand(commandParameters, repository);
+                case "changefeedback":
+                    return new ChangeFeedbackCommand(commandParameters, repository);
+                case "changestory":
+                    return new ChangeStoryCommand(commandParameters, repository);
+                case "showallmembers":
+                    return new ShowAllMembersCommand(repository);
+                case "showallteams":
+                    return new ShowAllTeamsCommand(repository);
+                case "showallteamboards":
+                    return new ShowAllTeamBoardsCommand(commandParameters, repository);
+                case "showmemberactivity":
+                    return new ShowMemberActivityCommand(commandParameters, repository);
+                case "showboardactivity":
+                    return new ShowBoardActivityCommand(commandParameters, repository);
+                case "showteammembers":
+                    return new ShowTeamMembersCommand(commandParameters, repository);
+                case "showteamsactivity":
+                    return new ShowTeamsActivity(commandParameters, repository);
+                case "unassigntask":
+                    return new UnassignTaskCommand(commandParameters, repository);
+                case "assigntask":
+                    return new AssignTaskCommand(commandParameters, repository);
+                case "addtask":
+                    return new AddTaskCommand(commandParameters, repository);
+                case "addcomment":
+                    return new AddCommentCommand(commandParameters, repository);
                 default:
                     throw new ArgumentException($"Command with name: {commandName} doesn't exist!");
             }

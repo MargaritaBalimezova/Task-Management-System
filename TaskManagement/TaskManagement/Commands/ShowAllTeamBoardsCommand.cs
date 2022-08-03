@@ -20,7 +20,7 @@ namespace TaskManagement.Commands
                 throw new ArgumentException($"Invalid number of arguments. Expected: 1, Received: {this.CommandParameters.Count}");
             }
 
-            ITeam team = this.Repository.FindTeamByName(CommandParameters[0]);
+            ITeam team = this.Repository.FindTeamByName(base.CommandParameters[0]);
 
             StringBuilder sb = new StringBuilder();
 

@@ -21,8 +21,8 @@ namespace TaskManagement.Commands
                 throw new ArgumentException($"Invalid number of arguments. Expected: 2, Received: {this.CommandParameters.Count}");
             }
 
-            string boardName = CommandParameters[0];
-            string teamName = CommandParameters[1];
+            string boardName = base.CommandParameters[0];
+            string teamName = base.CommandParameters[1];
            
             ITeam team = this.Repository.FindTeamByName(teamName);   
             IBoard board = this.Repository.CreateBoard(boardName);
