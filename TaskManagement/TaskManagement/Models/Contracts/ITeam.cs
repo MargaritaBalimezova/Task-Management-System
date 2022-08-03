@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TaskManagement.Models.Contracts
 {
-    public interface ITeam
+    public interface ITeam : IActivityLog
     {
         public string Name { get; }
         public List<IMember> Members { get; }
@@ -18,5 +18,9 @@ namespace TaskManagement.Models.Contracts
         public void AddBoard(IBoard board);
 
         public void AddTaskToBoard(ITask task, IBoard board);
+
+        public string ShowActivity();
+
+        public string ShowMembers();
     }
 }

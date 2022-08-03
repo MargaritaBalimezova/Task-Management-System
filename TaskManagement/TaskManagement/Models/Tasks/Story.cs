@@ -78,6 +78,32 @@ namespace TaskManagement.Models.Tasks
             }
         }
 
+        public void ChangePriority(PriorityType priority)
+        {
+            if (this.Priority != priority)
+            {
+                AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Priority} to {priority}.");
+                this.Status = status;
+            }
+            else
+            {
+                AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Priority}.");
+            }
+        }
+
+        public void ChangeSize(SizeType size)
+        {
+            if (this.Size != size)
+            {
+                AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Size} to {size}.");
+                this.Status = status;
+            }
+            else
+            {
+                AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Size}.");
+            }
+        }
+
         public override string AdditionalInfo()
         {
             StringBuilder sb = new StringBuilder();
