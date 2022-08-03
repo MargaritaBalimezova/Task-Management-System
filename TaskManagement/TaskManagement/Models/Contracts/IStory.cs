@@ -8,7 +8,7 @@ using TaskManagement.Models.Enums.StoryStatus;
 
 namespace TaskManagement.Models.Contracts
 {
-    public interface IStory
+    public interface IStory : ITask
     {
         public Status Status { get; }
 
@@ -17,6 +17,5 @@ namespace TaskManagement.Models.Contracts
         public SizeType Size { get; }
 
         public IMember Assignee { get; }
-
     }
 }

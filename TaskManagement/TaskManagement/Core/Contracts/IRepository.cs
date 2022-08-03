@@ -31,7 +31,7 @@ namespace TaskManagement.Core.Contracts
 
         public IFeedback CreateFeedBack(string title, string description, int rating);
 
-        public IStory CreateStory(string title, string description, int id, PriorityType priority,
+        public IStory CreateStory(string title, string description, PriorityType priority,
             SizeType size, IMember assignee);
 
         public ITask FindTaskById(int id);

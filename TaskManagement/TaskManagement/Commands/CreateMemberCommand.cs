@@ -5,9 +5,9 @@ using TaskManagement.Core.Contracts;
 
 namespace TaskManagement.Commands
 {
-    public class CreateMemberCommandr : BaseCommand
+    public class CreateMemberCommand : BaseCommand
     {
-        public CreateMemberCommandr(IList<string> commandParameters, IRepository repository)
+        public CreateMemberCommand(IList<string> commandParameters, IRepository repository)
             : base(commandParameters, repository)
         {
         }

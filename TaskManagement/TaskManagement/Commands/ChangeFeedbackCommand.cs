@@ -22,24 +22,24 @@ namespace TaskManagement.Commands
             }
 
             // Parameters:
-            //  [0] - paramToChange
-            //  [1] - newValue
-            //  [2] - taskId
+            //  [0] - taskId
+            //  [1] - paramToChange
+            //  [2] - newValue
 
-            string paramToChange = base.CommandParameters[0];
-            int taskId = int.Parse(base.CommandParameters[2]);
+            int taskId = int.Parse(base.CommandParameters[0]);
+            string paramToChange = base.CommandParameters[1];
 
             FeedBack task = (FeedBack)Repository.FindTaskById(taskId);
 
             if (paramToChange == "status")
             {
-                Status status = ParseFeedbackStatus(base.CommandParameters[1]);
+                Status status = ParseFeedbackStatus(base.CommandParameters[2]);
                 task.ChangeStatus(status);
                 return $"Status of task with {task.Id} was changed.";
             }
             else if (paramToChange == "rating")
             {
-                int rating = int.Parse(base.CommandParameters[1]);
+                int rating = int.Parse(base.CommandParameters[2]);
                 task.ChangeRating(rating);
                 return $"Rating of task with {task.Id} was changed.";
             }

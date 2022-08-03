@@ -38,7 +38,7 @@ namespace TaskManagement.Commands
                 return $"Task with id {taskId} was assigned to {member.Name}";
             }
 
-            throw new ArgumentException($"Task with id {taskId} was not found in the task list of member {member.Name}");
+            throw new ArgumentException($"Member with id {member.Name} was not found in the member list of team {team.Name}");
         }
     }
 }

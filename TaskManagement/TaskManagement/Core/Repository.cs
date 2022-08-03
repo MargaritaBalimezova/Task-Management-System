@@ -131,7 +131,7 @@ namespace TaskManagement.Core
             return member;
         }
 
-        public IStory CreateStory(string title, string description, int id, PriorityType priority, SizeType size, IMember assignee)
+        public IStory CreateStory(string title, string description, PriorityType priority, SizeType size, IMember assignee)
         {
             var story = new Story(title, description, this.id + 1, priority, size, assignee);
             this.id++;
