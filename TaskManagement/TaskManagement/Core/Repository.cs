@@ -142,7 +142,7 @@ namespace TaskManagement.Core
 
         public ITeam CreateTeam(string name)
         {
-            if (this.names.Contains(name))
+            if (this.Names.Contains(name))
             {
                 throw new NameExistsException("Team's name should be unique in the aplication!");
             }
@@ -161,7 +161,7 @@ namespace TaskManagement.Core
 
         public IMember FindMemberByName(string name)
         {
-            return this.members.FirstOrDefault(x => x.Name == name) ?? throw new EntityNotFoundException($"There is no member with name {name}!");
+            return this.Members.FirstOrDefault(x => x.Name == name) ?? throw new EntityNotFoundException($"There is no member with name {name}!");
         }
 
         public ITask FindTaskById(int id)
@@ -193,6 +193,16 @@ namespace TaskManagement.Core
             }
 
             return false;
+        }
+
+        public void AddBoardToTeam(ITeam team, IBoard board)
+        {
+            if (IsBoardInTeam(team,board))
+            {
+                throw new ArgumentException($"Board with name {board.Name} already exists");
+            }
+
+            team.AddBoard(board);
         }
     }
 
