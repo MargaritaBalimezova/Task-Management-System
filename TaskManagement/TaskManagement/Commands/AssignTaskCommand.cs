@@ -16,7 +16,7 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count < 3)
+            if (this.CommandParameters.Count != 3)
             {
                 throw new ArgumentException($"Invalid number of arguments. Expected: 3, Received: {this.CommandParameters.Count}");
             }
@@ -32,11 +32,10 @@ namespace TaskManagement.Commands
             var task = this.Repository.FindTaskById(taskId);
             var member = this.Repository.FindMemberByName(memberName);
             var team = this.Repository.FindTeamByName(teamName);
-           
-           
+
             if (Repository.IsMemberInTeam(team, member))
             {
-                member.AddTask(task);                                
+                member.AddTask(task);
             }
             else
             {
@@ -49,6 +48,7 @@ namespace TaskManagement.Commands
                     var bug = (Bug)task;
                     bug.AddAssignee(member);
                     break;
+
                 case "Story":
                     var story = (Story)task;
                     story.AddAssignee(member);
@@ -65,8 +65,10 @@ namespace TaskManagement.Commands
                 case "Bug":
 
                     break;
+
                 case "Story":
                     break;
+
                 default:
                     break;
             }

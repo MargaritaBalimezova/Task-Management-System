@@ -15,7 +15,7 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count < 2)
+            if (this.CommandParameters.Count != 2)
             {
                 throw new ArgumentException($"Invalid number of arguments. Expected: 2, Received: {this.CommandParameters.Count}");
             }
