@@ -17,7 +17,7 @@ namespace TaskManagement.Models.Tasks
         private Status status;
 
         public Story(string title, string description, int id, PriorityType priority, SizeType size)
-        :base(title, description, id)
+        : base(title, description, id)
         {
             this.size = size;
             this.priority = priority;
@@ -26,6 +26,7 @@ namespace TaskManagement.Models.Tasks
         }
 
         #region Properties
+
         public PriorityType Priority
         {
             get
@@ -66,12 +67,14 @@ namespace TaskManagement.Models.Tasks
                 this.status = value;
             }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
+
         public void ChangeStatus(Status status)
         {
-            if(this.Status != status)
+            if (this.Status != status)
             {
                 AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Status} to {status}.");
                 this.Status = status;
@@ -113,6 +116,11 @@ namespace TaskManagement.Models.Tasks
             this.Assignee = assignee;
         }
 
+        public void RemoveAssignee(IMember assignee)
+        {
+            this.Assignee = null;
+        }
+
         public override string AdditionalInfo()
         {
             StringBuilder sb = new StringBuilder();
@@ -122,6 +130,7 @@ namespace TaskManagement.Models.Tasks
 
             return sb.ToString();
         }
-        #endregion
+
+        #endregion Methods
     }
 }

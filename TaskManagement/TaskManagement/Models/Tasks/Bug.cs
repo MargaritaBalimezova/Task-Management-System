@@ -14,7 +14,7 @@ namespace TaskManagement.Models.Tasks
         private PriorityType priority;
         private Status status;
         private IMember assignee = null;
-        private IList<string> stepsToReproduce;               
+        private IList<string> stepsToReproduce;
 
         public Bug(string title, string description, int id, PriorityType priority, Severity severity, IList<string> steps)
              : base(title, description, id)
@@ -24,7 +24,6 @@ namespace TaskManagement.Models.Tasks
             this.Priority = priority;
             this.Severity = severity;
             this.Status = Status.Active;
-        
         }
 
         #region Properties
@@ -37,7 +36,7 @@ namespace TaskManagement.Models.Tasks
             }
             private set
             {
-                Validator.ValidateArgumentIsNotNull(value, "Assignee");                
+                Validator.ValidateArgumentIsNotNull(value, "Assignee");
                 this.assignee = value;
             }
         }
@@ -66,13 +65,13 @@ namespace TaskManagement.Models.Tasks
             }
         }
 
-        public IList<string> StepsToReproduce 
+        public IList<string> StepsToReproduce
         {
             get
             {
                 var copy = new List<string>(this.stepsToReproduce);
                 return copy;
-            }           
+            }
         }
 
         public Status Status
@@ -87,7 +86,7 @@ namespace TaskManagement.Models.Tasks
             }
         }
 
-        #endregion
+        #endregion Properties
 
         #region Methods
 
@@ -95,8 +94,8 @@ namespace TaskManagement.Models.Tasks
         {
             if (newStatus == this.status)
             {
-               throw new InvalidOperationException
-                    ($"Status of bug with ID {this.Id} {this.Title} is already at {this.status}.");
+                throw new InvalidOperationException
+                     ($"Status of bug with ID {this.Id} {this.Title} is already at {this.status}.");
             }
             else
             {
@@ -141,6 +140,10 @@ namespace TaskManagement.Models.Tasks
             this.Assignee = assignee;
         }
 
+        public void RemoveAssignee(IMember assignee)
+        {
+            this.Assignee = null;
+        }
 
         public override string AdditionalInfo()
         {
@@ -151,7 +154,7 @@ namespace TaskManagement.Models.Tasks
             sb.AppendLine("Steps to reproduce:");
             sb.AppendLine(PrintSteps());
 
-            return sb.ToString(); 
+            return sb.ToString();
         }
 
         public string PrintSteps()
@@ -161,14 +164,13 @@ namespace TaskManagement.Models.Tasks
 
             foreach (string item in stepsToReproduce)
             {
-                sb.AppendLine($"{counter}.{item}") ;
+                sb.AppendLine($"{counter}.{item}");
                 counter++;
             }
 
             return sb.ToString();
         }
 
-       
-        #endregion
+        #endregion Methods
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Models.Tasks;
 
 namespace TaskManagement.Commands
 {
@@ -33,6 +34,19 @@ namespace TaskManagement.Commands
             {
                 member.RemoveTask(task);
                 return $"Task with id {taskId} was unassigned from {member.Name}";
+            }
+
+            switch (task.GetType().Name)
+            {
+                case "Bug":
+                    var bug = (Bug)task;
+                    bug.RemoveAssignee(member);
+                    break;
+
+                case "Story":
+                    var story = (Story)task;
+                    story.RemoveAssignee(member);
+                    break;
             }
 
             throw new ArgumentException($"Task with id {taskId} was not found in the task list of member {member.Name}");
