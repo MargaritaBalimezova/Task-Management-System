@@ -7,7 +7,7 @@ namespace TaskManagement.Commands
 {
     public class CreateStoryCommand : BaseCommand
     {
-        private const int ExpectedParamsCount = 6;
+        private const int ExpectedParamsCount = 5;
 
         public CreateStoryCommand(IList<string> commandParameters, IRepository repository)
      : base(commandParameters, repository)

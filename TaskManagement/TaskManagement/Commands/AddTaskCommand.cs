@@ -7,7 +7,7 @@ namespace TaskManagement.Commands
 {
     public class AddTaskCommand : BaseCommand
     {
-        private const int ExpectedParamsCount = 2;
+        private const int ExpectedParamsCount = 3;
 
         public AddTaskCommand(IList<string> parameters, IRepository repository)
          : base(parameters, repository)
