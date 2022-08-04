@@ -34,7 +34,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             description = "Test Description";
             id = 1;
 
-            bug = new Bug(title, description, id, PriorityType.Medium, Severity.Major, assignee, stepsToReproduce);
+            bug = new Bug(title, description, id, PriorityType.Medium, Severity.Major, stepsToReproduce);
         }
 
         [TestMethod]
@@ -42,7 +42,6 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         {
             Assert.AreEqual("Test Title", bug.Title);
             Assert.AreEqual("Test Description", bug.Description);
-            Assert.AreEqual("Test Member", bug.Assignee.Name);
             Assert.AreEqual(PriorityType.Medium, bug.Priority);
             Assert.AreEqual(Severity.Major, bug.Severity);
             Assert.AreEqual("Test Member", assignee.Name,"Bug created successfully!");
@@ -51,7 +50,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         [TestCleanup()]
         public void BugTests_Clean()
         {
-            bug = new Bug(title, description, id, PriorityType.Medium, Severity.Major, assignee, stepsToReproduce);
+            bug = new Bug(title, description, id, PriorityType.Medium, Severity.Major, stepsToReproduce);
         }
 
         [TestMethod]
@@ -65,7 +64,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void ConstructorShould_Throw_When_TitleLargerThanMax()
         {
             var testTitle = new string('a', TitleMaxLen + 1);
-            bug = new Bug(testTitle, description, id, PriorityType.Medium, Severity.Major, assignee, stepsToReproduce);
+            bug = new Bug(testTitle, description, id, PriorityType.Medium, Severity.Major,  stepsToReproduce);
         }
 
         [TestMethod]
@@ -73,7 +72,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void ConstructorShould_Throw_When_TitleShorterThanMin()
         {
             var testTitle = new string('a', TitleMinLen - 1);
-            bug = new Bug(testTitle, description, id, PriorityType.Medium, Severity.Major, assignee, stepsToReproduce);
+            bug = new Bug(testTitle, description, id, PriorityType.Medium, Severity.Major,  stepsToReproduce);
         }
 
         [TestMethod]
@@ -81,7 +80,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void ConstructorShould_Throw_When_DescriptionLargerThanMax()
         {
             var testDesc = new string('a', DescriptionMaxLen + 1);
-            bug = new Bug(title, testDesc, id, PriorityType.Medium, Severity.Major, assignee, stepsToReproduce);
+            bug = new Bug(title, testDesc, id, PriorityType.Medium, Severity.Major,  stepsToReproduce);
         }
 
         [TestMethod]
@@ -89,7 +88,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void ConstructorShould_Throw_When_DescriptionShorterThanMin()
         {
             var testDesc = new string('a', DescriptionMinLen - 1);
-            bug = new Bug(title, testDesc, id, PriorityType.Medium, Severity.Major, assignee, stepsToReproduce);
+            bug = new Bug(title, testDesc, id, PriorityType.Medium, Severity.Major, stepsToReproduce);
         }
 
         [TestMethod]

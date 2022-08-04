@@ -42,7 +42,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var member = this.repository.CreateMember("testMember");
-            var task = this.repository.CreateStory("StoryTitle", "StoryDescription", PriorityType.Medium, SizeType.Large, new Member("Assignee"));
+            var task = this.repository.CreateStory("StoryTitle", "StoryDescription", PriorityType.Medium, SizeType.Large);
             var team = this.repository.CreateTeam("testTeam");
 
             team.AddMember(member);
@@ -60,7 +60,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var member = this.repository.CreateMember("testMember");
-            var task = this.repository.CreateStory("StoryTitle", "StoryDescription", PriorityType.Medium, SizeType.Large, new Member("Assignee"));
+            var task = this.repository.CreateStory("StoryTitle", "StoryDescription", PriorityType.Medium, SizeType.Large);
             var team = this.repository.CreateTeam("testTeam");
 
             var commandParameters = new string[] { "1", "testMember", "testTeam" }.ToList();

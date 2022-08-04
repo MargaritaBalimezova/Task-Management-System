@@ -35,11 +35,10 @@ namespace TaskManagement.Tests.CoreTests
             var description = "Description dummy";
             PriorityType priority = PriorityType.High;
             Severity severity = Severity.Critical;
-            var assignee = new Member("Member");
             List<string> steps = new List<string> { "log", "go fuck" };
 
             //Act
-            var bug = repository.CreateBug(title, description, priority, severity, assignee, steps);
+            var bug = repository.CreateBug(title, description, priority, severity, steps);
 
             //Assert
             Assert.AreEqual(bug, repository.Bugs[repository.Bugs.Count - 1],
@@ -70,10 +69,9 @@ namespace TaskManagement.Tests.CoreTests
             var repository = new Repository();
             var title = "Title dummy";
             var description = "Description dummy";
-            var member = new Member("Dummy");
 
             //Act
-            var story = repository.CreateStory(title, description, PriorityType.High, SizeType.Large, member);
+            var story = repository.CreateStory(title, description, PriorityType.High, SizeType.Large);
 
             //Assert
             Assert.AreEqual(story, repository.Stories[repository.Stories.Count - 1],

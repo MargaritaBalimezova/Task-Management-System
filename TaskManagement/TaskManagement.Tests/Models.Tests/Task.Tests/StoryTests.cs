@@ -25,11 +25,10 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             //Arrange
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             int id = 1;
             //Act
             var story = new Story(title, description, id: id, PriorityType.High,
-                SizeType.Medium, assignee);
+                SizeType.Medium);
             //Assert
             Assert.AreEqual(title, story.Title, "Story constructor failed!");
         }
@@ -41,12 +40,11 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             //Arrange
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen + 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             int id = 1;
 
             //Act && Assert
-            var story = new Story(title, description, id: id, PriorityType.High,
-                SizeType.Medium, assignee);
+            new Story(title, description, id: id, PriorityType.High,
+                SizeType.Medium);
         }
 
         [TestMethod]
@@ -55,16 +53,48 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             //Arrange
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             var priority = PriorityType.High;
             int id = 1;
             //Act
             var story = new Story(title, description, id: id, priority,
-                SizeType.Medium, assignee);
+                SizeType.Medium);
             //Assert
             Assert.AreEqual(priority, story.Priority, "Priority getter failed to return valid data!");
         }
 
+        [TestMethod]
+        public void PrioritySetter_Should_ChangePriority()
+        {
+            //Arrange
+            string title = new string('x', TaskTitleMinLen + 1);
+            string description = new string('x', TaskDescriptionMaxLen - 1);
+            var priority = PriorityType.High;
+            int id = 1;
+            var story = new Story(title, description, id: id, priority,
+                SizeType.Medium);
+            //Act
+            story.Priority = PriorityType.Low;
+
+            //Assert
+            Assert.AreEqual(PriorityType.Low, story.Priority, "Priority setter failed to assign valid data!");
+        }
+
+        [TestMethod]
+        public void PrioritySetter_Should_NotChangePriority_When_SamePriorityPassed()
+        {
+            //Arrange
+            string title = new string('x', TaskTitleMinLen + 1);
+            string description = new string('x', TaskDescriptionMaxLen - 1);
+            var priority = PriorityType.High;
+            int id = 1;
+            var story = new Story(title, description, id: id, priority,
+                SizeType.Medium);
+            //Act
+            story.Priority = PriorityType.High;
+
+            //Assert
+            Assert.AreEqual(PriorityType.High, story.Priority, "Priority setter failed to assign valid data!");
+        }
 
         [TestMethod]
         public void SizeGetter_Should_ReturnValidData()
@@ -72,15 +102,48 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             //Arrange
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             var priority = PriorityType.High;
             var size = SizeType.Medium;
             int id = 1;
             //Act
             var story = new Story(title, description, id: id, priority,
-                size, assignee);
+                size);
             //Assert
-            Assert.AreEqual(size, story.Size, "Size getter failed to return valid data!"); ;
+            Assert.AreEqual(size, story.Size, "Size getter failed to return valid data!");
+        }
+
+        [TestMethod]
+        public void SizeSetter_Should_ChangeSize()
+        {
+            //Arrange
+            string title = new string('x', TaskTitleMinLen + 1);
+            string description = new string('x', TaskDescriptionMaxLen - 1);
+            var priority = PriorityType.High;
+            var size = SizeType.Medium;
+            int id = 1;
+            var story = new Story(title, description, id: id, priority,
+                size);
+            //Act
+            story.Size = SizeType.Small;
+            //Assert
+            Assert.AreEqual(SizeType.Small, story.Size, "Size getter failed to return valid data!");
+        }
+
+        [TestMethod]
+        public void SizeSetter_ShouldNot_ChangeSize_When_SameValuePassed()
+        {
+            //Arrange
+            string title = new string('x', TaskTitleMinLen + 1);
+            string description = new string('x', TaskDescriptionMaxLen - 1);
+            var priority = PriorityType.High;
+            var size = SizeType.Medium;
+            int id = 1;
+            var story = new Story(title, description, id: id, priority,
+                size);
+            //Act
+            story.Size = SizeType.Medium;
+            //Assert
+            Assert.AreEqual(SizeType.Medium, story.Size, "Size getter failed to return valid data!");
         }
 
         [TestMethod]
@@ -91,10 +154,11 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             string description = new string('x', TaskDescriptionMaxLen - 1);
             var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             int id = 1;
+            var story = new Story(title, description, id: id, PriorityType.High,
+                SizeType.Medium);
 
             //Act
-            var story = new Story(title, description, id: id, PriorityType.High,
-                SizeType.Medium, assignee);
+            story.AddAssignee(assignee);
 
             //Assert
             Assert.AreEqual(assignee, story.Assignee, "Assignee failed to be initialized!");
@@ -106,11 +170,10 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             //Arrange
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
 
             //Act
             var story = new Story(title, description, id: 1, PriorityType.High,
-                SizeType.Medium, assignee);
+                SizeType.Medium);
             //Assert
             Assert.AreEqual(Status.NotDone, story.Status, "Story status getter failed!");
         }
@@ -123,7 +186,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             string description = new string('x', TaskDescriptionMaxLen - 1);
             var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             var story = new Story(title, description, 1, PriorityType.High,
-                SizeType.Medium, assignee);
+                SizeType.Medium);
 
             //Act
             story.AddComment(new Comment("Comment", assignee.Name));
@@ -139,11 +202,10 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen - 1);
             var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
-
             var comment = new Comment("Comment", assignee.Name);
 
             var story = new Story(title, description, 1, PriorityType.High,
-                SizeType.Medium, assignee);
+                SizeType.Medium);
 
             story.AddComment(comment);
 
@@ -166,7 +228,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
 
             //Act
             var story = new Story(title, description, 1, PriorityType.High,
-                SizeType.Medium, assignee);
+                SizeType.Medium);
 
             //Assert
             Assert.AreEqual(1, story.ActivityLog.Count, "Remove comment failed!");
@@ -177,11 +239,10 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         {
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             int id = 1;
             var status = Status.InProgress;
             var story = new Story(title, description, id: id, PriorityType.High,
-                SizeType.Medium, assignee);
+                SizeType.Medium);
             //Act
             story.ChangeStatus(status);
             //Assert
@@ -193,11 +254,10 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         {
             string title = new string('x', TaskTitleMinLen + 1);
             string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
             int id = 1;
             var status = Status.NotDone;
             var story = new Story(title, description, id: id, PriorityType.High,
-                SizeType.Medium, assignee);
+                SizeType.Medium);
 
             var expected = $"Status of Story with ID {story.Id} {story.Title} is already at {story.Status}.";
             

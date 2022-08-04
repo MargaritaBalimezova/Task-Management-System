@@ -33,6 +33,18 @@ namespace TaskManagement.Models.Tasks
             {
                 return this.priority;
             }
+            set
+            {
+                if (this.Priority != value)
+                {
+                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Priority} to {priority}.");
+                    this.priority = value;
+                }
+                else
+                {
+                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Priority}.");
+                }
+            }
         }
 
         public SizeType Size
@@ -40,6 +52,18 @@ namespace TaskManagement.Models.Tasks
             get
             {
                 return this.size;
+            }
+            set
+            {
+                if (this.Size != value)
+                {
+                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Size} to {value}.");
+                    this.size = value;
+                }
+                else
+                {
+                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Size}.");
+                }
             }
         }
 
@@ -82,32 +106,6 @@ namespace TaskManagement.Models.Tasks
             else
             {
                 AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Status}.");
-            }
-        }
-
-        public void ChangePriority(PriorityType priority)
-        {
-            if (this.Priority != priority)
-            {
-                AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Priority} to {priority}.");
-                this.Status = status;
-            }
-            else
-            {
-                AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Priority}.");
-            }
-        }
-
-        public void ChangeSize(SizeType size)
-        {
-            if (this.Size != size)
-            {
-                AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Size} to {size}.");
-                this.Status = status;
-            }
-            else
-            {
-                AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Size}.");
             }
         }
 

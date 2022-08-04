@@ -32,11 +32,11 @@ namespace TaskManagement.Commands
             {
                 case "priority":
                     var priority = ParsePriorityType(this.CommandParameters[2]);
-                    story.ChangePriority(priority);
+                    story.Priority = priority;
                     return $"Priority of story with id {story.Id} was changed!";
                 case "size":
                     var size = ParseSize(CommandParameters[2]);
-                    story.ChangeSize(size);
+                    story.Size = size;
                     return $"Size of story with id {story.Id} was changed!";
                 case "status":
                     Status newStatus = ParseStoryStatus(CommandParameters[1]);
