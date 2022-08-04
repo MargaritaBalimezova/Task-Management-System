@@ -27,12 +27,12 @@ namespace TaskManagement.Core.Contracts
         public IBoard CreateBoard(string board);
 
         public IBug CreateBug(string title, string description, PriorityType priority,
-            Severity severity, IMember assignee, IList<string> steps);
+            Severity severity, IList<string> steps);
 
         public IFeedback CreateFeedBack(string title, string description, int rating);
 
         public IStory CreateStory(string title, string description, PriorityType priority,
-            SizeType size, IMember assignee);
+            SizeType size);
 
         public ITask FindTaskById(int id);
 

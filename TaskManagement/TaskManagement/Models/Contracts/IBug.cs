@@ -24,5 +24,7 @@ namespace TaskManagement.Models.Contracts
 
         void ChangeStatus(Status newStatus);
 
+        void AddAssignee(IMember assignee);
+
     }
 }

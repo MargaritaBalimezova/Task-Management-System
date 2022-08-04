@@ -100,9 +100,9 @@ namespace TaskManagement.Core
             return newBoard;
         }
 
-        public IBug CreateBug(string title, string description, PriorityType priority, Severity severity, IMember assignee, IList<string> steps)
+        public IBug CreateBug(string title, string description, PriorityType priority, Severity severity, IList<string> steps)
         {
-            IBug bug = new Bug(title, description, id + 1, priority, severity, assignee, steps);
+            IBug bug = new Bug(title, description, id + 1, priority, severity, steps);
             this.id++;
             this.bugs.Add(bug);
             return bug;
@@ -131,9 +131,9 @@ namespace TaskManagement.Core
             return member;
         }
 
-        public IStory CreateStory(string title, string description, PriorityType priority, SizeType size, IMember assignee)
+        public IStory CreateStory(string title, string description, PriorityType priority, SizeType size)
         {
-            var story = new Story(title, description, this.id + 1, priority, size, assignee);
+            var story = new Story(title, description, this.id + 1, priority, size);
             this.id++;
             this.stories.Add(story);
 
@@ -204,6 +204,7 @@ namespace TaskManagement.Core
 
             team.AddBoard(board);
         }
+
     }
 
     #endregion Methods

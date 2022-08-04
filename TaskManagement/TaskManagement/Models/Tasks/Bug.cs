@@ -13,17 +13,16 @@ namespace TaskManagement.Models.Tasks
         private Severity severity;
         private PriorityType priority;
         private Status status;
-        private IMember assignee;
+        private IMember assignee = null;
         private IList<string> stepsToReproduce;               
 
-        public Bug(string title, string description, int id, PriorityType priority, Severity severity, IMember assignee, IList<string> steps)
+        public Bug(string title, string description, int id, PriorityType priority, Severity severity, IList<string> steps)
              : base(title, description, id)
         {
             this.stepsToReproduce = new List<string>(steps);
 
             this.Priority = priority;
             this.Severity = severity;
-            this.Assignee = assignee;
             this.Status = Status.Active;
         
         }
@@ -137,6 +136,12 @@ namespace TaskManagement.Models.Tasks
             }
         }
 
+        public void AddAssignee(IMember assignee)
+        {
+            this.Assignee = assignee;
+        }
+
+
         public override string AdditionalInfo()
         {
             StringBuilder sb = new StringBuilder();
@@ -163,6 +168,7 @@ namespace TaskManagement.Models.Tasks
             return sb.ToString();
         }
 
+       
         #endregion
     }
 }

@@ -7,7 +7,7 @@ namespace TaskManagement.Commands
 {
     public class CreateStoryCommand : BaseCommand
     {
-        private const int ExpectedParamsCount = 5;
+        private const int ExpectedParamsCount = 4;
 
         public CreateStoryCommand(IList<string> commandParameters, IRepository repository)
      : base(commandParameters, repository)
@@ -27,10 +27,9 @@ namespace TaskManagement.Commands
             string description = this.CommandParameters[1];
             var priority = ParsePriorityType(this.CommandParameters[2]);
             var size = ParseSize(this.CommandParameters[3]);
-            var asssignee = this.Repository.FindMemberByName(this.CommandParameters[4]);
-
+           
             var story = this.Repository.CreateStory
-                (title, description, priority, size, asssignee);
+                (title, description, priority, size);
 
             return $"Story with id {story.Id} was created!";
         }

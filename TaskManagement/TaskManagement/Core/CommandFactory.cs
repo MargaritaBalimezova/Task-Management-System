@@ -33,9 +33,7 @@ namespace TaskManagement.Core
                 case "createmember":
                     return new CreateMemberCommand(commandParameters, repository);
                 case "createteam":
-                    return new CreateTeamCommand(commandParameters, repository);
-                case "addbugtoboard":
-                    return new AddBugToBoardCommand(commandParameters, repository);               
+                    return new CreateTeamCommand(commandParameters, repository);                              
                 case "changebug":
                     return new ChangeBugCommand(commandParameters, repository);
                 case "changefeedback":
@@ -64,6 +62,10 @@ namespace TaskManagement.Core
                     return new AddTaskCommand(commandParameters, repository);
                 case "addcomment":
                     return new AddCommentCommand(commandParameters, repository);
+                case "filterbugby":
+                    return new FilterBugBy(commandParameters, repository);
+                case "addmembertoteam":
+                    return new AddMemberToTeam(commandParameters, repository);
                 default:
                     throw new ArgumentException($"Command with name: {commandName} doesn't exist!");
             }

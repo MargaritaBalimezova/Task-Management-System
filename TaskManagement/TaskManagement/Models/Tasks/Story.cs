@@ -13,13 +13,12 @@ namespace TaskManagement.Models.Tasks
     {
         private PriorityType priority;
         private SizeType size;
-        private IMember assignee;
+        private IMember assignee = null;
         private Status status;
 
-        public Story(string title, string description, int id, PriorityType priority, SizeType size, IMember assignee)
+        public Story(string title, string description, int id, PriorityType priority, SizeType size)
         :base(title, description, id)
         {
-            this.assignee = assignee;
             this.size = size;
             this.priority = priority;
 
@@ -48,6 +47,11 @@ namespace TaskManagement.Models.Tasks
             get
             {
                 return this.assignee;
+            }
+            private set
+            {
+                Validator.ValidateArgumentIsNotNull(value, "Assignee");
+                this.assignee = value;
             }
         }
 
@@ -102,6 +106,11 @@ namespace TaskManagement.Models.Tasks
             {
                 AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Size}.");
             }
+        }
+
+        public void AddAssignee(IMember assignee)
+        {
+            this.Assignee = assignee;
         }
 
         public override string AdditionalInfo()

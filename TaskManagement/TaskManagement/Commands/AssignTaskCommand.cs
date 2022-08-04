@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Models.Tasks;
 
 namespace TaskManagement.Commands
 {
@@ -31,14 +32,44 @@ namespace TaskManagement.Commands
             var task = this.Repository.FindTaskById(taskId);
             var member = this.Repository.FindMemberByName(memberName);
             var team = this.Repository.FindTeamByName(teamName);
-
+           
+           
             if (Repository.IsMemberInTeam(team, member))
             {
-                member.AddTask(task);
-                return $"Task with id {taskId} was assigned to {member.Name}";
+                member.AddTask(task);                                
+            }
+            else
+            {
+                throw new ArgumentException($"Member with id {member.Name} was not found in the member list of team {team.Name}");
             }
 
-            throw new ArgumentException($"Member with id {member.Name} was not found in the member list of team {team.Name}");
+            switch (task.GetType().Name)
+            {
+                case "Bug":
+                    var bug = (Bug)task;
+                    bug.AddAssignee(member);
+                    break;
+                case "Story":
+                    var story = (Story)task;
+                    story.AddAssignee(member);
+                    break;
+            }
+
+            return $"Task with id {taskId} was assigned to {member.Name}";
+        }
+
+        public void GetTaskType(string type)
+        {
+            switch (type)
+            {
+                case "Bug":
+
+                    break;
+                case "Story":
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

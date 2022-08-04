@@ -86,6 +86,12 @@ namespace TaskManagement.Models
         public void AddMember(IMember member)
         {
             Validator.ValidateArgumentIsNotNull(members, "Team's member");
+
+            if (members.Any(m=>m.Name == member.Name))
+            {
+                throw new ArgumentException($"Member with name {member.Name} is already in team {this.Name}!");
+            }
+
             this.members.Add(member);
 
             AddEventLog($"Member {member.Name} joined {this.Name} team!");

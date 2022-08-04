@@ -18,20 +18,19 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count < 5)
+            if (this.CommandParameters.Count < 4)
             {
-                throw new ArgumentException($"Invalid number of arguments. Expected: 5, Received: {this.CommandParameters.Count}");
+                throw new ArgumentException($"Invalid number of arguments. Expected: 4, Received: {this.CommandParameters.Count}");
             }
 
             string bugTitle = base.CommandParameters[0];
             string bugDescription = base.CommandParameters[1];
             PriorityType bugPriority = ParsePriorityType(base.CommandParameters[2]);
-            Severity bugSeverity = ParseSeverity(base.CommandParameters[3]);
-            IMember bugAssignee = this.Repository.FindMemberByName(base.CommandParameters[4]);
+            Severity bugSeverity = ParseSeverity(base.CommandParameters[3]);            
             IList<string> stepsToReproduce = StepsToReproduce();
 
             IBug bug = this.Repository.CreateBug
-                (bugTitle, bugDescription, bugPriority, bugSeverity, bugAssignee, stepsToReproduce);
+                (bugTitle, bugDescription, bugPriority, bugSeverity, stepsToReproduce);
 
             return $"Bug with Id: {bug.Id} was created!";
         }       
