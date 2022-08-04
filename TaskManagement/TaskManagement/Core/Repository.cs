@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models;
@@ -203,6 +204,25 @@ namespace TaskManagement.Core
             }
 
             team.AddBoard(board);
+        }
+
+        public string FilterTaskBy(string keyword)
+        {
+            var regex = new Regex(@"^.*" + keyword + ".*$");
+            var tasks = bugs.Cast<ITask>().Concat(feedbacks.Cast<ITask>())
+                .Concat(stories.Cast<ITask>()).ToList();
+
+            var filtered = tasks.Where(task => regex.IsMatch(task.Title)).ToList();
+
+            var sb = new StringBuilder();
+
+            foreach (var task in filtered)
+            {
+                sb.AppendLine(task.ToString());
+                sb.AppendLine("####################");
+            }
+
+            return sb.ToString();
         }
 
     }

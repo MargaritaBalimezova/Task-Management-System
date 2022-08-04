@@ -46,6 +46,8 @@ namespace TaskManagement.Core.Contracts
 
         public bool IsBoardInTeam(ITeam team, IBoard board);
 
+        public string FilterTaskBy(string keyword);
+
         /*        public void SortTasksByTitle();
 
                 public void FilterTasksByTitle(string title);

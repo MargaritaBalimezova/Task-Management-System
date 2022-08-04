@@ -91,6 +91,18 @@ namespace TaskManagement.Core
                 case "listfeedbacks":
                     return new ListFeedbacksCommand(commandParameters, repository);
 
+                case "filterstoryby":
+                    return new FilterStoryBy(commandParameters, repository);
+
+                case "filtertasksbytitle":
+                    return new FilterTasksByTitle(commandParameters, repository);
+
+                case "sortstoryby":
+                    return new SortStoryBy(commandParameters, repository);
+
+                case "sorttasksbytitle":
+                    return new SortTasksByTitle(repository);
+
                 default:
                     throw new ArgumentException($"Command with name: {commandName} doesn't exist!");
             }

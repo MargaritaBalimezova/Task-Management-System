@@ -125,6 +125,7 @@ namespace TaskManagement.Models.Tasks
             sb.AppendLine($"Assignee: {this.Assignee}");
             sb.AppendLine($"Priority: {this.Priority}");
             sb.AppendLine($"Size: {this.Size}");
+            sb.AppendLine($"Status: {this.Status}");
 
             return sb.ToString();
         }

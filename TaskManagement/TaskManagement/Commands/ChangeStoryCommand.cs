@@ -39,7 +39,7 @@ namespace TaskManagement.Commands
                     story.Size = size;
                     return $"Size of story with id {story.Id} was changed!";
                 case "status":
-                    Status newStatus = ParseStoryStatus(CommandParameters[1]);
+                    Status newStatus = ParseStoryStatus(CommandParameters[2]);
                     story.ChangeStatus(newStatus);
                     return $"Priority of story with id {story.Id} was changed!";
                 default:
