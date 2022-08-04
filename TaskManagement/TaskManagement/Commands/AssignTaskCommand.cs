@@ -57,21 +57,5 @@ namespace TaskManagement.Commands
 
             return $"Task with id {taskId} was assigned to {member.Name}";
         }
-
-        public void GetTaskType(string type)
-        {
-            switch (type)
-            {
-                case "Bug":
-
-                    break;
-
-                case "Story":
-                    break;
-
-                default:
-                    break;
-            }
-        }
     }
 }

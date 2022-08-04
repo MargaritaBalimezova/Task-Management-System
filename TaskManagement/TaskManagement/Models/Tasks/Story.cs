@@ -114,9 +114,9 @@ namespace TaskManagement.Models.Tasks
             this.Assignee = assignee;
         }
 
-        public void RemoveAssignee(IMember assignee)
+        public void RemoveAssignee()
         {
-            this.Assignee = null;
+            this.assignee = null;
         }
 
         public override string AdditionalInfo()

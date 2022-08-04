@@ -38,7 +38,26 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        public void Execute_Should_AssignTask_When_ValidParameters()
+        public void Execute_Should_AssignTask_When_ValidParameters_Ver1()
+        {
+            // Arrange
+            var member = this.repository.CreateMember("testMember");
+            var stepsToReproduce = new List<string>();
+            var task = this.repository.CreateBug("BugTitle12", "BugDescription", PriorityType.Medium, Severity.Minor, stepsToReproduce);
+            var team = this.repository.CreateTeam("testTeam");
+
+            team.AddMember(member);
+
+            var commandParameters = new string[] { "1", "testMember", "testTeam" }.ToList();
+
+            var command = new AssignTaskCommand(commandParameters, repository);
+
+            // Act & Assert
+            Assert.AreEqual(command.Execute(), "Task with id 1 was assigned to testMember");
+        }
+
+        [TestMethod]
+        public void Execute_Should_AssignTask_When_ValidParameters_Ver2()
         {
             // Arrange
             var member = this.repository.CreateMember("testMember");

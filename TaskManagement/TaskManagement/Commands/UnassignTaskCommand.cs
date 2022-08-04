@@ -33,23 +33,26 @@ namespace TaskManagement.Commands
             if (member.Tasks.Any(x => x.Id == taskId))
             {
                 member.RemoveTask(task);
-                return $"Task with id {taskId} was unassigned from {member.Name}";
+            }
+            else
+            {
+                throw new ArgumentException($"Task with id {taskId} was not found in the task list of member {member.Name}");
             }
 
             switch (task.GetType().Name)
             {
                 case "Bug":
                     var bug = (Bug)task;
-                    bug.RemoveAssignee(member);
+                    bug.RemoveAssignee();
                     break;
 
                 case "Story":
                     var story = (Story)task;
-                    story.RemoveAssignee(member);
+                    story.RemoveAssignee();
                     break;
             }
 
-            throw new ArgumentException($"Task with id {taskId} was not found in the task list of member {member.Name}");
+            return $"Task with id {taskId} was unassigned from {member.Name}";
         }
     }
 }
