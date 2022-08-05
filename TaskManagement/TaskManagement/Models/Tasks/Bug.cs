@@ -148,9 +148,9 @@ namespace TaskManagement.Models.Tasks
         public override string AdditionalInfo()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"Assignee: {this.Assignee.Name}");
             sb.AppendLine($"Priority: {this.Priority}");
-            sb.AppendLine($"Severity: {this.Severity}");
-            sb.AppendLine($"Assignee: {this.Assignee}");
+            sb.AppendLine($"Severity: {this.Severity}");           
             sb.AppendLine($"Status: {this.Status}");
             sb.AppendLine("Steps to reproduce:");
             sb.AppendLine(PrintSteps());

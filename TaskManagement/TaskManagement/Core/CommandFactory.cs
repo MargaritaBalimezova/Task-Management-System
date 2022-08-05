@@ -106,6 +106,12 @@ namespace TaskManagement.Core
                 case "sorttasksbytitle":
                     return new SortTasksByTitle(repository);
 
+                case "sortassignedtasksbytitle":
+                    return new SortAssignedTasksByTitle(repository);
+
+                case "filterassignedtasksby":
+                    return new FilterAssignedTasksBy(commandParameters, repository);
+
                 default:
                     throw new ArgumentException($"Command with name: {commandName} doesn't exist!");
             }

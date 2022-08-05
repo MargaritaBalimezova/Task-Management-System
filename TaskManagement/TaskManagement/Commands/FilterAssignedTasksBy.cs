@@ -19,26 +19,26 @@ namespace TaskManagement.Commands
         {
             CommandParametersValidation(base.CommandParameters);
 
-            IList<ITask> result = new List<ITask>();
+            List<ITask> result = new List<ITask>();
 
             if (CommandParameters[0].ToLower()=="status")
             {
                 switch (CommandParameters[1].ToLower())
                 {
                     case "active":
-                        result.Add((IBug)this.Repository.Bugs.Where(x => x.Assignee != null && x.Status == Models.Enums.BugStatus.Status.Active));
+                        result.AddRange(this.Repository.Bugs.Where(x => x.Assignee != null && x.Status == Models.Enums.BugStatus.Status.Active));
                         break;
                     case "fixed":
-                        result.Add((IBug)this.Repository.Bugs.Where(x => x.Assignee != null && x.Status == Models.Enums.BugStatus.Status.Fixed));
+                        result.AddRange(this.Repository.Bugs.Where(x => x.Assignee != null && x.Status == Models.Enums.BugStatus.Status.Fixed));
                         break;
                     case "notdone":
-                        result.Add((IStory)this.Repository.Stories.Where(x => x.Assignee != null && x.Status == Models.Enums.StoryStatus.Status.NotDone));
+                        result.AddRange(this.Repository.Stories.Where(x => x.Assignee != null && x.Status == Models.Enums.StoryStatus.Status.NotDone));
                         break;
                     case "inprogress":
-                        result.Add((IStory)this.Repository.Stories.Where(x => x.Assignee != null && x.Status == Models.Enums.StoryStatus.Status.InProgress));
+                        result.AddRange(this.Repository.Stories.Where(x => x.Assignee != null && x.Status == Models.Enums.StoryStatus.Status.InProgress));
                         break;
                     case "done":
-                        result.Add((IStory)this.Repository.Stories.Where(x => x.Assignee != null && x.Status == Models.Enums.StoryStatus.Status.Done));
+                        result.AddRange(this.Repository.Stories.Where(x => x.Assignee != null && x.Status == Models.Enums.StoryStatus.Status.Done));
                         break;
                     default:
                         throw new ArgumentException($"There is no status with name {CommandParameters[1]}");
@@ -47,31 +47,31 @@ namespace TaskManagement.Commands
             }
             else if (CommandParameters[0].ToLower() == "assignee")
             {
-                result.Add((IBug)this.Repository.Bugs.Where(x => x.Assignee.Name == CommandParameters[1]));
-                result.Add((IStory)this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[1]));
+                result.AddRange(this.Repository.Bugs.Where(x => x.Assignee.Name == CommandParameters[1]));
+                result.AddRange(this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[1]));
             }
             else if (CommandParameters[0].ToLower() == "statusandassignee")
             {
                 switch (CommandParameters[1].ToLower())
                 {
                     case "active":
-                        result.Add((IBug)this.Repository.Bugs.Where(x => x.Assignee.Name == CommandParameters[2]
+                        result.AddRange(this.Repository.Bugs.Where(x => x.Assignee.Name == CommandParameters[2]
                         && x.Status == Models.Enums.BugStatus.Status.Active));
                         break;
                     case "fixed":
-                        result.Add((IBug)this.Repository.Bugs.Where(x => x.Assignee.Name == CommandParameters[2]
+                        result.AddRange(this.Repository.Bugs.Where(x => x.Assignee.Name == CommandParameters[2]
                         && x.Status == Models.Enums.BugStatus.Status.Fixed));
                         break;
                     case "notdone":
-                        result.Add((IStory)this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[2]
-                        && x.Status == Models.Enums.StoryStatus.Status.NotDone));
+                        result.AddRange((this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[2]
+                        && x.Status == Models.Enums.StoryStatus.Status.NotDone)));
                         break;
                     case "inprogress":
-                        result.Add((IStory)this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[2] 
+                        result.AddRange(this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[2] 
                         && x.Status == Models.Enums.StoryStatus.Status.InProgress));
                         break;
                     case "done":
-                        result.Add((IStory)this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[2]
+                        result.AddRange(this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[2]
                         && x.Status == Models.Enums.StoryStatus.Status.Done));
                         break;
                     default:
@@ -83,9 +83,17 @@ namespace TaskManagement.Commands
 
             
             StringBuilder sb = new StringBuilder();
-            foreach (var item in result)
+
+            if (result.Count == 0)
             {
-                sb.AppendLine(item.ToString());
+                Console.WriteLine("There is no assigned tasks for the moment!");
+            }
+            else
+            {
+                foreach (var item in result)
+                {
+                    sb.AppendLine(item.ToString());
+                }
             }
 
             return sb.ToString();
