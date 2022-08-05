@@ -22,6 +22,15 @@ namespace TaskManagement.Core
 
             switch (commandName.ToLower())
             {
+                case "createteam":
+                    return new CreateTeamCommand(commandParameters, repository);
+
+                case "createmember":
+                    return new CreateMemberCommand(commandParameters, repository);
+
+                case "createboardinteam":
+                    return new CreateBoardInTeamCommand(commandParameters, repository);
+
                 case "createbug":
                     return new CreateBugCommand(commandParameters, repository);
 
@@ -30,15 +39,6 @@ namespace TaskManagement.Core
 
                 case "createstory":
                     return new CreateStoryCommand(commandParameters, repository);
-
-                case "createboardinteam":
-                    return new CreateBoardInTeamCommand(commandParameters, repository);
-
-                case "createmember":
-                    return new CreateMemberCommand(commandParameters, repository);
-
-                case "createteam":
-                    return new CreateTeamCommand(commandParameters, repository);
 
                 case "changebug":
                     return new ChangeBugCommand(commandParameters, repository);
@@ -70,38 +70,35 @@ namespace TaskManagement.Core
                 case "showteamsactivity":
                     return new ShowTeamsActivity(commandParameters, repository);
 
-                case "unassigntask":
-                    return new UnassignTaskCommand(commandParameters, repository);
-
-                case "assigntask":
-                    return new AssignTaskCommand(commandParameters, repository);
-
                 case "addtask":
                     return new AddTaskCommand(commandParameters, repository);
 
                 case "addcomment":
                     return new AddCommentCommand(commandParameters, repository);
 
-                case "filterbugby":
-                    return new FilterBugBy(commandParameters, repository);
-
                 case "addmembertoteam":
                     return new AddMemberToTeam(commandParameters, repository);
 
-                case "sortfeedbacksby":
-                    return new SortFeedbacksByCommand(commandParameters, repository);
+                case "unassigntask":
+                    return new UnassignTaskCommand(commandParameters, repository);
 
-                case "filterstoryby":
-                    return new FilterStoryBy(commandParameters, repository);
+                case "assigntask":
+                    return new AssignTaskCommand(commandParameters, repository);
 
                 case "filtertasksbytitle":
                     return new FilterTasksByTitle(commandParameters, repository);
 
+                case "filterassignedtasksby":
+                    return new FilterAssignedTasksBy(commandParameters, repository);
+
+                case "filterbugby":
+                    return new FilterBugBy(commandParameters, repository);
+
+                case "filterstoryby":
+                    return new FilterStoryBy(commandParameters, repository);
+
                 case "filterfeedbacksby":
                     return new FilterFeedbacksByCommand(commandParameters, repository);
-
-                case "sortstoryby":
-                    return new SortStoryBy(commandParameters, repository);
 
                 case "sorttasksbytitle":
                     return new SortTasksByTitle(repository);
@@ -109,8 +106,14 @@ namespace TaskManagement.Core
                 case "sortassignedtasksbytitle":
                     return new SortAssignedTasksByTitle(repository);
 
-                case "filterassignedtasksby":
-                    return new FilterAssignedTasksBy(commandParameters, repository);
+                case "sortstoryby":
+                    return new SortStoryBy(commandParameters, repository);
+
+                case "sortbugby":
+                    return new SortBugBy(commandParameters, repository);
+
+                case "sortfeedbacksby":
+                    return new SortFeedbacksByCommand(commandParameters, repository);
 
                 case "help":
                     return new Help(repository);
