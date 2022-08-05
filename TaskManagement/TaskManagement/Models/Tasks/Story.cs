@@ -122,7 +122,14 @@ namespace TaskManagement.Models.Tasks
         public override string AdditionalInfo()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Assignee: {this.Assignee.Name}");
+            if (assignee == null)
+            {
+                sb.AppendLine($"Assignee: No assignee");
+            }
+            else
+            {
+                sb.AppendLine($"Assignee: {this.Assignee.Name}");
+            }
             sb.AppendLine($"Priority: {this.Priority}");
             sb.AppendLine($"Size: {this.Size}");
             sb.AppendLine($"Status: {this.Status}");

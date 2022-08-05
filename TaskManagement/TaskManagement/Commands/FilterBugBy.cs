@@ -4,11 +4,15 @@ using System.Text;
 using TaskManagement.Core.Contracts;
 using System.Linq;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Exceptions;
 
 namespace TaskManagement.Commands
 {
     public class FilterBugBy : BaseCommand
     {
+        private const int ExpectedParamsCount1 = 2;
+        private const int ExpectedParamsCount2 = 3;
+
         public FilterBugBy(IList<string> commandParameters, IRepository repository)
            : base(commandParameters, repository)
         {
@@ -30,8 +34,10 @@ namespace TaskManagement.Commands
                 case "statusandassignee":
                     bugs = this.Repository.Bugs.Where(b => b.Status == ParseBugStatus(CommandParameters[1])).
                         Where(b => b.Assignee.Name == CommandParameters[2]);
-                   
                     break;
+                default:
+                    throw new InvalidUserInputException($"There is no filter with name {CommandParameters[0]}");
+
             }
 
             StringBuilder sb = new StringBuilder();
@@ -49,15 +55,15 @@ namespace TaskManagement.Commands
             {
                 case "status":
                 case "assignee":
-                    if (commands.Count < 2)
+                    if (commands.Count != ExpectedParamsCount1)
                     {
-                        throw new ArgumentException($"Invalid number of arguments. Expected: 2, Received: {this.CommandParameters.Count}");
+                        throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount1}, Received: {this.CommandParameters.Count}");
                     }
                     break;
                 case "statusandassignee":
-                    if (commands.Count < 3)
+                    if (commands.Count != ExpectedParamsCount2)
                     {
-                        throw new ArgumentException($"Invalid number of arguments. Expected: 3, Received: {this.CommandParameters.Count}");
+                        throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount2}, Received: {this.CommandParameters.Count}");
                     }
                     break;
 

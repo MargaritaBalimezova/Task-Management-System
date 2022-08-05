@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Tasks;
 
@@ -10,6 +11,8 @@ namespace TaskManagement.Commands
 {
     public class SortBugBy : BaseCommand
     {
+        private const int ExpectedParamsCount = 1;
+
         public SortBugBy(IList<string> parameters, IRepository repository)
            : base(parameters, repository)
         {
@@ -17,9 +20,9 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count < 1)
+            if (this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new ArgumentException($"Invalid number of arguments. Expected: 1, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
             }
 
             IEnumerable<IBug> bugs = new List<IBug>();

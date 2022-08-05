@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Tasks;
 
@@ -10,6 +11,9 @@ namespace TaskManagement.Commands
 {
     public class FilterAssignedTasksBy : BaseCommand
     {
+        private const int ExpectedParamsCount1 = 2;
+        private const int ExpectedParamsCount2 = 3;
+
         public FilterAssignedTasksBy (IList<string> parameters, IRepository repository)
            : base(parameters, repository)
         {
@@ -41,7 +45,7 @@ namespace TaskManagement.Commands
                         result.AddRange(this.Repository.Stories.Where(x => x.Assignee != null && x.Status == Models.Enums.StoryStatus.Status.Done));
                         break;
                     default:
-                        throw new ArgumentException($"There is no status with name {CommandParameters[1]}");
+                        throw new InvalidUserInputException($"There is no status with name {CommandParameters[1]}");
 
                 }
             }
@@ -75,7 +79,7 @@ namespace TaskManagement.Commands
                         && x.Status == Models.Enums.StoryStatus.Status.Done));
                         break;
                     default:
-                        throw new ArgumentException($"There is no status with name {CommandParameters[1]}");
+                        throw new InvalidUserInputException($"There is no status with name {CommandParameters[1]}");
 
                 }
             }
@@ -105,15 +109,15 @@ namespace TaskManagement.Commands
             {
                 case "status":
                 case "assignee":
-                    if (commands.Count < 2)
+                    if (commands.Count !=ExpectedParamsCount1)
                     {
-                        throw new ArgumentException($"Invalid number of arguments. Expected: 2, Received: {this.CommandParameters.Count}");
+                        throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount1}, Received: {this.CommandParameters.Count}");
                     }
                     break;
                 case "statusandassignee":
-                    if (commands.Count < 3)
+                    if (commands.Count != ExpectedParamsCount2)
                     {
-                        throw new ArgumentException($"Invalid number of arguments. Expected: 3, Received: {this.CommandParameters.Count}");
+                        throw new InvalidUserInputException($"Invalid number of arguments. Expected: 3, Received: {this.CommandParameters.Count}");
                     }
                     break;
 

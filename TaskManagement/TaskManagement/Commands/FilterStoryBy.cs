@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 
 namespace TaskManagement.Commands
@@ -43,7 +44,7 @@ namespace TaskManagement.Commands
                         .Where(story => story.Assignee.Name == assignee).ToList();
                     break;
                 default:
-                    throw new ArgumentException("You can only filter list of stories by assignee or status!");
+                    throw new InvalidUserInputException("You can only filter list of stories by assignee or status!");
             }
 
             var sb = new StringBuilder();

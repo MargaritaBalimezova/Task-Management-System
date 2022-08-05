@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 
 namespace TaskManagement.Commands
 {
@@ -17,7 +18,7 @@ namespace TaskManagement.Commands
         {
             if(this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new ArgumentException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
             }
 
             int taskId;
