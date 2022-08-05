@@ -5,21 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Models;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Models
 {
     public class Board : IBoard
     {
-        private const int NameMinLen = 5;
-        private const int NameMaxLen = 10;
-
-        private const string BOARD_CREATED_MSG = "Successfuly created {0} with name {1}";
-        private const string TASK_ADDED_MSG = "Successfuly added {0} with ID: {1} to board {2}!";
-        private const string TASK_REMOVE_MSG = "Successfuly removed {0} with ID: {1} to board{2}!";
-        private const string NO_TASKS_TO_SHOW_HEADER = "--NO TASKS ON THIS BOARD--";
-        private const string TASK_HEADER = "--TASK--";
-        private const string BOARD_HEADER = "--BOARD--";
-
         private string name;
         private readonly List<ITask> boardTasks;
         private readonly IList<IEventLog> activytLog;
@@ -31,7 +22,7 @@ namespace TaskManagement.Models
             boardTasks = new List<ITask>();
             activytLog = new List<IEventLog>();
 
-            AddEventLog(string.Format(BOARD_CREATED_MSG, GetType().Name, this.Name));
+            AddEventLog(string.Format(Constants.CREATED_MSG, GetType().Name, this.Name));
         }
 
         #region Properties
@@ -45,7 +36,7 @@ namespace TaskManagement.Models
             private set
             {
                 Validator.ValidateArgumentIsNotNull(value, "Board name");
-                Validator.ValidateStringLength(value, NameMinLen, NameMaxLen, "Board name");
+                Validator.ValidateStringLength(value, Constants.BOARD_NAME_MIN_LEN, Constants.BOARD_NAME_MAX_LEN, "Board name");
 
                 this.name = value;
             }
@@ -88,7 +79,7 @@ namespace TaskManagement.Models
             }
 
             this.boardTasks.Add(task);
-            AddEventLog(string.Format(TASK_ADDED_MSG, task.GetType().Name, task.Id, this.Name));
+            AddEventLog(string.Format(Constants.TASK_ADDED_MSG, task.GetType().Name, task.Id, this.Name));
         }
 
         public void RemoveTaskFromBoard(ITask task)
@@ -100,7 +91,7 @@ namespace TaskManagement.Models
 
             this.boardTasks.Remove(task);
 
-            AddEventLog(string.Format(TASK_REMOVE_MSG, task.GetType().Name, task.Id, this.Name));
+            AddEventLog(string.Format(Constants.TASK_REMOVE_MSG, task.GetType().Name, task.Id, this.Name));
         }
 
         public string ViewBoardHistory()
@@ -121,16 +112,16 @@ namespace TaskManagement.Models
 
             if (activytLog.Count == 0)
             {
-                sb.AppendLine(NO_TASKS_TO_SHOW_HEADER);
+                sb.AppendLine(Constants.NO_TASKS_TO_SHOW_HEADER);
             }
             else
             {
-                sb.AppendLine(TASK_HEADER);
+                sb.AppendLine(Constants.TASK_HEADER);
                 foreach (ITask item in boardTasks)
                 {
                     sb.AppendLine(item.ToString());
                 }
-                sb.AppendLine(TASK_HEADER);
+                sb.AppendLine(Constants.TASK_HEADER);
             }
             return sb.ToString();
         }
@@ -138,9 +129,9 @@ namespace TaskManagement.Models
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(BOARD_HEADER);
+            sb.AppendLine(Constants.BOARD_HEADER);
             sb.AppendLine(PrintBoardTasks());
-            sb.AppendLine(BOARD_HEADER);
+            sb.AppendLine(Constants.BOARD_HEADER);
 
             return sb.ToString();
         }

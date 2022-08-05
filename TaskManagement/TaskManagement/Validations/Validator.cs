@@ -1,15 +1,14 @@
 ﻿using System;
+using TaskManagement.Exceptions;
+using TaskManagement.Validations;
 
 public static class Validator
 {
-    private static string StringLenErrorMsg = "{0} must be between {1} and {2} characters!";
-    private static string NullErrorMsg = "{0} cannot be null value!";
-
     public static void ValidateIntRange(int value, int min, int max, string message)
     {
         if (value < min || value > max)
         {
-            throw new ArgumentException(message);
+            throw new InvalidUserInputException(message);
         }
     }
 
@@ -17,7 +16,7 @@ public static class Validator
     {
         if (value < min || value > max)
         {
-            throw new ArgumentException(message);
+            throw new InvalidUserInputException(message);
         }
     }
 
@@ -25,7 +24,7 @@ public static class Validator
     {
         if (arg == null)
         {
-            throw new ArgumentException(string.Format(NullErrorMsg, field));
+            throw new InvalidUserInputException(string.Format(Constants.NULL_ERROR_MSG, field));
         }
     }
 
@@ -33,7 +32,7 @@ public static class Validator
     {
         if (toValidate.Length < minLen || toValidate.Length > maxLen)
         {
-            throw new ArgumentException(string.Format(StringLenErrorMsg, field, minLen, maxLen));
+            throw new InvalidUserInputException(string.Format(Constants.STRING_LEN_ERROR_MSG, field, minLen, maxLen));
         }
     }
 }

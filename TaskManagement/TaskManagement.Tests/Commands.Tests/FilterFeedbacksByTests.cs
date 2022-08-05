@@ -7,12 +7,12 @@ using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
-using TaskManagement.Validations;
+using TaskManagement.Models.Enums.FeedbackStatus;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
     [TestClass]
-    public class CreateMemberTests
+    public class FilterFeedbacksByTests
     {
         private IRepository repository;
         private ICommandFactory commandFactory;
@@ -25,12 +25,12 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        [DataRow(1)]
+        [DataRow(2)]
         public void Execute_Should_ThrowException_When_ArgumentsCountDifferentThanExpected(int testValue)
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var command = new FilterFeedbacksByCommand(commandParameters, repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -38,12 +38,11 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        public void Execute_Should_ThrowException_When_NameIsNotValid()
+        public void Execute_Should_ThrowException_When_ParamsAreNotValid()
         {
             // Arrange
-            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH + 1);
-            var commandParameters = new string[] { name }.ToList();
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var commandParameters = new string[] { "rating", "active" }.ToList();
+            var command = new FilterFeedbacksByCommand(commandParameters, repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -51,18 +50,16 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        public void Execute_Should_CreateNewMember_When_ValidParameters()
+        public void Execute_Should_FilterFeedback_When_ParamsAreValid()
         {
             // Arrange
-            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
-            var commandParameters = new string[] { name }.ToList();
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var feedback = this.repository.CreateFeedBack("FeedbackTitle", "FeedbackDescription", 59);
 
-            // Act
-            command.Execute();
+            var commandParameters = new string[] { "status", "New" }.ToList();
+            var command = new FilterFeedbacksByCommand(commandParameters, repository);
 
-            // Assert
-            Assert.IsTrue(repository.Members.Count > 0);
+            // Act & Assert
+            Assert.IsTrue(command.Execute().Contains("--FEEDBACKS--"));
         }
     }
 }

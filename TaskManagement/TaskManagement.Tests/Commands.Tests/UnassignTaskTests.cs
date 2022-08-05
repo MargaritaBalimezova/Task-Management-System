@@ -6,6 +6,7 @@ using System.Text;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
@@ -34,7 +35,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new UnassignTaskCommand(commandParameters, repository);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<InvalidUserInputException>(() =>
                 command.Execute());
         }
 
@@ -87,7 +88,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new UnassignTaskCommand(commandParameters, repository);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<EntityNotFoundException>(() =>
                 command.Execute());
         }
     }

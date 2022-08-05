@@ -2,13 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models.Enums.FeedbackStatus;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
     public class ChangeFeedbackCommand : BaseCommand
     {
+        private const int ExpectedParamsCount = 3;
+
         public ChangeFeedbackCommand(IList<string> commandParameters, IRepository repository)
             : base(commandParameters, repository)
         {
@@ -16,9 +20,9 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count != 3)
+            if (this.CommandParameters.Count < ExpectedParamsCount)
             {
-                throw new ArgumentException($"Invalid number of arguments. Expected: 3, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(string.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             // Parameters:
@@ -44,7 +48,7 @@ namespace TaskManagement.Commands
                 return $"Rating of task with {task.Id} was changed.";
             }
 
-            throw new ArgumentException("You can change only Feedback Status or Rating!");
+            throw new InvalidUserInputException("You can change only Feedback Status or Rating!");
         }
     }
 }

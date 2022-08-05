@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Models
 {
     public class Team : ITeam
     {
-        private const string TEAM_HEADER = "--TEAM--";
-        private const int NameMinLen = 5;
-        private const int NameMaxLen = 15;
-
         private string name;
         private List<IMember> members = new List<IMember>();
         private List<IBoard> boards = new List<IBoard>();
@@ -24,8 +21,8 @@ namespace TaskManagement.Models
             AddEventLog($"Team with {this.Name} was created!");
         }
 
-
         #region Properties
+
         public string Name
         {
             get
@@ -35,11 +32,10 @@ namespace TaskManagement.Models
             private set
             {
                 Validator.ValidateArgumentIsNotNull(value, "Team's name");
-                Validator.ValidateStringLength(value, NameMinLen, NameMaxLen, "Team's name");
+                Validator.ValidateStringLength(value, Constants.TEAM_NAME_MIN_LEN, Constants.TEAM_NAME_MAX_LEN, "Team's name");
                 this.name = value;
             }
         }
-
 
         public List<IMember> Members
         {
@@ -64,9 +60,11 @@ namespace TaskManagement.Models
                 return new List<IEventLog>(this.activityLog);
             }
         }
-        #endregion
+
+        #endregion Properties
 
         #region Methods
+
         public void AddBoard(IBoard board)
         {
             Validator.ValidateArgumentIsNotNull(board, "Team's board");
@@ -87,7 +85,7 @@ namespace TaskManagement.Models
         {
             Validator.ValidateArgumentIsNotNull(members, "Team's member");
 
-            if (members.Any(m=>m.Name == member.Name))
+            if (members.Any(m => m.Name == member.Name))
             {
                 throw new ArgumentException($"Member with name {member.Name} is already in team {this.Name}!");
             }
@@ -96,6 +94,7 @@ namespace TaskManagement.Models
 
             AddEventLog($"Member {member.Name} joined {this.Name} team!");
         }
+
         public void RemoveMember(IMember member)
         {
             this.members.Remove(member);
@@ -110,6 +109,7 @@ namespace TaskManagement.Models
 
             AddEventLog($"Task with {task.Id} added to {board.Name} in {this.Name} team.");
         }
+
         public void AddEventLog(string desc)
         {
             this.activityLog.Add(new EventLog(desc));
@@ -119,27 +119,27 @@ namespace TaskManagement.Models
         {
             return string.Join(Environment.NewLine, this.activityLog.Select(e => e.ViewInfo()));
         }
+
         public string ShowMembers()
         {
             return string.Join(Environment.NewLine, this.Members.Select(e => e.ToString()));
         }
 
-        #endregion
+        #endregion Methods
 
         //TODO check the printing format
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine(TEAM_HEADER);
+            sb.AppendLine(Constants.TEAM_HEADER);
             sb.AppendLine($"Team name: {this.name}");
             sb.AppendLine($"Members of the team: ");
             sb.AppendLine(string.Join('\n', this.members));
             sb.AppendLine(string.Join('\n', this.boards));
-            sb.AppendLine(TEAM_HEADER);
+            sb.AppendLine(Constants.TEAM_HEADER);
 
             return sb.ToString();
         }
-
     }
 }

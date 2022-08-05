@@ -2,29 +2,24 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TaskManagement.Exceptions;
 using TaskManagement.Models;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.StoryStatus;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Tests.Models.Tests.Task.Tests
 {
     [TestClass]
     public class StoryTests
     {
-        private const int MEMBER_NAME_MIN_LENGTH = 5;
-        private const int MEMBER_NAME_MAX_LENGTH = 15;
-        private const int TaskTitleMinLen = 10;
-        private const int TaskTitleMaxLen = 50;
-        private const int TaskDescriptionMinLen = 10;
-        private const int TaskDescriptionMaxLen = 500;
-
         [TestMethod]
         public void Constructor_Should_CreateStory_When_ParamsValid()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             int id = 1;
             //Act
             var story = new Story(title, description, id: id, PriorityType.High,
@@ -34,12 +29,12 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Base class validation failed!")]
+        [ExpectedException(typeof(InvalidUserInputException), "Base class validation failed!")]
         public void Constuctor_Should_ThrowException_When_DescriptionInvalid()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen + 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN + 1);
             int id = 1;
 
             //Act && Assert
@@ -51,8 +46,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void PriorityGetter_Should_ReturnValidData()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             var priority = PriorityType.High;
             int id = 1;
             //Act
@@ -66,8 +61,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void PrioritySetter_Should_ChangePriority()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             var priority = PriorityType.High;
             int id = 1;
             var story = new Story(title, description, id: id, priority,
@@ -83,8 +78,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void PrioritySetter_Should_NotChangePriority_When_SamePriorityPassed()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             var priority = PriorityType.High;
             int id = 1;
             var story = new Story(title, description, id: id, priority,
@@ -100,8 +95,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void SizeGetter_Should_ReturnValidData()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             var priority = PriorityType.High;
             var size = SizeType.Medium;
             int id = 1;
@@ -116,8 +111,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void SizeSetter_Should_ChangeSize()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             var priority = PriorityType.High;
             var size = SizeType.Medium;
             int id = 1;
@@ -133,8 +128,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void SizeSetter_ShouldNot_ChangeSize_When_SameValuePassed()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             var priority = PriorityType.High;
             var size = SizeType.Medium;
             int id = 1;
@@ -150,9 +145,9 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void Assignee_Should_ReturnValidPrintableData()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
+            var assignee = new Member(new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1));
             int id = 1;
             var story = new Story(title, description, id: id, PriorityType.High,
                 SizeType.Medium);
@@ -168,8 +163,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void StatusGetter_Should_ReturnValidStatus()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
 
             //Act
             var story = new Story(title, description, id: 1, PriorityType.High,
@@ -182,9 +177,9 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void AddComment_Should_AddCommentToList()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
+            var assignee = new Member(new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1));
             var story = new Story(title, description, 1, PriorityType.High,
                 SizeType.Medium);
 
@@ -199,9 +194,9 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void RemoveComment_Should_RemoveCommentFromList()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
+            var assignee = new Member(new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1));
             var comment = new Comment("Comment", assignee.Name);
 
             var story = new Story(title, description, 1, PriorityType.High,
@@ -220,9 +215,9 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         public void ActivityLog_Should_LogEveryChange()
         {
             //Arrange
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
-            var assignee = new Member(new string('x', MEMBER_NAME_MAX_LENGTH - 1));
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
+            var assignee = new Member(new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1));
 
             var comment = new Comment("Comment", assignee.Name);
 
@@ -237,8 +232,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         [TestMethod]
         public void ChangeStatus_Should_ChangeStatus_When_NewStatusPassed()
         {
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             int id = 1;
             var status = Status.InProgress;
             var story = new Story(title, description, id: id, PriorityType.High,
@@ -252,21 +247,21 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         [TestMethod]
         public void ChangeStatus_ShouldNot_ChangeStatus_When_SameStatusPassed()
         {
-            string title = new string('x', TaskTitleMinLen + 1);
-            string description = new string('x', TaskDescriptionMaxLen - 1);
+            string title = new string('x', Constants.TITLE_MIN_LEN + 1);
+            string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             int id = 1;
             var status = Status.NotDone;
             var story = new Story(title, description, id: id, PriorityType.High,
                 SizeType.Medium);
 
             var expected = $"Status of Story with ID {story.Id} {story.Title} is already at {story.Status}.";
-            
+
             //Act
 
             story.ChangeStatus(status);
-            
+
             //Assert
-            Assert.AreEqual(expected, story.ActivityLog[story.ActivityLog.Count - 1].Description , "ChangeStatus failed in Story class!");
+            Assert.AreEqual(expected, story.ActivityLog[story.ActivityLog.Count - 1].Description, "ChangeStatus failed in Story class!");
         }
     }
 }

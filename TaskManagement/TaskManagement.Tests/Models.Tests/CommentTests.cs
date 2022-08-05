@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TaskManagement.Exceptions;
 using TaskManagement.Models;
 
 namespace TaskManagement.Tests.Models.Tests
@@ -16,12 +17,12 @@ namespace TaskManagement.Tests.Models.Tests
             string content = "This is a test description";
             var comment = new Comment(content, author);
 
-            Assert.AreEqual("Test Author", comment.Author,"Comment created successfully!");
-            Assert.AreEqual("This is a test description", comment.Content, "Comment created successfully!");            
+            Assert.AreEqual("Test Author", comment.Author, "Comment created successfully!");
+            Assert.AreEqual("This is a test description", comment.Content, "Comment created successfully!");
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),"Input value can not be null!")]
+        [ExpectedException(typeof(InvalidUserInputException), "Input value can not be null!")]
         public void ConstructorShould_Throw_When_NullValueIsPassedToTheAuthor()
         {
             string author = null;
@@ -30,7 +31,7 @@ namespace TaskManagement.Tests.Models.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Input value can not be null!")]
+        [ExpectedException(typeof(InvalidUserInputException), "Input value can not be null!")]
         public void ConstructorShould_Throw_When_NullValueIsPassedToTheContent()
         {
             string author = "Test Author";

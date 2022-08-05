@@ -93,7 +93,7 @@ namespace TaskManagement.Tests.CoreTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NameExistsException), 
+        [ExpectedException(typeof(NameExistsException),
             "Тhe uniqueness of member's name is broken")]
         public void CreateMember_Should_ThrowException_When_NameNotUnique()
         {
@@ -111,7 +111,7 @@ namespace TaskManagement.Tests.CoreTests
             //Arrange
             var repository = new Repository();
 
-            //Act 
+            //Act
             var team = repository.CreateTeam("NaiDobrite");
 
             //Assert
@@ -149,7 +149,7 @@ namespace TaskManagement.Tests.CoreTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(NameExistsException),
            "Тhe uniqueness of board's name is broken")]
         public void AddBoardToTeam_Should_AddBoardToTeam_When_BoardsNameNotUnique()
         {
@@ -246,7 +246,6 @@ namespace TaskManagement.Tests.CoreTests
             repository.FindTaskById(100);
         }
 
-
         [TestMethod]
         public void FindTeamByName_Should_ReturnTeam()
         {
@@ -273,7 +272,6 @@ namespace TaskManagement.Tests.CoreTests
             repository.FindTeamByName(name);
         }
 
-
         [TestMethod]
         public void IsMemberInTeam_Should_ReturnTrueWhenMemberExists()
         {
@@ -286,7 +284,7 @@ namespace TaskManagement.Tests.CoreTests
             team.AddMember(member);
 
             //Act & Assert
-            Assert.IsTrue(repository.IsMemberInTeam(team, member), 
+            Assert.IsTrue(repository.IsMemberInTeam(team, member),
                 "IsMemberInTeam failed to find an existing member");
         }
 
@@ -297,7 +295,6 @@ namespace TaskManagement.Tests.CoreTests
             var team = new Team("Dummy team");
             var member = new Member("Dummy member");
             var repository = new Repository();
-
 
             //Act & Assert
             Assert.IsFalse(repository.IsMemberInTeam(team, member),

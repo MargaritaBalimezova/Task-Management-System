@@ -6,6 +6,7 @@ using System.Text;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -31,7 +32,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new ShowMemberActivityCommand(commandParameters, repository);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<InvalidUserInputException>(() =>
                 command.Execute());
         }
 

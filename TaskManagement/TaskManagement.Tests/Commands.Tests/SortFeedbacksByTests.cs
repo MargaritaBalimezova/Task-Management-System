@@ -7,12 +7,11 @@ using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
-using TaskManagement.Validations;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
     [TestClass]
-    public class CreateMemberTests
+    public class SortFeedbacksByTests
     {
         private IRepository repository;
         private ICommandFactory commandFactory;
@@ -30,7 +29,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var command = new SortFeedbacksByCommand(commandParameters, repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -38,12 +37,11 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        public void Execute_Should_ThrowException_When_NameIsNotValid()
+        public void Execute_Should_ThrowException_When_ParamNotValid()
         {
             // Arrange
-            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH + 1);
-            var commandParameters = new string[] { name }.ToList();
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var commandParameters = new string[] { "size" }.ToList();
+            var command = new SortFeedbacksByCommand(commandParameters, repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -51,18 +49,29 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        public void Execute_Should_CreateNewMember_When_ValidParameters()
+        public void Execute_Should_SortFeedback_When_ParamValid_Ver1()
         {
             // Arrange
-            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
-            var commandParameters = new string[] { name }.ToList();
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var feedback = this.repository.CreateFeedBack("FeedbackTitle", "FeedbackDescription", 59);
 
-            // Act
-            command.Execute();
+            var commandParameters = new string[] { "title" }.ToList();
+            var command = new SortFeedbacksByCommand(commandParameters, repository);
 
-            // Assert
-            Assert.IsTrue(repository.Members.Count > 0);
+            // Act & Assert
+            Assert.IsTrue(command.Execute().Contains("--FEEDBACKS--"));
+        }
+
+        [TestMethod]
+        public void Execute_Should_SortFeedback_When_ParamValid_Ver2()
+        {
+            // Arrange
+            var feedback = this.repository.CreateFeedBack("FeedbackTitle", "FeedbackDescription", 59);
+
+            var commandParameters = new string[] { "rating" }.ToList();
+            var command = new SortFeedbacksByCommand(commandParameters, repository);
+
+            // Act & Assert
+            Assert.IsTrue(command.Execute().Contains("--FEEDBACKS--"));
         }
     }
 }

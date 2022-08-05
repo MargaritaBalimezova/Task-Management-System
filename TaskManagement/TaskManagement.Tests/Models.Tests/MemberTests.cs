@@ -2,23 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TaskManagement.Exceptions;
 using TaskManagement.Models;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Tests.Models.Tests
 {
     [TestClass]
     public class MemberTests
     {
-        private const int MEMBER_NAME_MIN_LENGTH = 5;
-        private const int MEMBER_NAME_MAX_LENGTH = 15;
-
-        private const string MEMBER_CREATED_MSG = "Successfuly created {0} with name {1}!";
-        private const string NO_TASK_HEADER = "--NO TASKS--";
-        private const string TASK_HEADER = "--TASKS--";
-        private const string MEMBER_HEADER = "--MEMBER--";
-
         private static FeedBack feedback;
 
         [ClassInitialize()]
@@ -36,7 +30,7 @@ namespace TaskManagement.Tests.Models.Tests
         public void Constructor_Should_CreateMember_When_NameValid()
         {
             //Arrange
-            string name = new string('x', MEMBER_NAME_MAX_LENGTH - 1);
+            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
 
             //Act
             var member = new Member(name);
@@ -46,18 +40,18 @@ namespace TaskManagement.Tests.Models.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Invalid member name!")]
+        [ExpectedException(typeof(InvalidUserInputException), "Invalid member name!")]
         public void Constructor_Should_Fail_When_NameIsInvalid()
         {
             //Arrange
-            string name = new string('x', MEMBER_NAME_MAX_LENGTH + 1);
+            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH + 1);
 
             //Act & Assert
             var member = new Member(name);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException), "Member name is NULL!")]
+        [ExpectedException(typeof(InvalidUserInputException), "Member name is NULL!")]
         public void Constructor_Should_Fail_When_NameIsNull()
         {
             //Arrange
@@ -71,7 +65,7 @@ namespace TaskManagement.Tests.Models.Tests
         public void MemberTasks_Should_AddTaskFromMember()
         {
             //Arrange
-            string name = new string('x', MEMBER_NAME_MAX_LENGTH - 1);
+            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
             var member = new Member(name);
 
             //Act
@@ -85,7 +79,7 @@ namespace TaskManagement.Tests.Models.Tests
         public void MemberTasks_Should_RemoveTaskFromMember()
         {
             //Arrange
-            string name = new string('x', MEMBER_NAME_MAX_LENGTH - 1);
+            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
             var member = new Member(name);
 
             member.AddTask(feedback);
@@ -101,7 +95,7 @@ namespace TaskManagement.Tests.Models.Tests
         public void ActivityLog_Should_Log_Every_Change()
         {
             //Arrange
-            string name = new string('x', MEMBER_NAME_MAX_LENGTH - 1);
+            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
             var member = new Member(name);
 
             //Act
@@ -115,10 +109,10 @@ namespace TaskManagement.Tests.Models.Tests
         public void ShowActivity_Should_Show_Activity_Log()
         {
             //Arrange
-            string name = new string('x', MEMBER_NAME_MAX_LENGTH - 1);
+            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
             var member = new Member(name);
 
-            var eventLog = new EventLog(string.Format(MEMBER_CREATED_MSG, "Member", name));
+            var eventLog = new EventLog(string.Format(Constants.CREATED_MSG, "Member", name));
 
             //Assert & Act
             Assert.AreEqual(eventLog.ViewInfo(), member.ShowActivity(), "Show activity log is implemented correctly!");
@@ -129,7 +123,7 @@ namespace TaskManagement.Tests.Models.Tests
         {
             //with tasks to print
             //Arrange
-            string name = new string('x', MEMBER_NAME_MAX_LENGTH - 1);
+            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
             var member = new Member(name);
 
             member.AddTask(feedback);
@@ -137,15 +131,15 @@ namespace TaskManagement.Tests.Models.Tests
             //Act
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine(MEMBER_HEADER);
+            sb.AppendLine(Constants.MEMBER_HEADER);
             sb.AppendLine($"Member Name: {name}");
 
-            sb.AppendLine($"{TASK_HEADER}");
+            sb.AppendLine($"{Constants.TASK_HEADER}");
 
             sb.Append($"{feedback.ToString()}");
 
-            sb.AppendLine(TASK_HEADER);
-            sb.AppendLine(MEMBER_HEADER);
+            sb.AppendLine(Constants.TASK_HEADER);
+            sb.AppendLine(Constants.MEMBER_HEADER);
 
             //Assert
 
@@ -157,17 +151,17 @@ namespace TaskManagement.Tests.Models.Tests
         {
             //without tasks to print
             //Arrange
-            string name = new string('x', MEMBER_NAME_MAX_LENGTH - 1);
+            string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
             var member = new Member(name);
             //Act
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine(MEMBER_HEADER);
+            sb.AppendLine(Constants.MEMBER_HEADER);
             sb.AppendLine($"Member Name: {name}");
 
-            sb.AppendLine($"{NO_TASK_HEADER}");
+            sb.AppendLine($"{Constants.NO_TASK_HEADER}");
 
-            sb.AppendLine(MEMBER_HEADER);
+            sb.AppendLine(Constants.MEMBER_HEADER);
 
             //Assert
 

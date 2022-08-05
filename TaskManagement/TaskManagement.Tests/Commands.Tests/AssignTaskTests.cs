@@ -6,6 +6,7 @@ using System.Text;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models;
 using TaskManagement.Models.Enums;
 
@@ -33,7 +34,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new AssignTaskCommand(commandParameters, repository);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<InvalidUserInputException>(() =>
                 command.Execute());
         }
 
@@ -75,6 +76,25 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
+        public void Execute_Should_ThrowException_When_TaskIsFeedback()
+        {
+            // Arrange
+            var member = this.repository.CreateMember("testMember");
+            var task = this.repository.CreateFeedBack("FeedbackTitle", "FeedbackDescription", 59);
+            var team = this.repository.CreateTeam("testTeam");
+
+            team.AddMember(member);
+
+            var commandParameters = new string[] { "1", "testMember", "testTeam" }.ToList();
+
+            var command = new AssignTaskCommand(commandParameters, repository);
+
+            // Act, Assert
+            Assert.ThrowsException<InvalidUserInputException>(() =>
+                command.Execute());
+        }
+
+        [TestMethod]
         public void Execute_Should_ThrowException_When_MemberNotInTeam()
         {
             // Arrange
@@ -87,7 +107,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new AssignTaskCommand(commandParameters, repository);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<EntityNotFoundException>(() =>
                 command.Execute());
         }
     }

@@ -6,25 +6,23 @@ using TaskManagement.Models.Tasks;
 using TaskManagement.Models.Enums;
 using System.Collections.Generic;
 using System.Linq;
+using TaskManagement.Exceptions;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Tests.Models.Tests
 {
     [TestClass]
     public class BoardTests
     {
-        private const int NameMinLen = 5;
-        private const int NameMaxLen = 10;
-
-        static string title;
-        static string desctription;
-        static int id;
-        static Board board;
-        static PriorityType priority;
-        static Severity severity;
-        static IMember assignee;
-        static IList<string> steps;
-        static Bug bug;
-
+        private static string title;
+        private static string desctription;
+        private static int id;
+        private static Board board;
+        private static PriorityType priority;
+        private static Severity severity;
+        private static IMember assignee;
+        private static IList<string> steps;
+        private static Bug bug;
 
         [ClassInitialize()]
         public static void BoardTests_Classinitialize(TestContext context)
@@ -39,34 +37,34 @@ namespace TaskManagement.Tests.Models.Tests
             assignee = new Member("Test Assignee");
             steps = new List<string>();
 
-            bug = new Bug(title, desctription,id, priority, severity, steps);
+            bug = new Bug(title, desctription, id, priority, severity, steps);
         }
 
         [TestMethod]
         public void AddEventLog_Should_AddElement_When_InstanceIsCreated()
         {
-            Assert.AreEqual(1, board.ActivityLog.Count,"Event added to the log succesfully!");
+            Assert.AreEqual(1, board.ActivityLog.Count, "Event added to the log succesfully!");
         }
 
         [TestMethod]
         public void Constructor_Should_Throw_When_NameShorterThanMinLen()
         {
-            Assert.ThrowsException<ArgumentException>(() => 
-            new Board(new string('a', NameMinLen - 1)),$"Board name must be  longer than {NameMinLen}!");
+            Assert.ThrowsException<InvalidUserInputException>(() =>
+            new Board(new string('a', Constants.BOARD_NAME_MIN_LEN - 1)), $"Board name must be  longer than {Constants.BOARD_NAME_MIN_LEN}!");
         }
 
         [TestMethod]
         public void Constructor_Should_Throw_When_NameLargerThanMaxLen()
         {
-            Assert.ThrowsException<ArgumentException>(() => 
-            new Board(new string('a', NameMaxLen + 1)), $"Board name must be  shorter than {NameMaxLen}!");
+            Assert.ThrowsException<InvalidUserInputException>(() =>
+            new Board(new string('a', Constants.BOARD_NAME_MAX_LEN + 1)), $"Board name must be  shorter than {Constants.BOARD_NAME_MAX_LEN}!");
         }
 
         [TestMethod]
         public void Constructor_Should_Throw_When_NameNullValuePassed()
         {
-            Assert.ThrowsException<ArgumentException>(() =>
-            new Board(null),"Board name can not be null or empty!");
+            Assert.ThrowsException<InvalidUserInputException>(() =>
+            new Board(null), "Board name can not be null or empty!");
         }
 
         [TestMethod]
@@ -81,24 +79,22 @@ namespace TaskManagement.Tests.Models.Tests
         [TestMethod]
         public void Should_CreateNewBoard_When_ValuesAreCorrect()
         {
-            Assert.AreEqual("Board Name", board.Name,"Board created successfully!");                   
+            Assert.AreEqual("Board Name", board.Name, "Board created successfully!");
         }
 
         [TestMethod]
         public void BoardTasks_Should_ReturnCopyOfTasksCollection()
         {
-
             board.BoardTasks.Add(bug);
-            Assert.AreEqual(0, board.BoardTasks.Count,"Successfully returned a copy of board tasks list!");
+            Assert.AreEqual(0, board.BoardTasks.Count, "Successfully returned a copy of board tasks list!");
         }
-       
 
         [TestMethod]
         public void BoardTasks_Should_AddTaskToBoard()
         {
             board.AddTaskToBoard(bug);
 
-            Assert.AreEqual(1, board.BoardTasks.Count,"Task added successfully to board!");
+            Assert.AreEqual(1, board.BoardTasks.Count, "Task added successfully to board!");
             //Reset
             board.RemoveTaskFromBoard(bug);
         }
@@ -113,7 +109,7 @@ namespace TaskManagement.Tests.Models.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException),"This task is already on the board!")]
+        [ExpectedException(typeof(InvalidOperationException), "This task is already on the board!")]
         public void AddTaskToBoard_Should_Throw_When_AddAnItemTwice()
         {
             board.AddTaskToBoard(bug);
@@ -125,16 +121,14 @@ namespace TaskManagement.Tests.Models.Tests
             {
                 board.RemoveTaskFromBoard(bug);
                 throw;
-            }          
+            }
         }
 
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException), "This task does not exist on this board!")]
         public void RemoveTaskFromBoard_Should_Throw_When_RemoveATaskWhichIsNotOnBoard()
-        {           
+        {
             board.RemoveTaskFromBoard(bug);
         }
-
-
     }
 }

@@ -198,9 +198,9 @@ namespace TaskManagement.Core
 
         public void AddBoardToTeam(ITeam team, IBoard board)
         {
-            if (IsBoardInTeam(team,board))
+            if (IsBoardInTeam(team, board))
             {
-                throw new ArgumentException($"Board with name {board.Name} already exists");
+                throw new NameExistsException($"Board with name {board.Name} already exists");
             }
 
             team.AddBoard(board);
@@ -224,7 +224,6 @@ namespace TaskManagement.Core
 
             return sb.ToString();
         }
-
     }
 
     #endregion Methods

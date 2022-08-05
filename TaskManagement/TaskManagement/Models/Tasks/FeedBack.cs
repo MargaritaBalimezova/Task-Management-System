@@ -5,16 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums.FeedbackStatus;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Models.Tasks
 {
     public class FeedBack : Task, IFeedback
     {
-        private const int RATING_MIN_VALUE = 1;
-        private const int RATING_MAX_VALUE = 100;
-        private static string RATING_ERROR_MSG = $"Rating must be between {RATING_MIN_VALUE} and {RATING_MAX_VALUE} characters long!";
-        private const string FEEDBACK_HEADER = "--FEEDBACKS--";
-
         private int rating;
         private Status status;
 
@@ -35,7 +31,7 @@ namespace TaskManagement.Models.Tasks
             }
             private set
             {
-                Validator.ValidateIntRange(value, RATING_MIN_VALUE, RATING_MAX_VALUE, RATING_ERROR_MSG);
+                Validator.ValidateIntRange(value, Constants.RATING_MIN_VALUE, Constants.RATING_MAX_VALUE, Constants.RATING_ERROR_MSG);
                 this.rating = value;
             }
         }
@@ -85,7 +81,7 @@ namespace TaskManagement.Models.Tasks
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine(FEEDBACK_HEADER);
+            sb.AppendLine(Constants.FEEDBACK_HEADER);
             sb.AppendLine($"Status: {this.Status}");
             sb.AppendLine($"Rating: {this.Rating}");
 

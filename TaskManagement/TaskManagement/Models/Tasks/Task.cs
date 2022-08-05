@@ -4,20 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Models
 {
     public abstract class Task : ITask
     {
-        private const int TitleMinLen = 10;
-        private const int TitleMaxLen = 50;
-        private const int DescriptionMinLen = 10;
-        private const int DescriptionMaxLen = 500;
-
-        private const string NO_COMMENT_HEADER = "--NO COMMENTS--";
-        private const string COMMENT_HEADER = "--COMMENTS--";
-        private const string TASK_CREATED_MSG = "Successfuly created {0} with id {1}!";
-
         private string title;
         private string description;
         private readonly List<IComment> comments;
@@ -32,7 +24,7 @@ namespace TaskManagement.Models
             comments = new List<IComment>();
             activityLog = new List<IEventLog>();
 
-            AddEventLog(string.Format(TASK_CREATED_MSG, this.GetType().Name, this.Id));
+            AddEventLog(string.Format(Constants.CREATED_MSG, this.GetType().Name, this.Id));
         }
 
         #region Properties
@@ -46,7 +38,7 @@ namespace TaskManagement.Models
             private set
             {
                 Validator.ValidateArgumentIsNotNull(value, "Title");
-                Validator.ValidateStringLength(value, TitleMinLen, TitleMaxLen, "Title");
+                Validator.ValidateStringLength(value, Constants.TITLE_MIN_LEN, Constants.TITLE_MAX_LEN, "Title");
 
                 this.title = value;
             }
@@ -61,7 +53,7 @@ namespace TaskManagement.Models
             private set
             {
                 Validator.ValidateArgumentIsNotNull(value, "Description");
-                Validator.ValidateStringLength(value, DescriptionMinLen, DescriptionMaxLen, "Description");
+                Validator.ValidateStringLength(value, Constants.DESCRIPTION_MIN_LEN, Constants.DESCRIPTION_MAX_LEN, "Description");
 
                 this.description = value;
             }
@@ -134,18 +126,18 @@ namespace TaskManagement.Models
 
             if (this.comments.Count == 0)
             {
-                sb.AppendLine(NO_COMMENT_HEADER);
+                sb.AppendLine(Constants.NO_COMMENT_HEADER);
             }
             else
             {
-                sb.AppendLine(COMMENT_HEADER);
+                sb.AppendLine(Constants.COMMENT_HEADER);
 
                 foreach (var comment in this.comments)
                 {
                     sb.Append(comment.ToString());
                 }
 
-                sb.AppendLine(COMMENT_HEADER);
+                sb.AppendLine(Constants.COMMENT_HEADER);
             }
 
             return sb.ToString();

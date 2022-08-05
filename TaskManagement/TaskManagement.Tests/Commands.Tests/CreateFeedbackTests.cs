@@ -6,6 +6,7 @@ using System.Text;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -23,7 +24,7 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        [DataRow(5)]
+        [DataRow(3)]
         public void Execute_Should_ThrowException_When_ArgumentsCountDifferentThanExpected(int testValue)
         {
             // Arrange
@@ -31,22 +32,18 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new CreateFeedbackCommand(commandParameters, repository);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<InvalidUserInputException>(() =>
                 command.Execute());
         }
 
         [TestMethod]
-        public void Execute_Should_CreateNewMember_When_ValidParameters()
+        public void Execute_Should_CreateNewFeedback_When_ValidParameters()
         {
             // Arrange
             var taskFeedback = this.repository.CreateFeedBack("TestTile123", "TestDescription", 58);
 
-            var team = this.repository.CreateTeam("testTeam");
-
-            var board = this.repository.CreateBoard("testBoard");
-
-            var commandParameters = new string[] { "TestTile123", "TestDescription", "58", "testBoard", "testTeam" }.ToList();
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var commandParameters = new string[] { "TestTile123", "TestDescription", "58" }.ToList();
+            var command = new CreateFeedbackCommand(commandParameters, repository);
 
             // Act
             command.Execute();

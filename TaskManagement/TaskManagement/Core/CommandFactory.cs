@@ -88,14 +88,17 @@ namespace TaskManagement.Core
                 case "addmembertoteam":
                     return new AddMemberToTeam(commandParameters, repository);
 
-                case "listfeedbacks":
-                    return new ListFeedbacksCommand(commandParameters, repository);
+                case "sortfeedbacksby":
+                    return new SortFeedbacksByCommand(commandParameters, repository);
 
                 case "filterstoryby":
                     return new FilterStoryBy(commandParameters, repository);
 
                 case "filtertasksbytitle":
                     return new FilterTasksByTitle(commandParameters, repository);
+
+                case "filterfeedbacksby":
+                    return new FilterFeedbacksByCommand(commandParameters, repository);
 
                 case "sortstoryby":
                     return new SortStoryBy(commandParameters, repository);

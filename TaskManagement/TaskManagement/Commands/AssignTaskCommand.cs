@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
     public class AssignTaskCommand : BaseCommand
     {
+        private const int ExpectedParamsCount = 3;
+
         public AssignTaskCommand(IList<string> commandParameters, IRepository repository)
             : base(commandParameters, repository)
         {
@@ -16,9 +20,9 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count != 3)
+            if (this.CommandParameters.Count < ExpectedParamsCount)
             {
-                throw new ArgumentException($"Invalid number of arguments. Expected: 3, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(string.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             // Parameters:
@@ -33,13 +37,17 @@ namespace TaskManagement.Commands
             var member = this.Repository.FindMemberByName(memberName);
             var team = this.Repository.FindTeamByName(teamName);
 
-            if (Repository.IsMemberInTeam(team, member))
+            if (task.GetType().Name == "FeedBack")
+            {
+                throw new InvalidUserInputException($"Task of type Feedback can not have assignee.");
+            }
+            else if (Repository.IsMemberInTeam(team, member))
             {
                 member.AddTask(task);
             }
             else
             {
-                throw new ArgumentException($"Member with id {member.Name} was not found in the member list of team {team.Name}");
+                throw new EntityNotFoundException($"Member with id {member.Name} was not found in the member list of team {team.Name}");
             }
 
             switch (task.GetType().Name)

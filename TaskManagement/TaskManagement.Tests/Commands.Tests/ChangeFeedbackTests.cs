@@ -6,6 +6,7 @@ using System.Text;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Tasks;
 
@@ -33,7 +34,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new ChangeFeedbackCommand(commandParameters, repository);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<InvalidUserInputException>(() =>
                 command.Execute());
         }
 
@@ -46,7 +47,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new ChangeFeedbackCommand(commandParameters, repository);
 
             // Act, Assert
-            Assert.ThrowsException<ArgumentException>(() =>
+            Assert.ThrowsException<InvalidUserInputException>(() =>
                 command.Execute());
         }
 

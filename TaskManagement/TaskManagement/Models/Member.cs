@@ -4,19 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Models
 {
     public class Member : IMember
     {
-        private const int MEMBER_NAME_MIN_LENGTH = 5;
-        private const int MEMBER_NAME_MAX_LENGTH = 15;
-
-        private const string MEMBER_CREATED_MSG = "Successfuly created {0} with name {1}!";
-        private const string NO_TASK_HEADER = "--NO TASKS--";
-        private const string TASK_HEADER = "--TASKS--";
-        private const string MEMBER_HEADER = "--MEMBER--";
-
         private string name;
 
         private readonly IList<ITask> tasks;
@@ -29,7 +22,7 @@ namespace TaskManagement.Models
             this.tasks = new List<ITask>();
             this.activityLog = new List<IEventLog>();
 
-            AddEventLog(string.Format(MEMBER_CREATED_MSG, this.GetType().Name, this.Name));
+            AddEventLog(string.Format(Constants.CREATED_MSG, this.GetType().Name, this.Name));
         }
 
         #region Properties
@@ -43,7 +36,7 @@ namespace TaskManagement.Models
             private set
             {
                 Validator.ValidateArgumentIsNotNull(value, "Member name");
-                Validator.ValidateStringLength(value, MEMBER_NAME_MIN_LENGTH, MEMBER_NAME_MAX_LENGTH, "Member name");
+                Validator.ValidateStringLength(value, Constants.MEMBER_NAME_MIN_LENGTH, Constants.MEMBER_NAME_MAX_LENGTH, "Member name");
 
                 this.name = value;
             }
@@ -93,18 +86,18 @@ namespace TaskManagement.Models
 
             if (this.tasks.Count == 0)
             {
-                sb.AppendLine(NO_TASK_HEADER);
+                sb.AppendLine(Constants.NO_TASK_HEADER);
             }
             else
             {
-                sb.AppendLine(TASK_HEADER);
+                sb.AppendLine(Constants.TASK_HEADER);
 
                 foreach (var task in this.tasks)
                 {
                     sb.Append(task.ToString());
                 }
 
-                sb.AppendLine(TASK_HEADER);
+                sb.AppendLine(Constants.TASK_HEADER);
             }
 
             return sb.ToString();
@@ -114,14 +107,13 @@ namespace TaskManagement.Models
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine(MEMBER_HEADER);
+            sb.AppendLine(Constants.MEMBER_HEADER);
             sb.AppendLine($"Member Name: {this.Name}");
             sb.Append($"{this.PrintTasks()}");
-            sb.AppendLine(MEMBER_HEADER);
+            sb.AppendLine(Constants.MEMBER_HEADER);
 
             return sb.ToString();
         }
-
 
         #endregion Methods
     }
