@@ -151,6 +151,7 @@ namespace TaskManagement.Models.Tasks
             sb.AppendLine($"Priority: {this.Priority}");
             sb.AppendLine($"Severity: {this.Severity}");
             sb.AppendLine($"Assignee: {this.Assignee}");
+            sb.AppendLine($"Status: {this.Status}");
             sb.AppendLine("Steps to reproduce:");
             sb.AppendLine(PrintSteps());
 
@@ -164,7 +165,7 @@ namespace TaskManagement.Models.Tasks
 
             foreach (string item in stepsToReproduce)
             {
-                sb.AppendLine($"{counter}.{item}");
+                sb.AppendLine($"    {counter}.{item}");
                 counter++;
             }
 
