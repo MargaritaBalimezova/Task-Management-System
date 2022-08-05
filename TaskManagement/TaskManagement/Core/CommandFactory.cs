@@ -112,6 +112,9 @@ namespace TaskManagement.Core
                 case "filterassignedtasksby":
                     return new FilterAssignedTasksBy(commandParameters, repository);
 
+                case "help":
+                    return new Help(repository);
+
                 default:
                     throw new ArgumentException($"Command with name: {commandName} doesn't exist!");
             }

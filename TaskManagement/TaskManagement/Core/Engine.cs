@@ -19,6 +19,7 @@ namespace TaskManagement.Core
 
         public void Start()
         {
+            Console.WriteLine("Type help to see all of the commands\n");
             while (true)
             {
                 try
