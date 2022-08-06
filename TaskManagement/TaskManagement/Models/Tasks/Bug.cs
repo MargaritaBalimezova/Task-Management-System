@@ -5,6 +5,7 @@ using System.Text;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.BugStatus;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Models.Tasks
 {
@@ -148,7 +149,15 @@ namespace TaskManagement.Models.Tasks
         public override string AdditionalInfo()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"Assignee: {this.Assignee.Name}");
+            sb.AppendLine(Constants.BUGS_HEADER);
+            if (assignee==null)
+            {
+                sb.AppendLine($"Assignee: No assignee");
+            }
+            else
+            {
+                sb.AppendLine($"Assignee: {this.Assignee.Name}");
+            }
             sb.AppendLine($"Priority: {this.Priority}");
             sb.AppendLine($"Severity: {this.Severity}");           
             sb.AppendLine($"Status: {this.Status}");

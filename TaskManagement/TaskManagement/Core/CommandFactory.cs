@@ -3,6 +3,8 @@ using TaskManagement.Commands.Contracts;
 using TaskManagement.Core.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Text;
+using System.Linq;
 
 namespace TaskManagement.Core
 {
@@ -123,25 +125,47 @@ namespace TaskManagement.Core
             }
         }
 
-        // Receives a full line and extracts the command to be executed from it.
-        // For example, if the input line is "FilterBy Assignee John", the method will return "FilterBy".
         private string ExtractCommandName(string commandLine)
         {
             return commandLine.Split(" ")[0];
         }
 
-        // Receives a full line and extracts the parameters that are needed for the command to execute.
-        // For example, if the input line is "FilterBy Assignee John",
-        // the method will return a list of ["Assignee", "John"].
         private List<string> ExtractCommandParameters(string commandLine)
         {
             string[] commandTokens = commandLine.Split(" ");
-            List<string> parameters = new List<string>();
-            for (int i = 1; i < commandTokens.Length; i++)
+
+            var list = commandTokens.Skip(1).ToList();
+
+            if (string.Join(" ", list).Contains("\""))
             {
-                parameters.Add(commandTokens[i]);
+                var arg = string.Join(" ", list);
+                var parameters = new List<string>();
+                var word = new StringBuilder();
+                bool isQuoteOpen = false;
+                for (int i = 0; i < arg.Length; i++)
+                {
+                    var currSymbol = arg[i].ToString();
+                    if (currSymbol == "\"")
+                    {
+                        isQuoteOpen = isQuoteOpen == true ? false : true;
+                    }
+                    else if (isQuoteOpen)
+                    {
+                        word.Append(currSymbol);
+                    }
+                    else
+                    {
+                        word.Append(arg[i]);
+                    }
+                    if (i == arg.Length - 1 || !isQuoteOpen && currSymbol == " ")
+                    {
+                        parameters.Add(word.ToString());
+                        word.Clear();
+                    }
+                }
+                return parameters.Select(x => x.Trim()).ToList();
             }
-            return parameters;
+            return list;
         }
     }
 }

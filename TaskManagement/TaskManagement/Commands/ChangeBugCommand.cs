@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.BugStatus;
@@ -10,7 +11,7 @@ namespace TaskManagement.Commands
 {
     public class ChangeBugCommand : BaseCommand
     {
-        public const int ExpectedNumberOfArguments = 3;
+        public const int  ExpectedParamsCount = 3;
 
         public ChangeBugCommand(IList<string> parameters, IRepository repository)
            : base(parameters, repository)
@@ -19,9 +20,9 @@ namespace TaskManagement.Commands
           
         public override string Execute()
         {
-            if (this.CommandParameters.Count < 3)
+            if (this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new ArgumentException($"Invalid number of arguments. Expected: 3, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
             }
 
             int taskId = ParseIntParameter(base.CommandParameters[0],"TaskId");

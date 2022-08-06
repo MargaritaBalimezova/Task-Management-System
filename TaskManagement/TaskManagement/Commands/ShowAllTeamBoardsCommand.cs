@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 
 namespace TaskManagement.Commands
 {
     public class ShowAllTeamBoardsCommand : BaseCommand
     {
+        private const int ExpectedParamsCount = 1;
+
         public ShowAllTeamBoardsCommand(IList<string> parameters, IRepository repository)
            : base(parameters, repository)
         {
@@ -15,9 +18,9 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count < 1)
+            if (this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new ArgumentException($"Invalid number of arguments. Expected: 1, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, received: {this.CommandParameters.Count}");
             }
 
             ITeam team = this.Repository.FindTeamByName(base.CommandParameters[0]);
