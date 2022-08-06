@@ -5,6 +5,7 @@ using System.Text;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
+using TaskManagement.Exceptions;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -40,7 +41,7 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(InvalidUserInputException),
             "CreateTeam parameters count validation failed!")]
         public void Execute_Should_ThrowException_When_ArgumentCountDiffThanExpected()
         {

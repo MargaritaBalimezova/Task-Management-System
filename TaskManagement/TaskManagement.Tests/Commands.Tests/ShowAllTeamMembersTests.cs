@@ -6,6 +6,7 @@ using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Commands;
+using TaskManagement.Exceptions;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -47,7 +48,7 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(InvalidUserInputException),
             "ShowAllTeamMembers argument validation failed!")]
         public void Execute_Should_ThrowException_When_DiffParamsCountPassed()
         {

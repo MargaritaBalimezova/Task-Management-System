@@ -7,6 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TaskManagement.Models;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Tests;
+using TaskManagement.Exceptions;
 
 namespace TaskManagement.Commands
 {
@@ -46,7 +47,7 @@ namespace TaskManagement.Commands
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(InvalidUserInputException),
             "AddMemberToTeam parameters count validation failed!")]
         public void Execute_Should_ThrowException_When_ArgumentCountDiffThanExpected()
         {
