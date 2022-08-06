@@ -5,7 +5,7 @@ using TaskManagement.Core.Contracts;
 
 namespace TaskManagement.Commands
 {
-    class ShowTeamMembersCommand : BaseCommand
+    public class ShowTeamMembersCommand : BaseCommand
     {
         private const int ExpectedParamsCount = 1;
 

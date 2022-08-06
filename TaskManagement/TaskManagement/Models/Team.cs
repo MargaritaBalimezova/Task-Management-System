@@ -134,7 +134,7 @@ namespace TaskManagement.Models
 
             sb.AppendLine(Constants.TEAM_HEADER);
             sb.AppendLine($"Team name: {this.name}");
-            sb.AppendLine($"Members of the team: ");
+            sb.AppendLine($"Members of the team: {this.Members.Count}");
             sb.AppendLine(string.Join('\n', this.members));
             sb.AppendLine(string.Join('\n', this.boards));
             sb.AppendLine(Constants.TEAM_HEADER);
