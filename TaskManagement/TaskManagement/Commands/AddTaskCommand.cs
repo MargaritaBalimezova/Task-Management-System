@@ -28,7 +28,7 @@ namespace TaskManagement.Commands
             }
             catch
             {
-                throw new ArgumentException($"Invalid first parameter, id of task is expected, received: {this.CommandParameters[0]}");
+                throw new InvalidUserInputException($"Invalid first parameter, id of task is expected, received: {this.CommandParameters[0]}");
             }
 
             var task = this.Repository.FindTaskById(taskId);
