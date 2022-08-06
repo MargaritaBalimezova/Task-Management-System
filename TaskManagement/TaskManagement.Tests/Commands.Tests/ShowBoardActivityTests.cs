@@ -40,9 +40,9 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ShowTeamBoardActivity()
         {
 
-            ICommand createTeam = this.commandFactory.Create("Createteam TestTeam");
-            ICommand createBoardInTeam = this.commandFactory.Create("CreateBoardInTeam TestBoard TestTeam");
-            ICommand showBoardActivity = this.commandFactory.Create("ShowBoardActivity TestBoard TestTeam");
+            ICommand createTeam = this.commandFactory.Create($"Createteam {Common.Constants.TeamName}");
+            ICommand createBoardInTeam = this.commandFactory.Create($"CreateBoardInTeam {Common.Constants.BoardName} {Common.Constants.TeamName}");
+            ICommand showBoardActivity = this.commandFactory.Create($"ShowBoardActivity {Common.Constants.BoardName} {Common.Constants.TeamName}");
 
             createTeam.Execute();
             createBoardInTeam.Execute();

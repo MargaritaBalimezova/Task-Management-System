@@ -12,6 +12,7 @@ using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.BugStatus;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -32,7 +33,7 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ChangeBugStatus_When_CorrectValuesArePassed()
         {
 
-            ICommand createBug = this.commandFactory.Create("Createbug TestTitle111 TestDescription111 High Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 status fixed");
             // Act
             createBug.Execute();
@@ -46,7 +47,7 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ChangeBugPriority_When_CorrectValuesArePassed()
         {
 
-            ICommand createBug = this.commandFactory.Create("Createbug TestTitle111 TestDescription111 High Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 priority low");
             // Act
             createBug.Execute();
@@ -60,7 +61,7 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ChangeBugSeverity_When_CorrectValuesArePassed()
         {
 
-            ICommand createBug = this.commandFactory.Create("Createbug TestTitle111 TestDescription111 High Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 severity critical");
             // Act
             createBug.Execute();
@@ -82,7 +83,7 @@ namespace TaskManagement.Tests.Commands.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void Execute_ShouldThrow_When_IncorrectFilterIsPassed()
         {
-            ICommand createBug = this.commandFactory.Create("Createbug TestTitle111 TestDescription111 High Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 filter critical");
             createBug.Execute();
             changeBug.Execute();

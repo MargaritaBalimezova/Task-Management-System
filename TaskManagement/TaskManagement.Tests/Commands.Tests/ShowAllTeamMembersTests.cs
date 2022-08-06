@@ -7,6 +7,7 @@ using TaskManagement.Core.Contracts;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Commands;
 using TaskManagement.Exceptions;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -14,8 +15,6 @@ namespace TaskManagement.Tests.Commands.Tests
     public class ShowAllTeamMembersTests
     {
         private const int ExpectedParamsCount = 1;
-        private const string teamName = "DummyTeam";
-        private const string memberName = "DummyMember";
 
         private IRepository repository;
         private ICommandFactory commandFactory;
@@ -28,16 +27,16 @@ namespace TaskManagement.Tests.Commands.Tests
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
 
-            team = this.repository.CreateTeam(teamName);
-            member = this.repository.CreateMember(memberName);
+            team = this.repository.CreateTeam(Constants.TeamName);
+            member = this.repository.CreateMember(Constants.MemberName);
         }
 
         [TestMethod]
         public void Execute_Should_ReturnTheRightAmountOfMembersInTeam()
         {
             //Arrange
-            var commandParameters = new string[] { teamName, memberName };
-            var command = new ShowTeamMembersCommand(new string[] { teamName }, repository);
+            var commandParameters = new string[] { Constants.TeamName, Constants.MemberName };
+            var command = new ShowTeamMembersCommand(new string[] { Constants.TeamName }, repository);
             var addMemberCommand = new AddMemberToTeam(commandParameters, repository);
 
             //Act

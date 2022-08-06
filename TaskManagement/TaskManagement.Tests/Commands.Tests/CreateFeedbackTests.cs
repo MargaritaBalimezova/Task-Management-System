@@ -7,6 +7,7 @@ using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -40,9 +41,9 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_CreateNewFeedback_When_ValidParameters()
         {
             // Arrange
-            var taskFeedback = this.repository.CreateFeedBack("TestTile123", "TestDescription", 58);
+            var taskFeedback = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
 
-            var commandParameters = new string[] { "TestTile123", "TestDescription", "58" }.ToList();
+            var commandParameters = new string[] { Constants.Title, Constants.Description, "58" }.ToList();
             var command = new CreateFeedbackCommand(commandParameters, repository);
 
             // Act

@@ -7,6 +7,7 @@ using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Enums;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -18,27 +19,21 @@ namespace TaskManagement.Tests.Commands.Tests
 
         private IRepository repository;
         private ICommandFactory commandFactory;
-        private string title;
-        private string description;
-        private PriorityType priority;
-        private SizeType size;
+
 
         [TestInitialize]
         public void InitTest()
         {
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
-            this.title = "StoryDummy";
-            this.description = "DescriptionDummy";
-            this.priority = PriorityType.High;
-            this.size = SizeType.Medium;
+
         }
 
         [TestMethod]
         public void Execute_Should_CreateStory_When_CommandParamsValid()
         {
             //Arrange
-            var commandParameters = new string[] { title, description, priority.ToString(), size.ToString() };
+            var commandParameters = new string[] { Constants.Title, Constants.Description, Constants.priority.ToString(), Constants.size.ToString() };
             var command = new CreateStoryCommand(commandParameters,repository);
             
             //Act

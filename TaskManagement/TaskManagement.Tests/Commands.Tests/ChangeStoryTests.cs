@@ -9,6 +9,7 @@ using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.StoryStatus;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -19,10 +20,6 @@ namespace TaskManagement.Tests.Commands.Tests
 
         private IRepository repository;
         private ICommandFactory commandFactory;
-        private string title;
-        private string description;
-        private PriorityType priority;
-        private SizeType size;
         private IStory story;
 
         [TestInitialize]
@@ -30,12 +27,8 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
-            this.title = "StoryDummy";
-            this.description = "DescriptionDummy";
-            this.priority = PriorityType.High;
-            this.size = SizeType.Medium;
 
-            this.story = this.repository.CreateStory(title, description, priority, size);
+            this.story = this.repository.CreateStory(Constants.Title, Constants.Description, Constants.priority, Constants.size);
         }
 
         [TestMethod]

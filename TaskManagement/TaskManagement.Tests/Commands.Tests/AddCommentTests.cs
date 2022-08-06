@@ -8,6 +8,7 @@ using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -15,15 +16,9 @@ namespace TaskManagement.Tests.Commands.Tests
     public class AddCommentTests
     {
         private const int ExpectedParamsCount = 3;
-        private const string MemberName = "DummyMember";
-        private const string Comment = "this is dummy comment";
 
         private IRepository repository;
         private ICommandFactory commandFactory;
-        private string title;
-        private string description;
-        private PriorityType priority;
-        private SizeType size;
         private IStory story;
         private IMember member;
 
@@ -32,13 +27,10 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
-            this.title = "StoryDummy";
-            this.description = "DescriptionDummy";
-            this.priority = PriorityType.High;
-            this.size = SizeType.Medium;
 
-            this.story = this.repository.CreateStory(title, description, priority, size);
-            this.member = this.repository.CreateMember(MemberName);
+            this.story = this.repository.CreateStory(Constants.Title, Constants.Description,
+                Constants.priority, Constants.size);
+            this.member = this.repository.CreateMember(Constants.MemberName);
         }
 
         [TestMethod]
@@ -46,8 +38,8 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParams = new string[] {this.story.Id.ToString()
-                                               ,MemberName
-                                               ,Comment};
+                                               ,Constants.MemberName
+                                               ,Constants.Comment};
 
             var command = new AddCommentCommand(commandParams, repository);
 
@@ -66,8 +58,8 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParams = new string[] {  "kuche"
-                                               ,MemberName
-                                               ,Comment};
+                                               ,Constants.MemberName
+                                               ,Constants.Comment};
 
             var command = new AddCommentCommand(commandParams, repository);
 

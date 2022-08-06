@@ -8,6 +8,7 @@ using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Enums.FeedbackStatus;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -53,7 +54,7 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_FilterFeedback_When_ParamsAreValid()
         {
             // Arrange
-            var feedback = this.repository.CreateFeedBack("FeedbackTitle", "FeedbackDescription", 59);
+            var feedback = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 59);
 
             var commandParameters = new string[] { "status", "New" }.ToList();
             var command = new FilterFeedbacksByCommand(commandParameters, repository);

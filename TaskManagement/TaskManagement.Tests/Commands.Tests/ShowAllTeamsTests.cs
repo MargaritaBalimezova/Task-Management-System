@@ -3,14 +3,13 @@ using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
     [TestClass]
     public class ShowAllTeamsTests
     {
-        private const string teamName = "DummyTeam";
-
         private IRepository repository;
         private ICommandFactory commandFactory;
 
@@ -26,7 +25,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var command = new ShowAllTeamsCommand(this.repository);
-            this.repository.CreateTeam("teamName");
+            this.repository.CreateTeam(Constants.TeamName);
             //Act & Assert
             Assert.IsTrue(command.Execute().Contains($"Number of all teams: {this.repository.Teams.Count}")
                 ,"Show all teams failed to return the right amount of teams!");

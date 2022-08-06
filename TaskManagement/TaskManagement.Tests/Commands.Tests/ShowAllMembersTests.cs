@@ -40,7 +40,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new ShowAllMembersCommand(repository);
 
             // Act, Assert
-            Assert.IsTrue(command.Execute().Contains("Number of all members: 1"));
+            Assert.IsTrue(command.Execute().Contains($"Number of all members: {this.repository.Members.Count}"));
         }
     }
 }

@@ -9,6 +9,7 @@ using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -42,7 +43,7 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ThrowException_When_ParamToChangeIsNotValid()
         {
             // Arrange
-            ITask taskFeedback = (ITask)this.repository.CreateFeedBack("TestTile123", "TestDescription", 58);
+            ITask taskFeedback = (ITask)this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
             var commandParameters = new string[] { "1", "sth", "Unscheduled" }.ToList();
             var command = new ChangeFeedbackCommand(commandParameters, repository);
 
@@ -55,7 +56,7 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ChangeFeedbackStatus()
         {
             // Arrange
-            ITask taskFeedback = (ITask)this.repository.CreateFeedBack("TestTile123", "TestDescription", 58);
+            ITask taskFeedback = (ITask)this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
             var commandParameters = new string[] { "1", "status", "Unscheduled" }.ToList();
 
             //Act
@@ -69,7 +70,7 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ChangeFeedbackRating()
         {
             // Arrange
-            ITask taskFeedback = (ITask)this.repository.CreateFeedBack("TestTile123", "TestDescription", 58);
+            ITask taskFeedback = (ITask)this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
             var commandParameters = new string[] { "1", "rating", "56" }.ToList();
 
             //Act

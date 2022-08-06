@@ -8,6 +8,7 @@ using TaskManagement.Models;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Tests;
 using TaskManagement.Exceptions;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Commands
 {
@@ -15,8 +16,6 @@ namespace TaskManagement.Commands
     public class AddMemberToTeamTests
     {
         private const int ExpectedParamsCount = 2;
-        private const string teamName = "DummyTeam";
-        private const string memberName = "DummyMember";
 
         private IMember member;
         private ITeam team;
@@ -29,15 +28,15 @@ namespace TaskManagement.Commands
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
 
-            this.member = this.repository.CreateMember(memberName);
-            this.team = this.repository.CreateTeam(teamName);
+            this.member = this.repository.CreateMember(Constants.MemberName);
+            this.team = this.repository.CreateTeam(Constants.TeamName);
         }
 
         [TestMethod]
         public void Execute_Should_AddMemberToTeam_When_ParamsValid()
         {
             //Arrange
-            var commandParameters = new string[] { teamName, memberName };
+            var commandParameters = new string[] { Constants.TeamName, Constants.MemberName };
             var command = new AddMemberToTeam(commandParameters, repository);
             //Act
             command.Execute();

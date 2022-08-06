@@ -7,6 +7,7 @@ using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -26,15 +27,15 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_CreateNewBoardInTeam_When_CorrectValuesArePassed()
         {
-            ICommand createTeam = this.commandFactory.Create("Createteam TestTeam");
+            ICommand createTeam = this.commandFactory.Create($"Createteam {Constants.TeamName}");
             ICommand createBoardInTeam = this.commandFactory.Create("CreateBoardInTeam TestBoard TestTeam");
 
          
             createTeam.Execute();
             createBoardInTeam.Execute();
 
-            ITeam team = this.repository.FindTeamByName("TestTeam");
-            IBoard board = this.repository.FindBoardByNameInTeam(team, "TestBoard");
+            ITeam team = this.repository.FindTeamByName(Constants.TeamName);
+            IBoard board = this.repository.FindBoardByNameInTeam(team, Constants.BoardName);
 
             Assert.AreEqual("TestBoard", board.Name);
         }
@@ -43,7 +44,7 @@ namespace TaskManagement.Tests.Commands.Tests
         [ExpectedException(typeof(InvalidUserInputException))]
         public void Execute_ShouldThrow_When_IncorrectCountOfParrammetersArePassed()
         {
-            ICommand createBoardInTeam = this.commandFactory.Create("CreateBoardInTeam TestBoard");
+            ICommand createBoardInTeam = this.commandFactory.Create($"CreateBoardInTeam {Constants.BoardName}");
 
             createBoardInTeam.Execute();
         }
@@ -52,8 +53,8 @@ namespace TaskManagement.Tests.Commands.Tests
         [ExpectedException(typeof(InvalidOperationException))]
         public void Execute_ShouldThrow_When_BoardIsCreatedTwiceInSameTeam()
         {
-            ICommand createTeam = this.commandFactory.Create("Createteam TestTeam");
-            ICommand createBoardInTeam = this.commandFactory.Create("CreateBoardInTeam TestBoard TestTeam");
+            ICommand createTeam = this.commandFactory.Create($"Createteam {Constants.TeamName}");
+            ICommand createBoardInTeam = this.commandFactory.Create($"CreateBoardInTeam {Constants.BoardName} {Constants.TeamName}");
            
             createTeam.Execute();
             createBoardInTeam.Execute();

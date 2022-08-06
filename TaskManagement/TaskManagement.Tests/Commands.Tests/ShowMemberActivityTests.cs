@@ -7,6 +7,7 @@ using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -40,8 +41,8 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ShowMemberAcitity_When_ValidParameters()
         {
             // Arrange
-            var member = this.repository.CreateMember("testMemberName");
-            var commandParameters = new string[] { "testMemberName" }.ToList();
+            var member = this.repository.CreateMember(Constants.MemberName);
+            var commandParameters = new string[] { Constants.MemberName }.ToList();
             var command = new ShowMemberActivityCommand(commandParameters, repository);
 
             // Act, Assert

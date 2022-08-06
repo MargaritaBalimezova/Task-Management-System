@@ -6,13 +6,13 @@ using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
     [TestClass]
     public class CreateTeamTests
     {
-        private const string teamName = "DummyTeam";
         private const int ExpectedParamsCount = 1;
 
         private IRepository repository;
@@ -29,15 +29,15 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_CreateTeam_When_ParamsValid()
         {
             //Arrange
-            var commandParameters = new string[] { teamName };
+            var commandParameters = new string[] { Constants.TeamName };
             var command = new CreateTeamCommand(commandParameters, repository);
 
             //Act
             command.Execute();
 
             //Assert
-            Assert.AreEqual(teamName, this.repository.Teams[this.repository.Teams.Count - 1].Name,
-                $"CreateCommand failed to create a team with name {teamName}");
+            Assert.AreEqual(Constants.TeamName, this.repository.Teams[this.repository.Teams.Count - 1].Name,
+                $"CreateCommand failed to create a team with name {Constants.TeamName}");
         }
 
         [TestMethod]

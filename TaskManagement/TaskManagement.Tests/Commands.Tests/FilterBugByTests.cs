@@ -11,6 +11,7 @@ using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
@@ -58,16 +59,16 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_FilterBugsByAssignee()
         {
-            ICommand createBug = this.commandFactory.Create("Createbug TestTitle111 TestDescription111 High Major");
-            ICommand createBug2 = this.commandFactory.Create("Createbug TestTitle222 TestDescription111 Low Major");
-            ICommand createTeam = this.commandFactory.Create("Createteam TestTeam");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
+            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} Low Major");
+            ICommand createTeam = this.commandFactory.Create($"Createteam {Constants.TeamName}");
             ICommand createMember = this.commandFactory.Create("Createmember pesho");
             ICommand createMember2 = this.commandFactory.Create("Createmember gosho");
-            ICommand addMemberToTeam1 = this.commandFactory.Create("Addmembertoteam TestTeam pesho");
-            ICommand addMemberToTeam2 = this.commandFactory.Create("Addmembertoteam TestTeam gosho");
-            ICommand assignTask1 = this.commandFactory.Create("assigntask 1 gosho TestTeam");
-            ICommand assignTask2 = this.commandFactory.Create("assigntask 2 pesho TestTeam");
-            ICommand filterBugByAssignee = this.commandFactory.Create("FilterBugby assignee pesho");
+            ICommand addMemberToTeam1 = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} pesho");
+            ICommand addMemberToTeam2 = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} gosho");
+            ICommand assignTask1 = this.commandFactory.Create($"assigntask 1 gosho {Constants.TeamName}");
+            ICommand assignTask2 = this.commandFactory.Create($"assigntask 2 pesho {Constants.TeamName}");
+            ICommand filterBugByAssignee = this.commandFactory.Create($"FilterBugby assignee pesho");
 
             createBug.Execute();
             createBug2.Execute();
@@ -87,8 +88,8 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_FilterBugsByStatus()
         {
-            ICommand createBug = this.commandFactory.Create("Createbug TestTitle111 TestDescription111 High Major");
-            ICommand createBug2 = this.commandFactory.Create("Createbug TestTitle222 TestDescription111 Low Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
+            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} Low Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 status fixed");
             ICommand filterBugByStatus = this.commandFactory.Create("FilterBugBy status fixed");
 
@@ -97,22 +98,22 @@ namespace TaskManagement.Tests.Commands.Tests
             changeBug.Execute();
             filterBugByStatus.Execute();
 
-            Assert.IsTrue(filterBugByStatus.Execute().Contains("TestTitle111"));
-            Assert.IsFalse(filterBugByStatus.Execute().Contains("TestTitle222"));
+            Assert.IsTrue(filterBugByStatus.Execute().Contains(Constants.Title));
+            Assert.IsFalse(filterBugByStatus.Execute().Contains(Constants.Title));
         }
 
         [TestMethod]
         public void Execute_Should_FilterBugsByStatusAndAssignee()
         {
-            ICommand createBug = this.commandFactory.Create("Createbug TestTitle111 TestDescription111 High Major");
-            ICommand createBug2 = this.commandFactory.Create("Createbug TestTitle222 TestDescription111 Low Major");
-            ICommand createTeam = this.commandFactory.Create("Createteam TestTeam");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
+            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} Low Major");
+            ICommand createTeam = this.commandFactory.Create($"Createteam {Constants.TeamName}");
             ICommand createMember = this.commandFactory.Create("Createmember pesho");
             ICommand createMember2 = this.commandFactory.Create("Createmember gosho");
-            ICommand addMemberToTeam1 = this.commandFactory.Create("Addmembertoteam TestTeam pesho");
-            ICommand addMemberToTeam2 = this.commandFactory.Create("Addmembertoteam TestTeam gosho");
-            ICommand assignTask1 = this.commandFactory.Create("assigntask 1 gosho TestTeam");
-            ICommand assignTask2 = this.commandFactory.Create("assigntask 2 pesho TestTeam");
+            ICommand addMemberToTeam1 = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} pesho");
+            ICommand addMemberToTeam2 = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} gosho");
+            ICommand assignTask1 = this.commandFactory.Create($"assigntask 1 gosho {Constants.TeamName}");
+            ICommand assignTask2 = this.commandFactory.Create($"assigntask 2 pesho {Constants.TeamName}");
             ICommand filterBugByStatusAndAssignee = this.commandFactory.Create("FilterBugby statusandassignee active pesho");
 
             createBug.Execute();
@@ -127,9 +128,9 @@ namespace TaskManagement.Tests.Commands.Tests
             filterBugByStatusAndAssignee.Execute();
 
             Assert.IsTrue(filterBugByStatusAndAssignee.Execute().Contains("pesho"));
-            Assert.IsTrue(filterBugByStatusAndAssignee.Execute().Contains("TestTitle222"));
+            Assert.IsTrue(filterBugByStatusAndAssignee.Execute().Contains(Constants.Title));
             Assert.IsFalse(filterBugByStatusAndAssignee.Execute().Contains("gosho"));
-            Assert.IsFalse(filterBugByStatusAndAssignee.Execute().Contains("TestTitle111"));
+            Assert.IsFalse(filterBugByStatusAndAssignee.Execute().Contains(Constants.Title));
 
         }
     }
