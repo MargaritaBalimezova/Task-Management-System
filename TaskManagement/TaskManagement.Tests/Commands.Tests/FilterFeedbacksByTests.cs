@@ -60,7 +60,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new FilterFeedbacksByCommand(commandParameters, repository);
 
             // Act & Assert
-            Assert.IsTrue(command.Execute().Contains("--FEEDBACKS--"));
+            Assert.IsTrue(command.Execute().Contains("--FEEDBACK--"));
         }
     }
 }

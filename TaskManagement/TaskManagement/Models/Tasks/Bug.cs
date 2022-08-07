@@ -7,6 +7,7 @@ using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.BugStatus;
 using TaskManagement.Validations;
 
+
 namespace TaskManagement.Models.Tasks
 {
     public class Bug : Task, IBug
@@ -148,19 +149,18 @@ namespace TaskManagement.Models.Tasks
         public override string AdditionalInfo()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(Constants.BUGS_HEADER);
             if (assignee==null)
             {
-                sb.AppendLine($"Assignee: No assignee");
+                sb.AppendLine($"{Constants.SPACES4}Assignee: No assignee");
             }
             else
             {
-                sb.AppendLine($"Assignee: {this.Assignee.Name}");
+                sb.AppendLine($"{Constants.SPACES4}Assignee: {this.Assignee.Name}");
             }
-            sb.AppendLine($"Priority: {this.Priority}");
-            sb.AppendLine($"Severity: {this.Severity}");           
-            sb.AppendLine($"Status: {this.Status}");
-            sb.AppendLine("Steps to reproduce:");
+            sb.AppendLine($"{Constants.SPACES4}Priority: {this.Priority}");
+            sb.AppendLine($"{Constants.SPACES4}Severity: {this.Severity}");           
+            sb.AppendLine($"{Constants.SPACES4}Status: {this.Status}");
+            sb.AppendLine($"{Constants.SPACES4}Steps to reproduce:");
             sb.AppendLine(PrintSteps());
 
             return sb.ToString();
@@ -173,7 +173,7 @@ namespace TaskManagement.Models.Tasks
 
             foreach (string item in stepsToReproduce)
             {
-                sb.AppendLine($"    {counter}.{item}");
+                sb.AppendLine($"{Constants.SPACES4} {counter}.{item}");
                 counter++;
             }
 

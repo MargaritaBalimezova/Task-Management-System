@@ -8,10 +8,12 @@ namespace TaskManagement.Validations
     {
         //COMMONS
         public static string CREATED_MSG = "Successfuly created {0} with name {1}!";
-
+        public static string CREATE_TASK_MSG = "Successfuly created {0} with ID: {1}!";
         public static string ARGUMENTS_ERROR_MSG = "Invalid number of arguments. Expected: {0}, Received: {1}";
         public static string STRING_LEN_ERROR_MSG = "{0} must be between {1} and {2} characters!";
         public static string NULL_ERROR_MSG = "{0} cannot be null value!";
+        public static string SPACES2 = new string(' ', 2);
+        public static string SPACES4 = new string(' ', 4);
 
         //TEAM
         public const string TEAM_HEADER = "--TEAM--";

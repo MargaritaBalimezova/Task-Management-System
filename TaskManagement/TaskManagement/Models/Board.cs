@@ -112,16 +112,17 @@ namespace TaskManagement.Models
 
             if (activytLog.Count == 0)
             {
-                sb.AppendLine(Constants.NO_TASKS_TO_SHOW_HEADER);
+                sb.AppendLine($"{Constants.SPACES2}{Constants.NO_TASKS_TO_SHOW_HEADER}");
             }
             else
             {
-                sb.AppendLine(Constants.TASK_HEADER);
+                sb.AppendLine($"{Constants.SPACES2}{Constants.TASK_HEADER}");
+                sb.AppendLine();
                 foreach (ITask item in boardTasks)
                 {
                     sb.AppendLine(item.ToString());
                 }
-                sb.AppendLine(Constants.TASK_HEADER);
+                sb.AppendLine($"{Constants.SPACES2}{Constants.TASK_HEADER}");
             }
             return sb.ToString();
         }

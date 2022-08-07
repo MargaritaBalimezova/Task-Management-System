@@ -52,7 +52,8 @@ namespace TaskManagement.Models.Tasks
         {
             if (this.status == status)
             {
-                AddEventLog($"Status of feedback with ID {this.Id} {this.Title} is already at {this.status}.");
+               throw new InvalidOperationException
+                    ($"Status of feedback with ID {this.Id} {this.Title} is already at {this.status}.");
             }
             else
             {
@@ -80,9 +81,8 @@ namespace TaskManagement.Models.Tasks
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine(Constants.FEEDBACK_HEADER);
-            sb.AppendLine($"Status: {this.Status}");
-            sb.AppendLine($"Rating: {this.Rating}");
+            sb.AppendLine($"{Constants.SPACES4}Status: {this.Status}");
+            sb.AppendLine($"{Constants.SPACES4}Rating: {this.Rating}");
 
             return sb.ToString();
         }

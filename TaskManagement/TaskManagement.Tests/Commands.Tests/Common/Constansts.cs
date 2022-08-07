@@ -29,5 +29,8 @@ namespace TaskManagement.Tests.Commands.Tests.Common
 
         public const string BugTitle = "TestTitle111";
         public const string BugTitle2 = "TestTitle222";
+
+        public static string SPACES2 = new string(' ', 2);
+        public static string SPACES4 = new string(' ', 4);
     }
 }

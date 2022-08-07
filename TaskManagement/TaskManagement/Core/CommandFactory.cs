@@ -72,6 +72,9 @@ namespace TaskManagement.Core
                 case "showteamsactivity":
                     return new ShowTeamsActivity(commandParameters, repository);
 
+                case "showtaskactivity":
+                    return new ShowTaskActivityCommand(commandParameters, repository);
+
                 case "addtask":
                     return new AddTaskCommand(commandParameters, repository);
 

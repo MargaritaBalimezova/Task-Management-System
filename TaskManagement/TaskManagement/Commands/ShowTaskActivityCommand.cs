@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
@@ -7,12 +8,12 @@ using TaskManagement.Models.Contracts;
 
 namespace TaskManagement.Commands
 {
-    public class ShowAllTeamBoardsCommand : BaseCommand
+    public class ShowTaskActivityCommand : BaseCommand
     {
         private const int ExpectedParamsCount = 1;
 
-        public ShowAllTeamBoardsCommand(IList<string> parameters, IRepository repository)
-           : base(parameters, repository)
+        public ShowTaskActivityCommand(IList<string> parameters, IRepository repository)
+        : base(parameters, repository)
         {
         }
 
@@ -23,15 +24,14 @@ namespace TaskManagement.Commands
                 throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, received: {this.CommandParameters.Count}");
             }
 
-            ITeam team = this.Repository.FindTeamByName(base.CommandParameters[0]);
+            int taskId = ParseIntParameter(CommandParameters[0], "TaskId");
+            ITask task = this.Repository.FindTaskById(taskId);
 
             StringBuilder sb = new StringBuilder();
 
-            foreach (var item in team.Boards)
+            foreach (var item in task.ActivityLog)
             {
-                sb.AppendLine($"-BOARD NAME: {item.Name}-");
-                sb.AppendLine(item.ToString());
-                sb.AppendLine("--------");
+                sb.AppendLine(item.ViewInfo());
             }
 
             return sb.ToString();

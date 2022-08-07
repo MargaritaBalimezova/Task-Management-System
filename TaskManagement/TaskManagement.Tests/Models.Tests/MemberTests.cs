@@ -132,13 +132,13 @@ namespace TaskManagement.Tests.Models.Tests
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine(Constants.MEMBER_HEADER);
-            sb.AppendLine($"Member Name: {name}");
+            sb.AppendLine($"{Constants.SPACES2}Member Name: {name}");
 
-            sb.AppendLine($"{Constants.TASK_HEADER}");
-
+            sb.AppendLine($"{Constants.SPACES2}{Constants.TASK_HEADER}");
+            sb.AppendLine();
             sb.Append($"{feedback.ToString()}");
-
-            sb.AppendLine(Constants.TASK_HEADER);
+            sb.AppendLine($"{Constants.SPACES2}{Constants.TASK_HEADER}");
+            sb.AppendLine();
             sb.AppendLine(Constants.MEMBER_HEADER);
 
             //Assert
@@ -157,10 +157,10 @@ namespace TaskManagement.Tests.Models.Tests
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine(Constants.MEMBER_HEADER);
-            sb.AppendLine($"Member Name: {name}");
+            sb.AppendLine($"{Constants.SPACES2}Member Name: {name}");
 
-            sb.AppendLine($"{Constants.NO_TASK_HEADER}");
-
+            sb.AppendLine($"{Constants.SPACES2}{Constants.NO_TASK_HEADER}");
+            sb.AppendLine();
             sb.AppendLine(Constants.MEMBER_HEADER);
 
             //Assert

@@ -86,18 +86,19 @@ namespace TaskManagement.Models
 
             if (this.tasks.Count == 0)
             {
-                sb.AppendLine(Constants.NO_TASK_HEADER);
+                sb.AppendLine($"{Constants.SPACES2}{Constants.NO_TASK_HEADER}");
             }
             else
             {
-                sb.AppendLine(Constants.TASK_HEADER);
+                sb.AppendLine($"{Constants.SPACES2}{Constants.TASK_HEADER}");
+                sb.AppendLine();
 
                 foreach (var task in this.tasks)
                 {
                     sb.Append(task.ToString());
                 }
 
-                sb.AppendLine(Constants.TASK_HEADER);
+                sb.AppendLine($"{Constants.SPACES2}{Constants.TASK_HEADER}");
             }
 
             return sb.ToString();
@@ -108,8 +109,8 @@ namespace TaskManagement.Models
             var sb = new StringBuilder();
 
             sb.AppendLine(Constants.MEMBER_HEADER);
-            sb.AppendLine($"Member Name: {this.Name}");
-            sb.Append($"{this.PrintTasks()}");
+            sb.AppendLine($"{Constants.SPACES2}Member Name: {this.Name}");
+            sb.AppendLine($"{this.PrintTasks()}");
             sb.AppendLine(Constants.MEMBER_HEADER);
 
             return sb.ToString();

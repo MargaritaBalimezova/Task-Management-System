@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.StoryStatus;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Models.Tasks
 {
@@ -35,12 +36,13 @@ namespace TaskManagement.Models.Tasks
             {
                 if (this.Priority != value)
                 {
-                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Priority} to {priority}.");
+                    AddEventLog($"Priority of Story with ID {this.Id} {this.Title} was changed from {this.Priority} to {priority}.");
                     this.priority = value;
                 }
                 else
                 {
-                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Priority}.");
+                    throw new InvalidOperationException
+                        ($"Priority of Story with ID {this.Id} {this.Title} is already at {this.Priority}.");
                 }
             }
         }
@@ -55,12 +57,13 @@ namespace TaskManagement.Models.Tasks
             {
                 if (this.Size != value)
                 {
-                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Size} to {value}.");
+                    AddEventLog($"Size of Story with ID {this.Id} {this.Title} was changed from {this.Size} to {value}.");
                     this.size = value;
                 }
                 else
                 {
-                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Size}.");
+                    throw new InvalidOperationException
+                        ($"Size of Story with ID {this.Id} {this.Title} is already at {this.Size}.");
                 }
             }
         }
@@ -93,7 +96,8 @@ namespace TaskManagement.Models.Tasks
                 }
                 else
                 {
-                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Status}.");
+                    throw new InvalidOperationException
+                        ($"Status of Story with ID {this.Id} {this.Title} is already at {this.Status}.");
                 }
             }
         }
@@ -117,15 +121,15 @@ namespace TaskManagement.Models.Tasks
             StringBuilder sb = new StringBuilder();
             if (assignee == null)
             {
-                sb.AppendLine($"Assignee: No assignee");
+                sb.AppendLine($"{Constants.SPACES4}Assignee: No assignee");
             }
             else
             {
-                sb.AppendLine($"Assignee: {this.Assignee.Name}");
+                sb.AppendLine($"{Constants.SPACES4}Assignee: {this.Assignee.Name}");
             }
-            sb.AppendLine($"Priority: {this.Priority}");
-            sb.AppendLine($"Size: {this.Size}");
-            sb.AppendLine($"Status: {this.Status}");
+            sb.AppendLine($"{Constants.SPACES4}Priority: {this.Priority}");
+            sb.AppendLine($"{Constants.SPACES4}Size: {this.Size}");
+            sb.AppendLine($"{Constants.SPACES4}Status: {this.Status}");
 
             return sb.ToString();
         }

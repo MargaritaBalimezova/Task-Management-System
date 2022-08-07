@@ -24,7 +24,7 @@ namespace TaskManagement.Models
             comments = new List<IComment>();
             activityLog = new List<IEventLog>();
 
-            AddEventLog(string.Format(Constants.CREATED_MSG, this.GetType().Name, this.Id));
+            AddEventLog(string.Format(Constants.CREATE_TASK_MSG, this.GetType().Name, this.Id));
         }
 
         #region Properties
@@ -110,12 +110,12 @@ namespace TaskManagement.Models
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine($"Id: {this.Id}");
-            sb.AppendLine($"Title: {this.Title}");
-            sb.AppendLine($"Description: {this.Description}");
+            sb.AppendLine($"{Constants.SPACES4}--{GetType().Name.ToUpper()}--");
+            sb.AppendLine($"{Constants.SPACES4}Id: {this.Id}");
+            sb.AppendLine($"{Constants.SPACES4}Title: {this.Title}");
+            sb.AppendLine($"{Constants.SPACES4}Description: {this.Description}");
             sb.Append($"{this.AdditionalInfo()}");
-            sb.Append($"{this.PrintComments()}");
+            sb.AppendLine($"{this.PrintComments()}");
 
             return sb.ToString();
         }
@@ -126,18 +126,19 @@ namespace TaskManagement.Models
 
             if (this.comments.Count == 0)
             {
-                sb.AppendLine(Constants.NO_COMMENT_HEADER);
+                sb.AppendLine($"{Constants.SPACES4}{Constants.NO_COMMENT_HEADER}");
             }
             else
             {
-                sb.AppendLine(Constants.COMMENT_HEADER);
+                sb.AppendLine($"{Constants.SPACES4}{Constants.COMMENT_HEADER}");
 
                 foreach (var comment in this.comments)
                 {
                     sb.Append(comment.ToString());
                 }
 
-                sb.AppendLine(Constants.COMMENT_HEADER);
+                sb.AppendLine($"{Constants.SPACES4}{Constants.COMMENT_HEADER}");
+
             }
 
             return sb.ToString();

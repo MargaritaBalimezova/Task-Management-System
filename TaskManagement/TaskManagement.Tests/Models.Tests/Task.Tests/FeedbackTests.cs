@@ -168,7 +168,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         }
 
         [TestMethod]
-        public void ChangeStatus_Should_Not_Change_Status_When_Not_Same()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ChangeStatus_Should_Throw_When_Not_Same()
         {
             //Arrange
             string title = new string('x', Constants.TITLE_MIN_LEN + 1);
@@ -183,8 +184,6 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             //Act
             feedback.ChangeStatus(changedStatus);
 
-            //Assert
-            Assert.AreEqual(changedStatus, feedback.Status, "Change Rating failed!");
         }
 
         [TestMethod]
@@ -238,9 +237,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
 
             var sb = new StringBuilder();
 
-            sb.AppendLine(Constants.FEEDBACK_HEADER);
-            sb.AppendLine($"Status: {Status.New}");
-            sb.AppendLine($"Rating: {rating}");
+            sb.AppendLine($"{Constants.SPACES4}Status: {Status.New}");
+            sb.AppendLine($"{Constants.SPACES4}Rating: {rating}");
 
             //Assert & Act
             Assert.AreEqual(sb.ToString(), feedback.AdditionalInfo(), "Called feedback additional info successfuly!");

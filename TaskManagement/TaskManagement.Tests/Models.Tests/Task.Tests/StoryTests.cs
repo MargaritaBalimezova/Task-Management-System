@@ -75,7 +75,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         }
 
         [TestMethod]
-        public void PrioritySetter_Should_NotChangePriority_When_SamePriorityPassed()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void PrioritySetter_ShouldThrow_When_SamePriorityPassed()
         {
             //Arrange
             string title = new string('x', Constants.TITLE_MIN_LEN + 1);
@@ -125,7 +126,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         }
 
         [TestMethod]
-        public void SizeSetter_ShouldNot_ChangeSize_When_SameValuePassed()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void SizeSetter_ShouldThrow_When_SameValuePassed()
         {
             //Arrange
             string title = new string('x', Constants.TITLE_MIN_LEN + 1);
@@ -244,7 +246,8 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
         }
 
         [TestMethod]
-        public void ChangeStatus_ShouldNot_ChangeStatus_When_SameStatusPassed()
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void ChangeStatus_ShouldThrow_When_SameStatusPassed()
         {
             string title = new string('x', Constants.TITLE_MIN_LEN + 1);
             string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
@@ -253,14 +256,12 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             var story = new Story(title, description, id: id, PriorityType.High,
                 SizeType.Medium);
 
-            var expected = $"Status of Story with ID {story.Id} {story.Title} is already at {story.Status}.";
-
+           
             //Act
 
             story.Status = status;
 
             //Assert
-            Assert.AreEqual(expected, story.ActivityLog[story.ActivityLog.Count - 1].Description, "ChangeStatus failed in Story class!");
         }
     }
 }

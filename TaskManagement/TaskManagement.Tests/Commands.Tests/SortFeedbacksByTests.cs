@@ -9,6 +9,7 @@ using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Tests.Commands.Tests.Common;
 
+
 namespace TaskManagement.Tests.Commands.Tests
 {
     [TestClass]
@@ -59,7 +60,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new SortFeedbacksByCommand(commandParameters, repository);
 
             // Act & Assert
-            Assert.IsTrue(command.Execute().Contains("--FEEDBACKS--"));
+            Assert.IsTrue(command.Execute().Contains($"--FEEDBACK--"));
         }
 
         [TestMethod]
@@ -72,7 +73,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new SortFeedbacksByCommand(commandParameters, repository);
 
             // Act & Assert
-            Assert.IsTrue(command.Execute().Contains("--FEEDBACKS--"));
+            Assert.IsTrue(command.Execute().Contains($"--FEEDBACK--")); 
         }
     }
 }

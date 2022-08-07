@@ -73,7 +73,6 @@ namespace TaskManagement.Tests.Commands.Tests
 
             this.story.AddAssignee(member);
             this.bug.AddAssignee(member);
-            this.story.Status = TaskManagement.Models.Enums.StoryStatus.Status.NotDone;
             //Act & Assert
             Assert.IsTrue(command.Execute().Contains(this.story.Title));
         }
@@ -142,7 +141,6 @@ namespace TaskManagement.Tests.Commands.Tests
 
             this.story.AddAssignee(member);
             this.bug.AddAssignee(member);
-            this.story.Status = TaskManagement.Models.Enums.StoryStatus.Status.NotDone;
             //Act & Assert
             Assert.IsTrue(command.Execute().Contains(this.story.Title));
         }
