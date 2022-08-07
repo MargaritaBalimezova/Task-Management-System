@@ -239,7 +239,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             var story = new Story(title, description, id: id, PriorityType.High,
                 SizeType.Medium);
             //Act
-            story.ChangeStatus(status);
+            story.Status = status;
             //Assert
             Assert.AreEqual(status, story.Status, "ChangeStatus failed in Story class!");
         }
@@ -258,7 +258,7 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
 
             //Act
 
-            story.ChangeStatus(status);
+            story.Status = status;
 
             //Assert
             Assert.AreEqual(expected, story.ActivityLog[story.ActivityLog.Count - 1].Description, "ChangeStatus failed in Story class!");

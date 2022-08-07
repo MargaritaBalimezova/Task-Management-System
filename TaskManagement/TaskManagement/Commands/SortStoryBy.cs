@@ -29,19 +29,19 @@ namespace TaskManagement.Commands
             switch (this.CommandParameters[0].ToLower())
             {
                 case "size":
-                    stories = this.Repository.Stories.OrderBy(story => story.Size).ToList();
+                    stories = this.Repository.Stories.OrderBy(story => story.Size.ToString()).ToList();
                     break;
                 case "priority":
-                    stories = this.Repository.Stories.OrderBy(story => story.Priority).ToList();
+                    stories = this.Repository.Stories.OrderBy(story => story.Priority.ToString()).ToList();
                     break;
                 case "title":
                     stories = this.Repository.Stories.OrderBy(story => story.Title).ToList();
                     break;
                 case "status":
-                    stories = this.Repository.Stories.OrderBy(story => story.Status).ToList();
+                    stories = this.Repository.Stories.OrderBy(story => story.Status.ToString()).ToList();
                     break;
                 default:
-                    throw new ArgumentException("You can sort list of stories only by title, size, priority or status!");
+                    throw new InvalidUserInputException("You can sort list of stories only by title, size, priority or status!");
             }
 
             var sb = new StringBuilder();

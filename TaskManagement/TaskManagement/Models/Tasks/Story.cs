@@ -86,28 +86,23 @@ namespace TaskManagement.Models.Tasks
             {
                 return this.status;
             }
-            protected set
+            set
             {
-                this.status = value;
+                if (this.Status != value)
+                {
+                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Status} to {value}.");
+                    this.status = value;
+                }
+                else
+                {
+                    AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Status}.");
+                }
             }
         }
 
         #endregion Properties
 
         #region Methods
-
-        public void ChangeStatus(Status status)
-        {
-            if (this.Status != status)
-            {
-                AddEventLog($"Status of Story with ID {this.Id} {this.Title} was changed from {this.Status} to {status}.");
-                this.Status = status;
-            }
-            else
-            {
-                AddEventLog($"Status of Story with ID {this.Id} {this.Title} is already at {this.Status}.");
-            }
-        }
 
         public void AddAssignee(IMember assignee)
         {

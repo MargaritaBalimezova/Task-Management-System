@@ -90,7 +90,7 @@ namespace TaskManagement.Commands
 
             if (result.Count == 0)
             {
-                Console.WriteLine("There is no assigned tasks for the moment!");
+               return "There is no assigned tasks for the moment!";
             }
             else
             {

@@ -10,7 +10,7 @@ namespace TaskManagement.Models.Contracts
 {
     public interface IStory : ITask
     {
-        public Status Status { get; }
+        public Status Status { get; set; }
 
         public PriorityType Priority { get; }
 

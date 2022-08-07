@@ -41,7 +41,7 @@ namespace TaskManagement.Commands
                     return $"Size of story with id {story.Id} was changed!";
                 case "status":
                     Status newStatus = ParseStoryStatus(CommandParameters[2]);
-                    story.ChangeStatus(newStatus);
+                    story.Status = newStatus;
                     return $"Priority of story with id {story.Id} was changed!";
                 default:
                     throw new ArgumentException($"Parameter with name {paramToChange} does not exist!");
