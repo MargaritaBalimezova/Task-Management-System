@@ -26,5 +26,8 @@ namespace TaskManagement.Tests.Commands.Tests.Common
         public const SizeType sizeSmall = SizeType.Small;
 
         public const string Title2 = "TitleDummy2";
+
+        public const string BugTitle = "TestTitle111";
+        public const string BugTitle2 = "TestTitle222";
     }
 }

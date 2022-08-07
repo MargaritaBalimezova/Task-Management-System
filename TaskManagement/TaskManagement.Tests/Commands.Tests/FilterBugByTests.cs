@@ -59,8 +59,8 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_FilterBugsByAssignee()
         {
-            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
-            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} Low Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
+            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.BugTitle2} {Constants.Description} Low Major");
             ICommand createTeam = this.commandFactory.Create($"Createteam {Constants.TeamName}");
             ICommand createMember = this.commandFactory.Create("Createmember pesho");
             ICommand createMember2 = this.commandFactory.Create("Createmember gosho");
@@ -88,8 +88,8 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_FilterBugsByStatus()
         {
-            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
-            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} Low Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
+            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.BugTitle2} {Constants.Description} Low Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 status fixed");
             ICommand filterBugByStatus = this.commandFactory.Create("FilterBugBy status fixed");
 
@@ -98,15 +98,15 @@ namespace TaskManagement.Tests.Commands.Tests
             changeBug.Execute();
             filterBugByStatus.Execute();
 
-            Assert.IsTrue(filterBugByStatus.Execute().Contains(Constants.Title));
-            Assert.IsFalse(filterBugByStatus.Execute().Contains(Constants.Title));
+            Assert.IsTrue(filterBugByStatus.Execute().Contains(Constants.BugTitle));
+            Assert.IsFalse(filterBugByStatus.Execute().Contains(Constants.BugTitle2));
         }
 
         [TestMethod]
         public void Execute_Should_FilterBugsByStatusAndAssignee()
         {
-            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
-            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} Low Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
+            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.BugTitle2} {Constants.Description} Low Major");
             ICommand createTeam = this.commandFactory.Create($"Createteam {Constants.TeamName}");
             ICommand createMember = this.commandFactory.Create("Createmember pesho");
             ICommand createMember2 = this.commandFactory.Create("Createmember gosho");
@@ -128,9 +128,9 @@ namespace TaskManagement.Tests.Commands.Tests
             filterBugByStatusAndAssignee.Execute();
 
             Assert.IsTrue(filterBugByStatusAndAssignee.Execute().Contains("pesho"));
-            Assert.IsTrue(filterBugByStatusAndAssignee.Execute().Contains(Constants.Title));
+            Assert.IsTrue(filterBugByStatusAndAssignee.Execute().Contains(Constants.BugTitle2));
             Assert.IsFalse(filterBugByStatusAndAssignee.Execute().Contains("gosho"));
-            Assert.IsFalse(filterBugByStatusAndAssignee.Execute().Contains(Constants.Title));
+            Assert.IsFalse(filterBugByStatusAndAssignee.Execute().Contains(Constants.BugTitle));
 
         }
     }

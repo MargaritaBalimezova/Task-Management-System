@@ -46,7 +46,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new ShowMemberActivityCommand(commandParameters, repository);
 
             // Act, Assert
-            Assert.IsTrue(command.Execute().Contains("Successfuly created Member with name testMemberName!"));
+            Assert.IsTrue(command.Execute().Contains($"Successfuly created Member with name {Constants.MemberName}!"));
         }
     }
 }

@@ -14,15 +14,13 @@ namespace TaskManagement.Models.Tasks
         private PriorityType priority;
         private SizeType size;
         private IMember assignee = null;
-        private Status status;
+        private Status status= Status.NotDone;
 
         public Story(string title, string description, int id, PriorityType priority, SizeType size)
         : base(title, description, id)
         {
             this.size = size;
             this.priority = priority;
-
-            this.Status = Status.NotDone;
         }
 
         #region Properties

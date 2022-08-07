@@ -12,13 +12,12 @@ namespace TaskManagement.Models.Tasks
     public class FeedBack : Task, IFeedback
     {
         private int rating;
-        private Status status;
+        private Status status = Status.New;
 
         public FeedBack(string title, string description, int id, int rating)
             : base(title, description, id)
         {
             this.Rating = rating;
-            this.Status = Status.New;
         }
 
         #region Properties

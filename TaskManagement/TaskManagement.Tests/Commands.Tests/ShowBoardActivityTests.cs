@@ -12,6 +12,7 @@ using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Tasks;
 using TaskManagement.Validations;
+
 namespace TaskManagement.Tests.Commands.Tests
 {
     [TestClass]
@@ -47,7 +48,7 @@ namespace TaskManagement.Tests.Commands.Tests
             createTeam.Execute();
             createBoardInTeam.Execute();
             showBoardActivity.Execute();
-            Assert.IsTrue(showBoardActivity.Execute().Contains("Successfuly created Board with name TestBoard!"));
+            Assert.IsTrue(showBoardActivity.Execute().Contains($"Successfuly created Board with name {Common.Constants.BoardName}!"));
         }
 
     }

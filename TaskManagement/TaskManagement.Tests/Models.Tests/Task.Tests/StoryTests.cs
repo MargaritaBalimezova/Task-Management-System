@@ -219,7 +219,6 @@ namespace TaskManagement.Tests.Models.Tests.Task.Tests
             string description = new string('x', Constants.DESCRIPTION_MAX_LEN - 1);
             var assignee = new Member(new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1));
 
-            var comment = new Comment("Comment", assignee.Name);
 
             //Act
             var story = new Story(title, description, 1, PriorityType.High,

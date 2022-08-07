@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TaskManagement.Commands;
+using TaskManagement.Commands.Contracts;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Models.Contracts;
@@ -18,47 +20,55 @@ namespace TaskManagement.Tests.Commands.Tests
         private IRepository repository;
         private ICommandFactory commandFactory;
 
-        private IStory story;
-        private IBug bug;
-        private IMember member;
-
         [TestInitialize]
         public void InitTest()
         {
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
 
-            this.story = this.repository.CreateStory(Constants.Title, Constants.Description, Constants.priority, Constants.size);
-            this.bug = this.repository.CreateBug(Constants.Title, Constants.Description, Constants.priority, Severity.Critical, new List<string>());
         }
 
         [TestMethod]
         public void Execute_Should_ReturnSortedAssignedTasksByTitle()
         {
-            //Arrange
-            var command = new SortAssignedTasksByTitle(this.repository);
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
+            ICommand createStory = this.commandFactory.Create($"Createstory {Constants.Title} {Constants.Description} high large");
+            ICommand createTeam = this.commandFactory.Create($"Createteam {Constants.TeamName}");
+            ICommand createMember = this.commandFactory.Create($"Createmember {Constants.MemberName}");
+            ICommand addMemberToTeam = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} {Constants.MemberName}");
+            ICommand assignTask1 = this.commandFactory.Create($"assigntask 1 {Constants.MemberName} {Constants.TeamName}");
+            ICommand assignTask2 = this.commandFactory.Create($"assigntask 2 {Constants.MemberName} {Constants.TeamName}");
+            ICommand sortAssignedTasksByTitle = this.commandFactory.Create("SortAssignedTasksBytitle");
 
-            this.member = this.repository.CreateMember(Constants.MemberName);
-            this.story.AddAssignee(member);
-            this.bug.AddAssignee(member);
+            createBug.Execute();
+            createStory.Execute();
+            createTeam.Execute();
+            createMember.Execute();
+            addMemberToTeam.Execute();
+            assignTask1.Execute();
+            assignTask2.Execute();
+            sortAssignedTasksByTitle.Execute();
 
-            var sb = new StringBuilder();
-            sb.AppendLine(bug.ToString());
-            sb.AppendLine(story.ToString());
+            List<ITask> tasks = this.repository.Bugs.Cast<ITask>().Concat(this.repository.Stories.Cast<ITask>()).OrderBy(t => t.Title).ToList();
+
+            StringBuilder sb = new StringBuilder();
+            foreach (var item in tasks)
+            {
+                sb.AppendLine(item.ToString());
+            }
+
 
             //Act
-            Assert.IsTrue(command.Execute().Contains(sb.ToString()));
+            Assert.IsTrue(sortAssignedTasksByTitle.Execute().Contains(sb.ToString()));
         }
 
-     /*   [TestMethod]
-        public void Execute_Should_ReturnNoAssignedTaskMsg_When_ThereIsNotAssignedTasks()
+        [TestMethod]
+        public void Execute_Should_ReturnSpecialMessageIfNoAssignedTasks()
         {
-            //Arrange
-            var command = new SortAssignedTasksByTitle(this.repository);
-            var expected = "There is no assigned tasks for the moment!";
+            ICommand sortAssignedTasksByTitle = this.commandFactory.Create("SortAssignedTasksBytitle");
+            sortAssignedTasksByTitle.Execute();
 
-            //Act
-            Assert.IsTrue(command.Execute().Contains(expected));
-        }*/
+            Assert.IsTrue(sortAssignedTasksByTitle.Execute().Contains("There is no assigned tasks for the moment!"));
+        }
     }
 }

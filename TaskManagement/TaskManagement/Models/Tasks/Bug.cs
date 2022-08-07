@@ -13,7 +13,7 @@ namespace TaskManagement.Models.Tasks
     {
         private Severity severity;
         private PriorityType priority;
-        private Status status;
+        private Status status= Status.Active;
         private IMember assignee = null;
         private IList<string> stepsToReproduce;
 
@@ -24,7 +24,6 @@ namespace TaskManagement.Models.Tasks
 
             this.Priority = priority;
             this.Severity = severity;
-            this.Status = Status.Active;
         }
 
         #region Properties

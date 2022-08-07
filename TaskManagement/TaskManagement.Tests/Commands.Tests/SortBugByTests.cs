@@ -41,8 +41,8 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_SortBugsByTitle()
         {
-            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");            
-            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.Title2} {Constants.Description} Low Major");           
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");            
+            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.BugTitle2} {Constants.Description} Low Major");           
             ICommand sortBugByTitle = this.commandFactory.Create("SortBugby title");           
 
             createBug.Execute();
@@ -64,8 +64,8 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_SortBugsByPriority()
         {
-            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
-            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.Title2} {Constants.Description} Low Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
+            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.BugTitle2} {Constants.Description} Low Major");
             ICommand sortBugByPriority = this.commandFactory.Create("SortBugby priority");
 
             createBug.Execute();
@@ -87,8 +87,8 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_SortBugsBySeverity()
         {
-            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.Title} {Constants.Description} High Major");
-            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.Title2} {Constants.Description} Low Major");
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
+            ICommand createBug2 = this.commandFactory.Create($"Createbug {Constants.BugTitle2} {Constants.Description} Low Major");
             ICommand sortBugBySeverity = this.commandFactory.Create("SortBugby severity");
 
             createBug.Execute();

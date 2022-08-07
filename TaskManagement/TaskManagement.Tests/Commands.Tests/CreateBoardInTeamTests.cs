@@ -28,7 +28,7 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_CreateNewBoardInTeam_When_CorrectValuesArePassed()
         {
             ICommand createTeam = this.commandFactory.Create($"Createteam {Constants.TeamName}");
-            ICommand createBoardInTeam = this.commandFactory.Create("CreateBoardInTeam TestBoard TestTeam");
+            ICommand createBoardInTeam = this.commandFactory.Create($"CreateBoardInTeam {Constants.BoardName} {Constants.TeamName}");
 
          
             createTeam.Execute();
@@ -37,7 +37,7 @@ namespace TaskManagement.Tests.Commands.Tests
             ITeam team = this.repository.FindTeamByName(Constants.TeamName);
             IBoard board = this.repository.FindBoardByNameInTeam(team, Constants.BoardName);
 
-            Assert.AreEqual("TestBoard", board.Name);
+            Assert.AreEqual(Constants.BoardName, board.Name);
         }
 
         [TestMethod]
