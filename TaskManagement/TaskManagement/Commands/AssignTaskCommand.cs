@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
+using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Tasks;
 using TaskManagement.Validations;
 
@@ -32,6 +33,7 @@ namespace TaskManagement.Commands
             int taskId = int.Parse(base.CommandParameters[0]);
             string memberName = base.CommandParameters[1];
             string teamName = base.CommandParameters[2];
+            CheckIfTaskIsAssigned(taskId);
 
             var task = this.Repository.FindTaskById(taskId);
             var member = this.Repository.FindMemberByName(memberName);
@@ -64,6 +66,28 @@ namespace TaskManagement.Commands
             }
 
             return $"Task with id {taskId} was assigned to {member.Name}";
+        }
+
+        public void CheckIfTaskIsAssigned(int taskId)
+        {
+            var task = this.Repository.FindTaskById(taskId);
+
+            if (task.GetType().Name=="Bug")
+            {
+                var bug = (IBug)task;
+                if (bug.Assignee!= null)
+                {
+                    throw new InvalidOperationException($"Task with ID: {taskId} is already assigned to {bug.Assignee.Name}!");
+                }
+            }
+            if (task.GetType().Name == "Story")
+            {
+                var story = (IStory)task;
+                if (story.Assignee != null)
+                {
+                    throw new InvalidOperationException($"Task with ID: {taskId} is already assigned to {story.Assignee.Name}!");
+                }
+            }
         }
     }
 }

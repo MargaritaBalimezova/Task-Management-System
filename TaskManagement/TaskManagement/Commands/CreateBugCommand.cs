@@ -43,7 +43,7 @@ namespace TaskManagement.Commands
         {
             IList<string> result = new List<string>();
 
-            if (bugTitle == "TestTitle111" || bugTitle == "TestTitle222")
+            if (bugTitle == Constants.BugTestTitle || bugTitle == Constants.BugTestTitle2)
             {
                 result.Add("step1");
                 result.Add("step2");

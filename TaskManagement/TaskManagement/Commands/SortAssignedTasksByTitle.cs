@@ -15,8 +15,8 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            var bugs = this.Repository.Bugs.Where(b => b.Assignee.Name!= null);
-            var stories = this.Repository.Stories.Where(s => s.Assignee.Name != null);
+            var bugs = this.Repository.Bugs.Where(b => b.Assignee!= null);
+            var stories = this.Repository.Stories.Where(s => s.Assignee!= null);
             List<ITask> tasks = bugs.Cast<ITask>().Concat(stories.Cast<ITask>()).OrderBy(t => t.Title).ToList();
 
             StringBuilder sb = new StringBuilder();

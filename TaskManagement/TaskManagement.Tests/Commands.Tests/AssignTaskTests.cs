@@ -111,5 +111,48 @@ namespace TaskManagement.Tests.Commands.Tests
             Assert.ThrowsException<EntityNotFoundException>(() =>
                 command.Execute());
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Execute_Should_Throw_When_SameStoryIsAssignedTwice()
+        {
+            var member = this.repository.CreateMember(Constants.MemberName);
+            var member2 = this.repository.CreateMember(Constants.MemberName2);
+            var task = this.repository.CreateStory(Constants.Title, Constants.Description, PriorityType.Medium, SizeType.Large);
+            var team = this.repository.CreateTeam(Constants.TeamName);
+            team.AddMember(member);
+            team.AddMember(member2);
+
+            var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
+            var commandParameters2 = new string[] { "1", Constants.MemberName2, Constants.TeamName }.ToList();
+
+            var command = new AssignTaskCommand(commandParameters, repository);
+            var command2 = new AssignTaskCommand(commandParameters2, repository);
+
+            command.Execute();
+            command2.Execute();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Execute_Should_Throw_When_SameBugIsAssignedTwice()
+        {
+            var member = this.repository.CreateMember(Constants.MemberName);
+            var member2 = this.repository.CreateMember(Constants.MemberName2);
+            var task = this.repository.CreateBug(Constants.BugTitle, Constants.Description, PriorityType.Medium, Severity.Critical,Constants.steps);
+            var team = this.repository.CreateTeam(Constants.TeamName);
+            team.AddMember(member);
+            team.AddMember(member2);
+
+            var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
+            var commandParameters2 = new string[] { "1", Constants.MemberName2, Constants.TeamName }.ToList();
+
+            var command = new AssignTaskCommand(commandParameters, repository);
+            var command2 = new AssignTaskCommand(commandParameters2, repository);
+
+            command.Execute();
+            command2.Execute();
+        }
+
     }
 }
