@@ -80,7 +80,7 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException),
+        [ExpectedException(typeof(InvalidUserInputException),
             "Validation for field to change failed!")]
         public void Execute_Should_ThrowException_When_ChangeParamIsNotListed()
         {

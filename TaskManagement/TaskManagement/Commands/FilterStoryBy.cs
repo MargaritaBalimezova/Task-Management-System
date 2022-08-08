@@ -5,12 +5,14 @@ using System.Text;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
     public class FilterStoryBy : BaseCommand
     {
-        private const int ExpectedParamsCount = 3;
+        private const int ExpectedParamsCount1 = 2;
+        private const int ExpectedParamsCount2 = 3;
 
         public FilterStoryBy(IList<string> commandParameters, IRepository repository)
           : base(commandParameters, repository)
@@ -19,11 +21,7 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-         /*   if(this.CommandParameters.Count < ExpectedParamsCount || 
-                this.CommandParameters.Count != ExpectedParamsCount)
-            {
-                throw new ArgumentException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
-            }*/
+            CommandParametersValidation(base.CommandParameters);
 
             var stories = new List<IStory>();
 
@@ -58,5 +56,25 @@ namespace TaskManagement.Commands
             return sb.ToString();
         }
 
+        public void CommandParametersValidation(IList<string> commands)
+        {
+            switch (commands[0].ToLower())
+            {
+                case "status":
+                case "assignee":
+                    if (commands.Count != ExpectedParamsCount1)
+                    {
+                        throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount1, this.CommandParameters.Count));
+                    }
+                    break;
+                case "statusandassignee":
+                    if (commands.Count != ExpectedParamsCount2)
+                    {
+                        throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount2, this.CommandParameters.Count));
+                    }
+                    break;
+
+            }
+        }
     }
 }

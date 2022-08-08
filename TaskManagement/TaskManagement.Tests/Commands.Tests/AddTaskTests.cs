@@ -48,7 +48,7 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidUserInputException),
+        [ExpectedException(typeof(ArgumentException),
             "AddTask commnad id validation failed!")]
         public void Execute_Should_ThrowException_When_TaskIdNotValid()
         {

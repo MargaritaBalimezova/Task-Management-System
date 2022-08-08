@@ -20,7 +20,7 @@ namespace TaskManagement.Commands
         {
             if (this.CommandParameters.Count < ExpectedParamsCount)
             {
-                throw new InvalidUserInputException(string.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             // Parameters:

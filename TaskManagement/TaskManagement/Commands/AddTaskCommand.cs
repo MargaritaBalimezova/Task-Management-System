@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
@@ -18,18 +19,10 @@ namespace TaskManagement.Commands
         {
             if(this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
-            int taskId;
-            try
-            {
-                taskId = int.Parse(this.CommandParameters[0]);
-            }
-            catch
-            {
-                throw new InvalidUserInputException($"Invalid first parameter, id of task is expected, received: {this.CommandParameters[0]}");
-            }
+            int taskId = ParseIntParameter(this.CommandParameters[0], "task id");
 
             var task = this.Repository.FindTaskById(taskId);
             var team = this.Repository.FindTeamByName(this.CommandParameters[1]);

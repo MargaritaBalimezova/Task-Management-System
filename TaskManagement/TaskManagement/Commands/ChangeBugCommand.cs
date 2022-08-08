@@ -6,6 +6,7 @@ using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.BugStatus;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
@@ -22,7 +23,7 @@ namespace TaskManagement.Commands
         {
             if (this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             int taskId = ParseIntParameter(base.CommandParameters[0],"TaskId");
@@ -48,7 +49,7 @@ namespace TaskManagement.Commands
                     return $"Status of bug with Id: {bug.Id} was changed!";
 
                 default:
-                    throw new ArgumentException($"Parameter with name {paramToChange} does not exist!");
+                    throw new InvalidUserInputException(String.Format(Constants.PARAMETER_DOESNOT_EXIST_ERR_MSG, paramToChange));
             }
         }
     }

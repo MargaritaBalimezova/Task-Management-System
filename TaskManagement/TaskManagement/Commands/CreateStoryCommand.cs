@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
@@ -19,7 +20,7 @@ namespace TaskManagement.Commands
         {
             if(this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             //title, description, priority, size, assignee

@@ -5,6 +5,7 @@ using TaskManagement.Core.Contracts;
 using System.Linq;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Exceptions;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
@@ -36,7 +37,7 @@ namespace TaskManagement.Commands
                         Where(b => b.Assignee.Name == CommandParameters[2]);
                     break;
                 default:
-                    throw new InvalidUserInputException($"There is no filter with name {CommandParameters[0]}");
+                    throw new InvalidUserInputException(String.Format(Constants.PARAMETER_DOESNOT_EXIST_ERR_MSG, CommandParameters[0]));
 
             }
 
@@ -57,13 +58,13 @@ namespace TaskManagement.Commands
                 case "assignee":
                     if (commands.Count != ExpectedParamsCount1)
                     {
-                        throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount1}, Received: {this.CommandParameters.Count}");
+                        throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount1, this.CommandParameters.Count));
                     }
                     break;
                 case "statusandassignee":
                     if (commands.Count != ExpectedParamsCount2)
                     {
-                        throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount2}, Received: {this.CommandParameters.Count}");
+                        throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount2, this.CommandParameters.Count));
                     }
                     break;
 

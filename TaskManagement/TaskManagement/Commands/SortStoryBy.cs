@@ -5,6 +5,7 @@ using System.Text;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
@@ -21,7 +22,7 @@ namespace TaskManagement.Commands
         {
             if(this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             var stories = new List<IStory>();
@@ -41,7 +42,7 @@ namespace TaskManagement.Commands
                     stories = this.Repository.Stories.OrderBy(story => story.Status.ToString()).ToList();
                     break;
                 default:
-                    throw new InvalidUserInputException("You can sort list of stories only by title, size, priority or status!");
+                    throw new InvalidUserInputException(String.Format(Constants.PARAMETER_DOESNOT_EXIST_ERR_MSG, CommandParameters[0]));
             }
 
             var sb = new StringBuilder();

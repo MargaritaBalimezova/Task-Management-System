@@ -15,6 +15,9 @@ namespace TaskManagement.Validations
         public static string SPACES2 = new string(' ', 2);
         public static string SPACES4 = new string(' ', 4);
 
+        public static string INVALID_ID_MSG = "Invalid first parameter, id of task is expected, received: {0}";
+        public static string MEMBER_NOT_FOUND_ERR_MSG = "Member with name {0} was not found in the member list of team {1}";
+        public static string PARAMETER_DOESNOT_EXIST_ERR_MSG = "Parameter with name {0} does not exist!";
         //TEAM
         public const string TEAM_HEADER = "--TEAM--";
 

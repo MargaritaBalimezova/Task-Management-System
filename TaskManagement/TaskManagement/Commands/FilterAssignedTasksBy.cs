@@ -6,6 +6,7 @@ using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
@@ -79,7 +80,7 @@ namespace TaskManagement.Commands
                         && x.Status == Models.Enums.StoryStatus.Status.Done));
                         break;
                     default:
-                        throw new InvalidUserInputException($"There is no status with name {CommandParameters[1]}");
+                        throw new InvalidUserInputException(String.Format(Constants.PARAMETER_DOESNOT_EXIST_ERR_MSG, CommandParameters[1]));
 
                 }
             }
@@ -111,13 +112,13 @@ namespace TaskManagement.Commands
                 case "assignee":
                     if (commands.Count !=ExpectedParamsCount1)
                     {
-                        throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount1}, Received: {this.CommandParameters.Count}");
+                        throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount1, this.CommandParameters.Count));
                     }
                     break;
                 case "statusandassignee":
                     if (commands.Count != ExpectedParamsCount2)
                     {
-                        throw new InvalidUserInputException($"Invalid number of arguments. Expected: 3, Received: {this.CommandParameters.Count}");
+                        throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount2, this.CommandParameters.Count));
                     }
                     break;
 

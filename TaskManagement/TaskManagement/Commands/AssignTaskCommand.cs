@@ -22,7 +22,7 @@ namespace TaskManagement.Commands
         {
             if (this.CommandParameters.Count < ExpectedParamsCount)
             {
-                throw new InvalidUserInputException(string.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             // Parameters:
@@ -47,7 +47,7 @@ namespace TaskManagement.Commands
             }
             else
             {
-                throw new EntityNotFoundException($"Member with id {member.Name} was not found in the member list of team {team.Name}");
+                throw new EntityNotFoundException(String.Format(Constants.MEMBER_NOT_FOUND_ERR_MSG, memberName, teamName));
             }
 
             switch (task.GetType().Name)

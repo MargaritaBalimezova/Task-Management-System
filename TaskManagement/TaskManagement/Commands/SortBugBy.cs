@@ -6,6 +6,7 @@ using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
@@ -22,7 +23,7 @@ namespace TaskManagement.Commands
         {
             if (this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             IEnumerable<IBug> bugs = new List<IBug>();
@@ -36,7 +37,9 @@ namespace TaskManagement.Commands
                     break;
                 case "severity":
                     bugs = this.Repository.Bugs.OrderBy(x => x.Severity);
-                    break;                
+                    break;
+                default:
+                    throw new InvalidUserInputException(String.Format(Constants.PARAMETER_DOESNOT_EXIST_ERR_MSG, CommandParameters[0]));
             }
 
             StringBuilder sb = new StringBuilder();

@@ -6,11 +6,14 @@ using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums.FeedbackStatus;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
     public class SortFeedbacksByCommand : BaseCommand
     {
+        private const int ExpectedParamsCount = 1;
+
         public SortFeedbacksByCommand(IList<string> parameters, IRepository repository)
        : base(parameters, repository)
         {
@@ -18,9 +21,9 @@ namespace TaskManagement.Commands
 
         public override string Execute()
         {
-            if (this.CommandParameters.Count != 1)
+            if (this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: 1, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             IList<IFeedback> feedbacks = new List<IFeedback>();

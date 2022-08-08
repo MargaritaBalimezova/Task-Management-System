@@ -7,6 +7,7 @@ using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Models.Enums;
 using TaskManagement.Models.Tasks;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
@@ -23,7 +24,7 @@ namespace TaskManagement.Commands
         {
             if (this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, Received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             string bugTitle = base.CommandParameters[0];

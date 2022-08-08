@@ -4,6 +4,7 @@ using System.Text;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Validations;
 
 namespace TaskManagement.Commands
 {
@@ -20,7 +21,7 @@ namespace TaskManagement.Commands
         {
             if (this.CommandParameters.Count != ExpectedParamsCount)
             {
-                throw new InvalidUserInputException($"Invalid number of arguments. Expected: {ExpectedParamsCount}, received: {this.CommandParameters.Count}");
+                throw new InvalidUserInputException(String.Format(Constants.ARGUMENTS_ERROR_MSG, ExpectedParamsCount, this.CommandParameters.Count));
             }
 
             ITeam team = this.Repository.FindTeamByName(base.CommandParameters[0]);

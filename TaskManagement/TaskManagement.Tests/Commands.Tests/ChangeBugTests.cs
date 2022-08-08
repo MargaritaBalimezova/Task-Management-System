@@ -80,7 +80,7 @@ namespace TaskManagement.Tests.Commands.Tests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentException))]
+        [ExpectedException(typeof(InvalidUserInputException))]
         public void Execute_ShouldThrow_When_IncorrectFilterIsPassed()
         {
             ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
