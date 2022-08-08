@@ -31,7 +31,7 @@ namespace TaskManagement.Commands
             string bugDescription = base.CommandParameters[1];
             PriorityType bugPriority = ParsePriorityType(base.CommandParameters[2]);
             Severity bugSeverity = ParseSeverity(base.CommandParameters[3]);            
-            IList<string> stepsToReproduce = StepsToReproduce(bugTitle);
+            IList<string> stepsToReproduce = StepsToReproduce();
 
             IBug bug = this.Repository.CreateBug
                 (bugTitle, bugDescription, bugPriority, bugSeverity, stepsToReproduce);
@@ -39,17 +39,11 @@ namespace TaskManagement.Commands
             return $"Bug with Id: {bug.Id} was created!";
         }       
 
-        private IList<string> StepsToReproduce(string bugTitle)
+        private IList<string> StepsToReproduce()
         {
             IList<string> result = new List<string>();
 
-            if (bugTitle == Constants.BugTestTitle || bugTitle == Constants.BugTestTitle2)
-            {
-                result.Add("step1");
-                result.Add("step2");
-                return result;
-            }
-            
+           
             Console.WriteLine("Please enter step to reproduce the bug without enumerating it and press <Enter> to add new step.");
             Console.WriteLine("When you are ready just type <end>");
             string input = Console.ReadLine().ToLower();
@@ -62,7 +56,7 @@ namespace TaskManagement.Commands
                     input = Console.ReadLine();
                     continue;
                 }
-                result.Add(input);
+                result.Add(char.ToUpper(input[0]) + input.Substring(1)) ;
                 input = Console.ReadLine().ToLower();
             }
             return result;

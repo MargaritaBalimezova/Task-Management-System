@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using TaskManagement.Commands;
@@ -26,17 +27,18 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
         }
 
         [TestMethod]
         public void Execute_Should_CreateNewBug_When_CorrectValuesArePassed()
         {
            
-            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");                        
-            // Act
-            createBug.Execute();
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");            
+            createBug.Execute();                
             
-            //Assert
+                
             IBug bug = this.repository.Bugs.FirstOrDefault(b => b.Id == 1); 
             Assert.AreEqual(Constants.BugTitle, bug.Title);
             Assert.AreEqual(Constants.Description, bug.Description);
@@ -51,6 +53,22 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} Major");
 
             createBug.Execute();
+        }
+
+        [TestMethod]
+        public void Execute_Should_WriteSpecialMessage_When_NoStepsAreInsert()
+        {
+            var sw = new StringWriter();
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
+            StreamReader sr = new StreamReader(Constants.fullPath2);
+            Console.SetIn(sr);
+            Console.SetOut(sw);
+
+            createBug.Execute();
+            
+            string result = sw.ToString();
+
+            Assert.IsTrue(result.Contains("This input can not be empty!Please enter your step again!"));
         }
     }
 }

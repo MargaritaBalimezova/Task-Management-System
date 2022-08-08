@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using TaskManagement.Commands;
@@ -27,15 +28,16 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
         }
 
         [TestMethod]
         public void Execute_Should_ChangeBugStatus_When_CorrectValuesArePassed()
         {
-
             ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 status fixed");
-            // Act
+
             createBug.Execute();
             changeBug.Execute();
 
@@ -46,10 +48,10 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_ChangeBugPriority_When_CorrectValuesArePassed()
         {
-
+            
             ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 priority low");
-            // Act
+
             createBug.Execute();
             changeBug.Execute();
 
@@ -60,10 +62,10 @@ namespace TaskManagement.Tests.Commands.Tests
         [TestMethod]
         public void Execute_Should_ChangeBugSeverity_When_CorrectValuesArePassed()
         {
-
+           
             ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 severity critical");
-            // Act
+
             createBug.Execute();
             changeBug.Execute();
 
@@ -85,6 +87,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
             ICommand changeBug = this.commandFactory.Create("Changebug 1 filter critical");
+            
             createBug.Execute();
             changeBug.Execute();
         }

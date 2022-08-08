@@ -60,8 +60,6 @@ namespace TaskManagement.Validations
         public const string FEEDBACK_HEADER = "--FEEDBACKS--";
 
         //BUG 
-        public const string BUGS_HEADER = "--BUGS--";
-        public const string BugTestTitle = "TestTitleабвгдежзийклмнопрстуфхцчшщ";
-        public const string BugTestTitle2 = "TestTitle222абвгдежзийклмнпрстуфхцчшщщщщ";
+        public const string BUGS_HEADER = "--BUGS--";       
     }
 }

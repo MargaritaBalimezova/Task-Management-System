@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using TaskManagement.Commands;
@@ -26,7 +27,8 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
-            
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
         }
 
         [TestMethod]
@@ -46,6 +48,8 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand sortBugByTitle = this.commandFactory.Create("SortBugby title");           
 
             createBug.Execute();
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
             createBug2.Execute();
             sortBugByTitle.Execute();
 
@@ -69,6 +73,8 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand sortBugByPriority = this.commandFactory.Create("SortBugby priority");
 
             createBug.Execute();
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
             createBug2.Execute();
             sortBugByPriority.Execute();
 
@@ -92,6 +98,8 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand sortBugBySeverity = this.commandFactory.Create("SortBugby severity");
 
             createBug.Execute();
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
             createBug2.Execute();
             sortBugBySeverity.Execute();
 

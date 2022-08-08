@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using TaskManagement.Commands;
@@ -28,7 +29,8 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
-
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
         }
 
         [TestMethod]

@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using TaskManagement.Commands;
@@ -25,7 +26,9 @@ namespace TaskManagement.Tests.Commands.Tests
         public void InitTest()
         {
             this.repository = new Repository();
-            this.commandFactory = new CommandFactory(this.repository);
+            this.commandFactory = new CommandFactory(this.repository);           
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);          
 
         }
 
@@ -71,6 +74,8 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand filterBugByAssignee = this.commandFactory.Create($"FilterBugby assignee pesho");
 
             createBug.Execute();
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
             createBug2.Execute();
             createTeam.Execute();
             createMember.Execute();
@@ -94,6 +99,8 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand filterBugByStatus = this.commandFactory.Create("FilterBugBy status fixed");
 
             createBug.Execute();
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
             createBug2.Execute();
             changeBug.Execute();
             filterBugByStatus.Execute();
@@ -117,6 +124,8 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand filterBugByStatusAndAssignee = this.commandFactory.Create("FilterBugby statusandassignee active pesho");
 
             createBug.Execute();
+            StreamReader sr = new StreamReader(Constants.fullPath);
+            Console.SetIn(sr);
             createBug2.Execute();
             createTeam.Execute();
             createMember.Execute();
