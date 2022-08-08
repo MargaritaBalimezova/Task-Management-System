@@ -99,5 +99,25 @@ namespace TaskManagement.Tests.Commands.Tests
             //Act & Assert
             command.Execute();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidUserInputException))]
+        public void Execute_ShouldThrow_When_IncorrectCountOfParrammetersArePassed_V1()
+        {
+            var commandParams = new string[] {"Status"};
+            var command = new FilterStoryBy(commandParams, this.repository);
+
+            command.Execute();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidUserInputException))]
+        public void Execute_ShouldThrow_When_IncorrectCountOfParrammetersArePassed_V2()
+        {
+            var commandParams = new string[] {"statusandassignee" };
+            var command = new FilterStoryBy(commandParams, this.repository);
+
+            command.Execute();
+        }
     }
 }
