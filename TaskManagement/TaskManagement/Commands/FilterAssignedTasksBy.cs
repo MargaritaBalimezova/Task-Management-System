@@ -52,31 +52,31 @@ namespace TaskManagement.Commands
             }
             else if (CommandParameters[0].ToLower() == "assignee")
             {
-                result.AddRange(this.Repository.Bugs.Where(x => x.Assignee.Name == CommandParameters[1]));
-                result.AddRange(this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[1]));
+                result.AddRange(this.Repository.Bugs.Where(x => x.Assignee != null && x.Assignee.Name == CommandParameters[1]));
+                result.AddRange(this.Repository.Stories.Where(x =>x.Assignee !=null &&  x.Assignee.Name == CommandParameters[1]));
             }
             else if (CommandParameters[0].ToLower() == "statusandassignee")
             {
                 switch (CommandParameters[1].ToLower())
                 {
                     case "active":
-                        result.AddRange(this.Repository.Bugs.Where(x => x.Assignee.Name == CommandParameters[2]
+                        result.AddRange(this.Repository.Bugs.Where(x => x.Assignee != null && x.Assignee.Name == CommandParameters[2]
                         && x.Status == Models.Enums.BugStatus.Status.Active));
                         break;
                     case "fixed":
-                        result.AddRange(this.Repository.Bugs.Where(x => x.Assignee.Name == CommandParameters[2]
+                        result.AddRange(this.Repository.Bugs.Where(x => x.Assignee != null && x.Assignee.Name == CommandParameters[2]
                         && x.Status == Models.Enums.BugStatus.Status.Fixed));
                         break;
                     case "notdone":
-                        result.AddRange((this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[2]
+                        result.AddRange((this.Repository.Stories.Where(x => x.Assignee != null && x.Assignee.Name == CommandParameters[2]
                         && x.Status == Models.Enums.StoryStatus.Status.NotDone)));
                         break;
                     case "inprogress":
-                        result.AddRange(this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[2] 
+                        result.AddRange(this.Repository.Stories.Where(x => x.Assignee != null && x.Assignee.Name == CommandParameters[2] 
                         && x.Status == Models.Enums.StoryStatus.Status.InProgress));
                         break;
                     case "done":
-                        result.AddRange(this.Repository.Stories.Where(x => x.Assignee.Name == CommandParameters[2]
+                        result.AddRange(this.Repository.Stories.Where(x => x.Assignee != null && x.Assignee.Name == CommandParameters[2]
                         && x.Status == Models.Enums.StoryStatus.Status.Done));
                         break;
                     default:

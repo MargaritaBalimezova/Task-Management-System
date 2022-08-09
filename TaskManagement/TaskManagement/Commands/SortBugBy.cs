@@ -33,7 +33,7 @@ namespace TaskManagement.Commands
                     bugs = this.Repository.Bugs.OrderBy(x => x.Title);
                     break;
                 case "priority":
-                    bugs = this.Repository.Bugs.OrderBy(x => x.Priority);
+                    bugs = this.Repository.Bugs.OrderByDescending(x => x.Priority);
                     break;
                 case "severity":
                     bugs = this.Repository.Bugs.OrderBy(x => x.Severity);

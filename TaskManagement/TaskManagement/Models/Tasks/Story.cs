@@ -36,7 +36,7 @@ namespace TaskManagement.Models.Tasks
             {
                 if (this.Priority != value)
                 {
-                    AddEventLog($"Priority of Story with ID {this.Id} {this.Title} was changed from {this.Priority} to {priority}.");
+                    AddEventLog($"Priority of Story with ID {this.Id} {this.Title} was changed from {this.Priority} to {value}.");
                     this.priority = value;
                 }
                 else

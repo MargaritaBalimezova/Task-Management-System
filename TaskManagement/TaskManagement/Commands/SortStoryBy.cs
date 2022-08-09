@@ -30,10 +30,10 @@ namespace TaskManagement.Commands
             switch (this.CommandParameters[0].ToLower())
             {
                 case "size":
-                    stories = this.Repository.Stories.OrderBy(story => story.Size.ToString()).ToList();
+                    stories = this.Repository.Stories.OrderByDescending(story => story.Size.ToString()).ToList();
                     break;
                 case "priority":
-                    stories = this.Repository.Stories.OrderBy(story => story.Priority.ToString()).ToList();
+                    stories = this.Repository.Stories.OrderByDescending(story => story.Priority).ToList();
                     break;
                 case "title":
                     stories = this.Repository.Stories.OrderBy(story => story.Title).ToList();

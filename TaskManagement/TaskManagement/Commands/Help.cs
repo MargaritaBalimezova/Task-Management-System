@@ -42,7 +42,7 @@ namespace TaskManagement.Commands
 
             sb.AppendLine();
 
-            sb.AppendLine("filtertaskbytitle............. - [titleToSearchFor] - Filter tasks by given title");
+            sb.AppendLine("filtertasksbytitle............ - [titleToSearchFor] - Filter tasks by given title");
             sb.AppendLine("filterassignedtasksby......... - [paramToFilterBy] [valueToSearchFor] / [secondValueToSearchFor] - Filter assigned tasks by given paramater and value");
             sb.AppendLine("filterbugby................... - [paramToFilterBy] [valueToSearchFor] / [secondValueToSearchFor] - Filter bugs by given paramater/s and value/s");
             sb.AppendLine("filterstoryby................. - [paramToFilterBy] [valueToSearchFor] / [secondValueToSearchFor] - Filter stories by given paramater/s and value/s");
@@ -51,7 +51,7 @@ namespace TaskManagement.Commands
             sb.AppendLine();
 
             sb.AppendLine("sortassignedtasksbytitle...... - Showing sorted by title assgined tasks");
-            sb.AppendLine("sorttaskbytitle............... - Showing sorted by title tasks");
+            sb.AppendLine("sorttasksbytitle.............. - Showing sorted by title tasks");
             sb.AppendLine("sortbugby..................... - [paramToSortBy] - Showing sorted by given param bugs");
             sb.AppendLine("sortfeedbacksby............... - [paramToSortBy] - Showing sorted by given param feedbacks");
             sb.AppendLine("sortstoryby................... - [paramToSortBy] - Showing sorted by given param stories");
@@ -60,11 +60,12 @@ namespace TaskManagement.Commands
 
             sb.AppendLine("showallmembers................ - Showing all members that were created");
             sb.AppendLine("showallteams.................. - Showing all teams that were created");
-            sb.AppendLine("showallteamboard.............. - [teamName] - Showing all board in a given team");
+            sb.AppendLine("showallteamboards............. - [teamName] - Showing all board in a given team");
             sb.AppendLine("showmemberactivity............ - [memberName] - Showing member activity");
             sb.AppendLine("showteamsactivity............. - [teamName] - Showing team activity");
             sb.AppendLine("showteammembers............... - [teamName] - Showing all members in a given team");
             sb.AppendLine("showboardactivity............. - [boardName] [teamName] - Showing board activity in a given team");
+            sb.AppendLine("showtaskactivity.............. - [taskID] - Showing a task activity of a specific task");
 
             sb.AppendLine();
 

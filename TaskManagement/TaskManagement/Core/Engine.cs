@@ -42,6 +42,7 @@ namespace TaskManagement.Core
                     string result = command.Execute();
                     Console.WriteLine(result.Trim());
                     Console.WriteLine(ReportSeparator);
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 catch (Exception ex)
                 {

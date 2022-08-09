@@ -57,10 +57,11 @@ namespace TaskManagement.Tests.Commands.Tests
             var command = new SortStoryBy(commandParameters, this.repository);
 
             var sb = new StringBuilder();
-            sb.Append(story1.ToString());
-            sb.AppendLine("####################");
             sb.Append(story2.ToString());
             sb.AppendLine("####################");
+            sb.Append(story1.ToString());
+            sb.AppendLine("####################");
+            
             //Act && Assert
             Assert.IsTrue(command.Execute().Contains(sb.ToString()));
         }

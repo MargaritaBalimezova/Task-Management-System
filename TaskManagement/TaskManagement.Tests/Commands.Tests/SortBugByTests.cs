@@ -78,7 +78,7 @@ namespace TaskManagement.Tests.Commands.Tests
             createBug2.Execute();
             sortBugByPriority.Execute();
 
-            IEnumerable<IBug> bugs = this.repository.Bugs.OrderBy(x => x.Priority);
+            IEnumerable<IBug> bugs = this.repository.Bugs.OrderByDescending(x => x.Priority);
             StringBuilder sb = new StringBuilder();
             foreach (var item in bugs)
             {

@@ -56,7 +56,7 @@ namespace TaskManagement.Validations
         public const int RATING_MIN_VALUE = 1;
 
         public const int RATING_MAX_VALUE = 100;
-        public static string RATING_ERROR_MSG = $"Rating must be between {RATING_MIN_VALUE} and {RATING_MAX_VALUE} characters long!";
+        public static string RATING_ERROR_MSG = $"Rating must be between {RATING_MIN_VALUE} and {RATING_MAX_VALUE} points!";
         public const string FEEDBACK_HEADER = "--FEEDBACKS--";
 
         //BUG 
