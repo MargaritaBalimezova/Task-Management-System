@@ -47,8 +47,10 @@ namespace TaskManagement.Tests.Commands.Tests
             var stepsToReproduce = new List<string>();
             var task = this.repository.CreateBug(Constants.Title, Constants.Description, PriorityType.Medium, Severity.Minor, stepsToReproduce);
             var team = this.repository.CreateTeam(Constants.TeamName);
-
+            var board = this.repository.CreateBoard(Constants.BoardName);
+            team.AddBoard(board);
             team.AddMember(member);
+            board.AddTaskToBoard(task);
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
 
@@ -65,8 +67,10 @@ namespace TaskManagement.Tests.Commands.Tests
             var member = this.repository.CreateMember(Constants.MemberName);
             var task = this.repository.CreateStory(Constants.Title, Constants.Description, PriorityType.Medium, SizeType.Large);
             var team = this.repository.CreateTeam(Constants.TeamName);
-
+            var board = this.repository.CreateBoard(Constants.BoardName);
+            team.AddBoard(board);
             team.AddMember(member);
+            board.AddTaskToBoard(task);
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
 
@@ -83,8 +87,10 @@ namespace TaskManagement.Tests.Commands.Tests
             var member = this.repository.CreateMember(Constants.MemberName);
             var task = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 59);
             var team = this.repository.CreateTeam(Constants.TeamName);
-
+            var board = this.repository.CreateBoard(Constants.BoardName);
+            team.AddBoard(board);
             team.AddMember(member);
+            board.AddTaskToBoard(task);
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
 
@@ -102,6 +108,9 @@ namespace TaskManagement.Tests.Commands.Tests
             var member = this.repository.CreateMember(Constants.MemberName);
             var task = this.repository.CreateStory(Constants.Title, Constants.Description, PriorityType.Medium, SizeType.Large);
             var team = this.repository.CreateTeam(Constants.TeamName);
+            var board = this.repository.CreateBoard(Constants.BoardName);
+            team.AddBoard(board);
+            board.AddTaskToBoard(task);
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
 
@@ -154,5 +163,37 @@ namespace TaskManagement.Tests.Commands.Tests
             command2.Execute();
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Execute_Should_Throw_When_TaskIsAssignedWithoutHavingTeamBoard()
+        {
+            var member = this.repository.CreateMember(Constants.MemberName);
+            var task = this.repository.CreateBug(Constants.BugTitle, Constants.Description, PriorityType.Medium, Severity.Critical, Constants.steps);
+            var team = this.repository.CreateTeam(Constants.TeamName);
+            team.AddMember(member);
+
+            var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
+
+            var command = new AssignTaskCommand(commandParameters, repository);
+
+            command.Execute();
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Execute_Should_Throw_When_TaskWhichIsNotOnAnyOfTeamBoardsIsAssignedToTeamMember()
+        {
+            var member = this.repository.CreateMember(Constants.MemberName);
+            var task = this.repository.CreateBug(Constants.BugTitle, Constants.Description, PriorityType.Medium, Severity.Critical, Constants.steps);
+            var board = this.repository.CreateBoard(Constants.BoardName);
+            var team = this.repository.CreateTeam(Constants.TeamName);
+            team.AddMember(member);
+            team.AddBoard(board);
+
+            var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
+            var command = new AssignTaskCommand(commandParameters, repository);
+
+            command.Execute();
+        }
     }
 }

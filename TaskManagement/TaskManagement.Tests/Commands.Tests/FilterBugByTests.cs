@@ -69,6 +69,9 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand createMember2 = this.commandFactory.Create("Createmember gosho");
             ICommand addMemberToTeam1 = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} pesho");
             ICommand addMemberToTeam2 = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} gosho");
+            ICommand createBoardInTeam = this.commandFactory.Create($"CreateBoardInTeam {Constants.BoardName} {Constants.TeamName}");
+            ICommand addTask1 = this.commandFactory.Create($"Addtask 1 {Constants.TeamName} {Constants.BoardName}");
+            ICommand addTask2 = this.commandFactory.Create($"Addtask 2 {Constants.TeamName} {Constants.BoardName}");
             ICommand assignTask1 = this.commandFactory.Create($"assigntask 1 gosho {Constants.TeamName}");
             ICommand assignTask2 = this.commandFactory.Create($"assigntask 2 pesho {Constants.TeamName}");
             ICommand filterBugByAssignee = this.commandFactory.Create($"FilterBugby assignee pesho");
@@ -82,6 +85,9 @@ namespace TaskManagement.Tests.Commands.Tests
             createMember2.Execute();
             addMemberToTeam1.Execute();
             addMemberToTeam2.Execute();
+            createBoardInTeam.Execute();
+            addTask1.Execute();
+            addTask2.Execute();
             assignTask1.Execute();
             assignTask2.Execute();
             filterBugByAssignee.Execute();
@@ -119,6 +125,9 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand createMember2 = this.commandFactory.Create("Createmember gosho");
             ICommand addMemberToTeam1 = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} pesho");
             ICommand addMemberToTeam2 = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} gosho");
+            ICommand createBoardInTeam = this.commandFactory.Create($"CreateBoardInTeam {Constants.BoardName} {Constants.TeamName}");
+            ICommand addTask1 = this.commandFactory.Create($"Addtask 1 {Constants.TeamName} {Constants.BoardName}");
+            ICommand addTask2 = this.commandFactory.Create($"Addtask 2 {Constants.TeamName} {Constants.BoardName}");
             ICommand assignTask1 = this.commandFactory.Create($"assigntask 1 gosho {Constants.TeamName}");
             ICommand assignTask2 = this.commandFactory.Create($"assigntask 2 pesho {Constants.TeamName}");
             ICommand filterBugByStatusAndAssignee = this.commandFactory.Create("FilterBugby statusandassignee active pesho");
@@ -132,6 +141,9 @@ namespace TaskManagement.Tests.Commands.Tests
             createMember2.Execute();
             addMemberToTeam1.Execute();
             addMemberToTeam2.Execute();
+            createBoardInTeam.Execute();
+            addTask1.Execute();
+            addTask2.Execute();
             assignTask1.Execute();
             assignTask2.Execute();
             filterBugByStatusAndAssignee.Execute();

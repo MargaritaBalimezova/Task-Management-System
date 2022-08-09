@@ -34,10 +34,11 @@ namespace TaskManagement.Commands
             string memberName = base.CommandParameters[1];
             string teamName = base.CommandParameters[2];
             CheckIfTaskIsAssigned(taskId);
-
+            
             var task = this.Repository.FindTaskById(taskId);
             var member = this.Repository.FindMemberByName(memberName);
             var team = this.Repository.FindTeamByName(teamName);
+            CheckIfTaskIsOnTeamBoards(task, team);
 
             if (task.GetType().Name == "FeedBack")
             {
@@ -86,6 +87,21 @@ namespace TaskManagement.Commands
                 if (story.Assignee != null)
                 {
                     throw new InvalidOperationException($"Task with ID: {taskId} is already assigned to {story.Assignee.Name}!");
+                }
+            }
+        }
+
+        public void CheckIfTaskIsOnTeamBoards(ITask task, ITeam team)
+        {
+            if (team.Boards.Count == 0)
+            {
+                throw new InvalidOperationException($"Team {team.Name} does not have board with tasks yet!");
+            }
+            foreach (var item in team.Boards)
+            {                
+                if (!item.BoardTasks.Contains(task))
+                {
+                    throw new InvalidOperationException($"Task with Id: {task.Id} is not attached to any of team {team.Name} boards!");
                 }
             }
         }

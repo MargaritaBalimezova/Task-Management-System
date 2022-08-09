@@ -38,6 +38,9 @@ namespace TaskManagement.Tests.Commands.Tests
             ICommand createTeam = this.commandFactory.Create($"Createteam {Constants.TeamName}");
             ICommand createMember = this.commandFactory.Create($"Createmember {Constants.MemberName}");
             ICommand addMemberToTeam = this.commandFactory.Create($"Addmembertoteam {Constants.TeamName} {Constants.MemberName}");
+            ICommand createBoardInTeam = this.commandFactory.Create($"CreateBoardInTeam {Constants.BoardName} {Constants.TeamName}");
+            ICommand addTask1 = this.commandFactory.Create($"Addtask 1 {Constants.TeamName} {Constants.BoardName}");
+            ICommand addTask2 = this.commandFactory.Create($"Addtask 2 {Constants.TeamName} {Constants.BoardName}");
             ICommand assignTask1 = this.commandFactory.Create($"assigntask 1 {Constants.MemberName} {Constants.TeamName}");
             ICommand assignTask2 = this.commandFactory.Create($"assigntask 2 {Constants.MemberName} {Constants.TeamName}");
             ICommand sortAssignedTasksByTitle = this.commandFactory.Create("SortAssignedTasksBytitle");
@@ -47,6 +50,9 @@ namespace TaskManagement.Tests.Commands.Tests
             createTeam.Execute();
             createMember.Execute();
             addMemberToTeam.Execute();
+            createBoardInTeam.Execute();
+            addTask1.Execute();
+            addTask2.Execute();
             assignTask1.Execute();
             assignTask2.Execute();
             sortAssignedTasksByTitle.Execute();
