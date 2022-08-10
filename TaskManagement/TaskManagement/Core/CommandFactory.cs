@@ -84,6 +84,9 @@ namespace TaskManagement.Core
                 case "addmembertoteam":
                     return new AddMemberToTeam(commandParameters, repository);
 
+                case "removememberfromteam":
+                    return new RemoveMemberFromTeam(commandParameters, repository);
+
                 case "unassigntask":
                     return new UnassignTaskCommand(commandParameters, repository);
 

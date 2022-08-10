@@ -76,7 +76,7 @@ namespace TaskManagement.Commands
             if (task.GetType().Name=="Bug")
             {
                 var bug = (IBug)task;
-                if (bug.Assignee!= null)
+                if (bug.Assignee != null)
                 {
                     throw new InvalidOperationException($"Task with ID: {taskId} is already assigned to {bug.Assignee.Name}!");
                 }
