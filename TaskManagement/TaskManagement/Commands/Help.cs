@@ -29,7 +29,7 @@ namespace TaskManagement.Commands
             sb.AppendLine();
 
             sb.AppendLine("AddMemberToTeam............... - [teamName] [memberName] - Adds member to a team");
-            sb.AppendLine("RemoveMemberFromTeam............... - [teamName] [memberName] - Removes member from team");
+            sb.AppendLine("RemoveMemberFromTeam.......... - [teamName] [memberName] - Removes member from team");
             sb.AppendLine("AddComment.................... - [taskId] [memberName] [comment]  - Adds comment to a task");
             sb.AppendLine("AddTask....................... - [taskId] [teamName] [boardName]  - Adds task to a board");
             sb.AppendLine("AssignTask.................... - [taskId] [memberName] [teamName] - Assign task to a member");
