@@ -38,7 +38,7 @@ namespace TaskManagement.Tests.Commands.Tests
                                                ,Constants.MemberName
                                                ,Constants.Comment};
 
-            var command = new AddCommentCommand(commandParams, repository);
+            var command = new AddCommentCommand(commandParams, this.repository);
 
             //Act
             command.Execute();
@@ -58,7 +58,7 @@ namespace TaskManagement.Tests.Commands.Tests
                                                ,Constants.MemberName
                                                ,Constants.Comment};
 
-            var command = new AddCommentCommand(commandParams, repository);
+            var command = new AddCommentCommand(commandParams, this.repository);
 
             //Act & Assert
             command.Execute();
@@ -70,7 +70,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = Helpers.GetDummyList(ExpectedParamsCount - 1);
-            var command = new AddCommentCommand(commandParameters, repository);
+            var command = new AddCommentCommand(commandParameters, this.repository);
 
             //Act & Asssert
             command.Execute();

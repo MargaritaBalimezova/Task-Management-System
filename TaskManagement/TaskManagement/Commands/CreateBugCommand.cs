@@ -60,7 +60,7 @@ namespace TaskManagement.Commands
                     continue;
                 }
                
-                    result.Add(char.ToUpper(input[0]) + input.Substring(1));
+                    result.Add(char.ToUpper(input[0]) + input[1..]);
 
                 if (input == "end")
                 {

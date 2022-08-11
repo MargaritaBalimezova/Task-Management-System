@@ -26,7 +26,7 @@ namespace TaskManagement.Commands
             string memberName = base.CommandParameters[0];
 
             var member = this.Repository.CreateMember(memberName);
-            return $"Member with name {memberName} was created.";
+            return $"Member with name {member.Name} was created.";
         }
     }
 }

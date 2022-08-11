@@ -27,7 +27,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var command = new CreateMemberCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -40,7 +40,7 @@ namespace TaskManagement.Tests.Commands.Tests
             // Arrange
             string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH + 1);
             var commandParameters = new string[] { name }.ToList();
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var command = new CreateMemberCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -53,13 +53,13 @@ namespace TaskManagement.Tests.Commands.Tests
             // Arrange
             string name = new string('x', Constants.MEMBER_NAME_MAX_LENGTH - 1);
             var commandParameters = new string[] { name }.ToList();
-            var command = new CreateMemberCommand(commandParameters, repository);
+            var command = new CreateMemberCommand(commandParameters, this.repository);
 
             // Act
             command.Execute();
 
             // Assert
-            Assert.IsTrue(repository.Members.Count > 0);
+            Assert.IsTrue(this.repository.Members.Count > 0);
         }
     }
 }
