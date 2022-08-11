@@ -197,6 +197,7 @@ namespace TaskManagement.Core
 
         public void AddBoardToTeam(ITeam team, IBoard board)
         {
+            Validator.ValidateArgumentIsNotNull(board, "Board");
             Validator.ValidateArgumentIsNotNull(team, "Team");
 
             if (IsBoardInTeam(team, board))
