@@ -36,7 +36,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var commandParameters = new string[] { this.story.Id.ToString()
                                                   ,"Priority"
                                                   , expectedPriority.ToString()};
-            var command = new ChangeStoryCommand(commandParameters, repository);
+            var command = new ChangeStoryCommand(commandParameters, this.repository);
             //Act
             command.Execute();
             //Assert
@@ -52,7 +52,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var commandParameters = new string[] { this.story.Id.ToString()
                                                   ,"Size"
                                                   , expectedSize.ToString()};
-            var command = new ChangeStoryCommand(commandParameters, repository);
+            var command = new ChangeStoryCommand(commandParameters, this.repository);
             //Act
             command.Execute();
             //Assert
@@ -68,7 +68,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var commandParameters = new string[] { this.story.Id.ToString()
                                                   ,"Status"
                                                   , expectedStatus.ToString()};
-            var command = new ChangeStoryCommand(commandParameters, repository);
+            var command = new ChangeStoryCommand(commandParameters, this.repository);
             //Act
             command.Execute();
             //Assert
@@ -86,7 +86,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var commandParameters = new string[] { this.story.Id.ToString()
                                                   ,"FakeField"
                                                   , expectedStatus.ToString()};
-            var command = new ChangeStoryCommand(commandParameters, repository);
+            var command = new ChangeStoryCommand(commandParameters, this.repository);
             //Act & Assert
             command.Execute();
         }
@@ -98,7 +98,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = Helpers.GetDummyList(ExpectedParamsCount - 1);
-            var command = new ChangeStoryCommand(commandParameters, repository);
+            var command = new ChangeStoryCommand(commandParameters, this.repository);
             //Act & Assert
             command.Execute();
         }

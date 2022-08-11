@@ -33,8 +33,8 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = new string[] { Constants.TeamName, Constants.MemberName };
-            var command = new ShowTeamMembersCommand(new string[] { Constants.TeamName }, repository);
-            var addMemberCommand = new AddMemberToTeam(commandParameters, repository);
+            var command = new ShowTeamMembersCommand(new string[] { Constants.TeamName }, this.repository);
+            var addMemberCommand = new AddMemberToTeam(commandParameters, this.repository);
 
             //Act
             addMemberCommand.Execute();
@@ -50,7 +50,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = Helpers.GetDummyList(ExpectedParamsCount + 1);
-            var command = new ShowTeamMembersCommand(commandParameters, repository);
+            var command = new ShowTeamMembersCommand(commandParameters, this.repository);
 
             //Act & Assert
             command.Execute();

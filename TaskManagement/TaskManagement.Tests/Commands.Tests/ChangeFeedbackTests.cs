@@ -28,7 +28,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new ChangeFeedbackCommand(commandParameters, repository);
+            var command = new ChangeFeedbackCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -39,9 +39,9 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ThrowException_When_ParamToChangeIsNotValid()
         {
             // Arrange
-            ITask taskFeedback = (ITask)this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
+            ITask taskFeedback = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
             var commandParameters = new string[] { "1", "sth", "Unscheduled" }.ToList();
-            var command = new ChangeFeedbackCommand(commandParameters, repository);
+            var command = new ChangeFeedbackCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -52,11 +52,11 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ChangeFeedbackStatus()
         {
             // Arrange
-            ITask taskFeedback = (ITask)this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
+            ITask taskFeedback = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
             var commandParameters = new string[] { "1", "status", "Unscheduled" }.ToList();
 
             //Act
-            var command = new ChangeFeedbackCommand(commandParameters, repository);
+            var command = new ChangeFeedbackCommand(commandParameters, this.repository);
 
             //Assert
             Assert.AreEqual(command.Execute(), "Status of task with 1 was changed.");
@@ -66,11 +66,11 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ChangeFeedbackRating()
         {
             // Arrange
-            ITask taskFeedback = (ITask)this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
+            ITask taskFeedback = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
             var commandParameters = new string[] { "1", "rating", "56" }.ToList();
 
             //Act
-            var command = new ChangeFeedbackCommand(commandParameters, repository);
+            var command = new ChangeFeedbackCommand(commandParameters, this.repository);
 
             //Assert
             Assert.AreEqual(command.Execute(), "Rating of task with 1 was changed.");

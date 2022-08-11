@@ -30,7 +30,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new AssignTaskCommand(commandParameters, repository);
+            var command = new AssignTaskCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -52,7 +52,7 @@ namespace TaskManagement.Tests.Commands.Tests
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
 
-            var command = new AssignTaskCommand(commandParameters, repository);
+            var command = new AssignTaskCommand(commandParameters, this.repository);
 
             // Act & Assert
             Assert.AreEqual(command.Execute(), $"Task with id 1 was assigned to {Constants.MemberName}");
@@ -72,7 +72,7 @@ namespace TaskManagement.Tests.Commands.Tests
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
 
-            var command = new AssignTaskCommand(commandParameters, repository);
+            var command = new AssignTaskCommand(commandParameters, this.repository);
 
             // Act & Assert
             Assert.AreEqual(command.Execute(), $"Task with id 1 was assigned to {Constants.MemberName}");
@@ -92,7 +92,7 @@ namespace TaskManagement.Tests.Commands.Tests
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
 
-            var command = new AssignTaskCommand(commandParameters, repository);
+            var command = new AssignTaskCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -112,7 +112,7 @@ namespace TaskManagement.Tests.Commands.Tests
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
 
-            var command = new AssignTaskCommand(commandParameters, repository);
+            var command = new AssignTaskCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<EntityNotFoundException>(() =>
@@ -133,8 +133,8 @@ namespace TaskManagement.Tests.Commands.Tests
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
             var commandParameters2 = new string[] { "1", Constants.MemberName2, Constants.TeamName }.ToList();
 
-            var command = new AssignTaskCommand(commandParameters, repository);
-            var command2 = new AssignTaskCommand(commandParameters2, repository);
+            var command = new AssignTaskCommand(commandParameters, this.repository);
+            var command2 = new AssignTaskCommand(commandParameters2, this.repository);
 
             command.Execute();
             command2.Execute();
@@ -146,7 +146,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             var member = this.repository.CreateMember(Constants.MemberName);
             var member2 = this.repository.CreateMember(Constants.MemberName2);
-            var task = this.repository.CreateBug(Constants.BugTitle, Constants.Description, PriorityType.Medium, Severity.Critical,Constants.steps);
+            var task = this.repository.CreateBug(Constants.BugTitle, Constants.Description, PriorityType.Medium, Severity.Critical, Constants.steps);
             var team = this.repository.CreateTeam(Constants.TeamName);
             team.AddMember(member);
             team.AddMember(member2);
@@ -154,8 +154,8 @@ namespace TaskManagement.Tests.Commands.Tests
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
             var commandParameters2 = new string[] { "1", Constants.MemberName2, Constants.TeamName }.ToList();
 
-            var command = new AssignTaskCommand(commandParameters, repository);
-            var command2 = new AssignTaskCommand(commandParameters2, repository);
+            var command = new AssignTaskCommand(commandParameters, this.repository);
+            var command2 = new AssignTaskCommand(commandParameters2, this.repository);
 
             command.Execute();
             command2.Execute();
@@ -172,7 +172,7 @@ namespace TaskManagement.Tests.Commands.Tests
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
 
-            var command = new AssignTaskCommand(commandParameters, repository);
+            var command = new AssignTaskCommand(commandParameters, this.repository);
 
             command.Execute();
         }
@@ -189,7 +189,7 @@ namespace TaskManagement.Tests.Commands.Tests
             team.AddBoard(board);
 
             var commandParameters = new string[] { "1", Constants.MemberName, Constants.TeamName }.ToList();
-            var command = new AssignTaskCommand(commandParameters, repository);
+            var command = new AssignTaskCommand(commandParameters, this.repository);
 
             command.Execute();
         }

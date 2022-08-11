@@ -7,7 +7,6 @@ using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
 {
-
     [TestClass]
     public class CreateStoryTests
     {
@@ -16,13 +15,11 @@ namespace TaskManagement.Tests.Commands.Tests
         private IRepository repository;
         private ICommandFactory commandFactory;
 
-
         [TestInitialize]
         public void InitTest()
         {
             this.repository = new Repository();
             this.commandFactory = new CommandFactory(this.repository);
-
         }
 
         [TestMethod]
@@ -30,8 +27,8 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = new string[] { Constants.Title, Constants.Description, Constants.priority.ToString(), Constants.size.ToString() };
-            var command = new CreateStoryCommand(commandParameters,repository);
-            
+            var command = new CreateStoryCommand(commandParameters, this.repository);
+
             //Act
             command.Execute();
 
@@ -47,7 +44,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = Helpers.GetDummyList(ExpectedParamsCount - 1);
-            var command = new CreateStoryCommand(commandParameters, repository);
+            var command = new CreateStoryCommand(commandParameters, this.repository);
 
             //Act & Asssert
             command.Execute();

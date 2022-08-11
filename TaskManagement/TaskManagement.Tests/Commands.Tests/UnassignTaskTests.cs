@@ -29,7 +29,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new UnassignTaskCommand(commandParameters, repository);
+            var command = new UnassignTaskCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -48,7 +48,7 @@ namespace TaskManagement.Tests.Commands.Tests
 
             var commandParameters = new string[] { "1", Constants.MemberName }.ToList();
 
-            var command = new UnassignTaskCommand(commandParameters, repository);
+            var command = new UnassignTaskCommand(commandParameters, this.repository);
 
             // Act & Assert
             Assert.AreEqual(command.Execute(), $"Task with id 1 was unassigned from {Constants.MemberName}");
@@ -67,7 +67,7 @@ namespace TaskManagement.Tests.Commands.Tests
 
             var commandParameters = new string[] { "1", Constants.MemberName }.ToList();
 
-            var command = new UnassignTaskCommand(commandParameters, repository);
+            var command = new UnassignTaskCommand(commandParameters, this.repository);
 
             // Act & Assert
             Assert.AreEqual(command.Execute(), $"Task with id 1 was unassigned from {Constants.MemberName}");
@@ -82,7 +82,7 @@ namespace TaskManagement.Tests.Commands.Tests
 
             var commandParameters = new string[] { "1", Constants.MemberName }.ToList();
 
-            var command = new UnassignTaskCommand(commandParameters, repository);
+            var command = new UnassignTaskCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<EntityNotFoundException>(() =>

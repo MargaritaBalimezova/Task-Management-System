@@ -6,7 +6,6 @@ using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Tests.Commands.Tests.Common;
 
-
 namespace TaskManagement.Tests.Commands.Tests
 {
     [TestClass]
@@ -28,7 +27,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new SortFeedbacksByCommand(commandParameters, repository);
+            var command = new SortFeedbacksByCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -40,7 +39,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = new string[] { "size" }.ToList();
-            var command = new SortFeedbacksByCommand(commandParameters, repository);
+            var command = new SortFeedbacksByCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -51,10 +50,10 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_SortFeedback_When_ParamValid_Ver1()
         {
             // Arrange
-            var feedback = this.repository.CreateFeedBack( Constants.Title, Constants.Description, 59);
+            var feedback = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 59);
 
             var commandParameters = new string[] { "title" }.ToList();
-            var command = new SortFeedbacksByCommand(commandParameters, repository);
+            var command = new SortFeedbacksByCommand(commandParameters, this.repository);
 
             // Act & Assert
             Assert.IsTrue(command.Execute().Contains($"--FEEDBACK--"));
@@ -67,10 +66,10 @@ namespace TaskManagement.Tests.Commands.Tests
             var feedback = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 59);
 
             var commandParameters = new string[] { "rating" }.ToList();
-            var command = new SortFeedbacksByCommand(commandParameters, repository);
+            var command = new SortFeedbacksByCommand(commandParameters, this.repository);
 
             // Act & Assert
-            Assert.IsTrue(command.Execute().Contains($"--FEEDBACK--")); 
+            Assert.IsTrue(command.Execute().Contains($"--FEEDBACK--"));
         }
     }
 }

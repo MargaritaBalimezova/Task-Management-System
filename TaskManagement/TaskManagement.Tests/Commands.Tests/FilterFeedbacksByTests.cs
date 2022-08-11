@@ -27,7 +27,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new FilterFeedbacksByCommand(commandParameters, repository);
+            var command = new FilterFeedbacksByCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -39,7 +39,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = new string[] { "rating", "active" }.ToList();
-            var command = new FilterFeedbacksByCommand(commandParameters, repository);
+            var command = new FilterFeedbacksByCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -53,7 +53,7 @@ namespace TaskManagement.Tests.Commands.Tests
             var feedback = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 59);
 
             var commandParameters = new string[] { "status", "New" }.ToList();
-            var command = new FilterFeedbacksByCommand(commandParameters, repository);
+            var command = new FilterFeedbacksByCommand(commandParameters, this.repository);
 
             // Act & Assert
             Assert.IsTrue(command.Execute().Contains("--FEEDBACK--"));

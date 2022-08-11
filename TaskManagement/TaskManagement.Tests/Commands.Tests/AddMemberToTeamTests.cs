@@ -33,7 +33,7 @@ namespace TaskManagement.Commands
         {
             //Arrange
             var commandParameters = new string[] { Constants.TeamName, Constants.MemberName };
-            var command = new AddMemberToTeam(commandParameters, repository);
+            var command = new AddMemberToTeam(commandParameters, this.repository);
             //Act
             command.Execute();
             //Assert
@@ -48,7 +48,7 @@ namespace TaskManagement.Commands
         {
             //Arrange
             var commandParameters = Helpers.GetDummyList(ExpectedParamsCount - 1);
-            var command = new AddMemberToTeam(commandParameters, repository);
+            var command = new AddMemberToTeam(commandParameters, this.repository);
 
             //Act & Asssert
             command.Execute();

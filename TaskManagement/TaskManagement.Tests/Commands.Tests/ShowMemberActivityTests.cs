@@ -27,7 +27,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new ShowMemberActivityCommand(commandParameters, repository);
+            var command = new ShowMemberActivityCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -40,7 +40,7 @@ namespace TaskManagement.Tests.Commands.Tests
             // Arrange
             var member = this.repository.CreateMember(Constants.MemberName);
             var commandParameters = new string[] { Constants.MemberName }.ToList();
-            var command = new ShowMemberActivityCommand(commandParameters, repository);
+            var command = new ShowMemberActivityCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.IsTrue(command.Execute().Contains($"Successfuly created Member with name {Constants.MemberName}!"));

@@ -20,7 +20,7 @@ namespace TaskManagement.Tests.Commands.Tests
         public void Execute_Should_ShowAllMembers_Ver1()
         {
             // Arrange
-            var command = new ShowAllMembersCommand(repository);
+            var command = new ShowAllMembersCommand(this.repository);
 
             // Act, Assert
             Assert.AreEqual(command.Execute(), "There are no members.");
@@ -32,7 +32,7 @@ namespace TaskManagement.Tests.Commands.Tests
             // Arrange
             var member = this.repository.CreateMember("testMemberName");
 
-            var command = new ShowAllMembersCommand(repository);
+            var command = new ShowAllMembersCommand(this.repository);
 
             // Act, Assert
             Assert.IsTrue(command.Execute().Contains($"Number of all members: {this.repository.Members.Count}"));

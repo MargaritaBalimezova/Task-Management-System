@@ -27,7 +27,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = new string[] { Constants.TeamName };
-            var command = new CreateTeamCommand(commandParameters, repository);
+            var command = new CreateTeamCommand(commandParameters, this.repository);
 
             //Act
             command.Execute();
@@ -44,7 +44,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = Helpers.GetDummyList(ExpectedParamsCount + 1);
-            var command = new CreateTeamCommand(commandParameters, repository);
+            var command = new CreateTeamCommand(commandParameters, this.repository);
 
             //Act & Asssert
             command.Execute();

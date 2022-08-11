@@ -34,11 +34,11 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = new string[] { Constants.TeamName, Constants.MemberName };
-            var command = new RemoveMemberFromTeam(commandParameters, repository);
+            var command = new RemoveMemberFromTeam(commandParameters, this.repository);
             //Act
             command.Execute();
             //Assert
-            Assert.IsFalse(this.repository.IsMemberInTeam(this.team, this.member), 
+            Assert.IsFalse(this.repository.IsMemberInTeam(this.team, this.member),
                 "RemoveMemberFromTeam command failed to remove the the member!");
         }
 
@@ -49,7 +49,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             //Arrange
             var commandParameters = Helpers.GetDummyList(ExpectedParamsCount - 1);
-            var command = new RemoveMemberFromTeam(commandParameters, repository);
+            var command = new RemoveMemberFromTeam(commandParameters, this.repository);
 
             //Act & Asssert
             command.Execute();

@@ -27,7 +27,7 @@ namespace TaskManagement.Tests.Commands.Tests
         {
             // Arrange
             var commandParameters = Helpers.GetDummyList(testValue - 1);
-            var command = new CreateFeedbackCommand(commandParameters, repository);
+            var command = new CreateFeedbackCommand(commandParameters, this.repository);
 
             // Act, Assert
             Assert.ThrowsException<InvalidUserInputException>(() =>
@@ -41,13 +41,13 @@ namespace TaskManagement.Tests.Commands.Tests
             var taskFeedback = this.repository.CreateFeedBack(Constants.Title, Constants.Description, 58);
 
             var commandParameters = new string[] { Constants.Title, Constants.Description, "58" }.ToList();
-            var command = new CreateFeedbackCommand(commandParameters, repository);
+            var command = new CreateFeedbackCommand(commandParameters, this.repository);
 
             // Act
             command.Execute();
 
             // Assert
-            Assert.IsTrue(repository.Feedbacks.Count > 0);
+            Assert.IsTrue(this.repository.Feedbacks.Count > 0);
         }
     }
 }
