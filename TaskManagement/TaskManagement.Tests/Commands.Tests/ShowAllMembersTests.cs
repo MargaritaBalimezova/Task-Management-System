@@ -1,12 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
-using TaskManagement.Models;
 
 namespace TaskManagement.Tests.Commands.Tests
 {

@@ -1,13 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
-using TaskManagement.Models.Enums;
 using TaskManagement.Models.Enums.StoryStatus;
 using TaskManagement.Models.Tasks;
 using TaskManagement.Tests.Commands.Tests.Common;

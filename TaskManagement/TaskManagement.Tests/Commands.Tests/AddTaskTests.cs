@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;

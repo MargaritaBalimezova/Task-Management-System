@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using TaskManagement.Commands;
 using TaskManagement.Commands.Contracts;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Models.Contracts;
-using TaskManagement.Models.Enums;
 using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests

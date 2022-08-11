@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TaskManagement.Core;
+﻿using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TaskManagement.Models;
 using TaskManagement.Models.Contracts;
 using TaskManagement.Tests;
 using TaskManagement.Exceptions;

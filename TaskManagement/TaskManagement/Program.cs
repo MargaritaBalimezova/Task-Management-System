@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using TaskManagement.Core;
+﻿using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
-using TaskManagement.Models;
-using TaskManagement.Models.Enums;
-using TaskManagement.Models.Tasks;
 
 namespace TaskManagement
 {

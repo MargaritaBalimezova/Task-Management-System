@@ -2,7 +2,6 @@
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
-using TaskManagement.Models.Contracts;
 using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
