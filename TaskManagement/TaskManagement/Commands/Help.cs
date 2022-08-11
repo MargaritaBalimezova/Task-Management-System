@@ -19,6 +19,9 @@ namespace TaskManagement.Commands
 
             sb.AppendLine();
 
+            sb.AppendLine("IMPORTANT: Please when you input 'title', 'description' and 'comment' place them in quotes!");
+            sb.AppendLine();
+
             sb.AppendLine("CreateTeam.................... - [teamName] - Create team");
             sb.AppendLine("CreateMember.................. - [memberName] - Create member");
             sb.AppendLine("CreateBoardInTeam............. - [boardName] [teamName] - Create board in a team");
