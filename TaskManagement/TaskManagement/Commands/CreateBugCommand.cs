@@ -46,18 +46,30 @@ namespace TaskManagement.Commands
            
             Console.WriteLine("Please enter step to reproduce the bug without enumerating it and press <Enter> to add new step.");
             Console.WriteLine("When you are ready just type <end>");
-            string input = Console.ReadLine().ToLower();
+            
 
-            while (input != "end")
+            while (true)
             {
+                string input = Console.ReadLine().ToLower();
+
                 if (String.IsNullOrEmpty(input)|| String.IsNullOrWhiteSpace(input))
                 {
                     Console.WriteLine("This input can not be empty!Please enter your step again!");
-                    input = Console.ReadLine();
                     continue;
                 }
-                result.Add(char.ToUpper(input[0]) + input.Substring(1)) ;
-                input = Console.ReadLine().ToLower();
+                if (result.Count == 0 && input == "end")
+                {
+                    Console.WriteLine("You must provide steps to reproduce before ending the program!");
+                    continue;
+                }
+               
+                    result.Add(char.ToUpper(input[0]) + input.Substring(1));
+
+                if (input == "end")
+                {
+                    break;
+                }
+               
             }
             return result;
         }

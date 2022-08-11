@@ -68,6 +68,21 @@ namespace TaskManagement.Tests.Commands.Tests
             
             string result = sw.ToString();
 
+            Assert.IsTrue(result.Contains("You must provide steps to reproduce before ending the program!"));
+        }
+
+        [TestMethod]
+        public void Execute_Should_WriteSpecialMessage_When_EmptyStepIsInsert()
+        {
+            var sw = new StringWriter();
+            ICommand createBug = this.commandFactory.Create($"Createbug {Constants.BugTitle} {Constants.Description} High Major");
+           
+            Console.SetOut(sw);
+
+            createBug.Execute();
+
+            string result = sw.ToString();
+
             Assert.IsTrue(result.Contains("This input can not be empty!Please enter your step again!"));
         }
     }
