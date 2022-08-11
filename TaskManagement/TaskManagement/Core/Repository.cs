@@ -197,6 +197,8 @@ namespace TaskManagement.Core
 
         public void AddBoardToTeam(ITeam team, IBoard board)
         {
+            Validator.ValidateArgumentIsNotNull(team, "Team");
+
             if (IsBoardInTeam(team, board))
             {
                 throw new NameExistsException($"Board with name {board.Name} already exists");
