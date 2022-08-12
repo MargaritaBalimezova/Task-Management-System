@@ -1,9 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using TaskManagement.Commands;
 using TaskManagement.Core;
 using TaskManagement.Core.Contracts;
 using TaskManagement.Exceptions;
 using TaskManagement.Models.Contracts;
+using TaskManagement.Models.Enums;
 using TaskManagement.Tests.Commands.Tests.Common;
 
 namespace TaskManagement.Tests.Commands.Tests
@@ -53,6 +55,25 @@ namespace TaskManagement.Tests.Commands.Tests
 
             //Act & Asssert
             command.Execute();
+        }
+
+        [TestMethod]
+        public void Execute_Should_UnassignTasksFromRemovedMember()
+        {
+            //Arrange
+            var story = this.repository.CreateStory(Constants.Title, Constants.Description, Constants.priorityHigh, Constants.sizeMedium);
+            var bug = this.repository.CreateBug(Constants.Title, Constants.Description,Constants.priority, Severity.Critical, new List<string>());
+            bug.AddAssignee(member);
+            story.AddAssignee(member);
+            member.AddTask(bug);
+            member.AddTask(story);
+            var commandParameters = new string[] { Constants.TeamName, Constants.MemberName };
+            var command = new RemoveMemberFromTeam(commandParameters, this.repository);
+            //Act
+            command.Execute();
+            //Assert
+            Assert.IsTrue(story.Assignee == null, "RemoveMemberFromTeam command failed to unassigne tasks before removing member!");
+            Assert.IsTrue(bug.Assignee == null, "RemoveMemberFromTeam command failed to unassigne tasks before removing member!");
         }
     }
 }

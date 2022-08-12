@@ -193,5 +193,40 @@ namespace TaskManagement.Tests.Commands.Tests
 
             command.Execute();
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Execute_Should_ThrowException_When_StoryIsAlreadyAssigned()
+        {
+            var story = this.repository.CreateStory(Constants.Title, Constants.Description, Constants.priorityHigh, Constants.sizeMedium);
+            var member = this.repository.CreateMember(Constants.MemberName);
+            var board = this.repository.CreateBoard(Constants.BoardName);
+            var team = this.repository.CreateTeam(Constants.TeamName);
+            team.AddMember(member);
+            team.AddBoard(board);
+            story.AddAssignee(member);
+
+            var command = new AssignTaskCommand(new List<string>{story.Id.ToString(), Constants.MemberName, Constants.TeamName }, this.repository);
+
+            command.Execute();
+        }
+
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void Execute_Should_ThrowException_When_BugIsAlreadyAssigned()
+        {
+            var bug = this.repository.CreateBug(Constants.BugTitle, Constants.Description, PriorityType.Medium, Severity.Critical, Constants.steps);
+            var member = this.repository.CreateMember(Constants.MemberName);
+            var board = this.repository.CreateBoard(Constants.BoardName);
+            var team = this.repository.CreateTeam(Constants.TeamName);
+            team.AddMember(member);
+            team.AddBoard(board);
+            bug.AddAssignee(member);
+
+            var command = new AssignTaskCommand(new List<string> { bug.Id.ToString(), Constants.MemberName, Constants.TeamName }, this.repository);
+
+            command.Execute();
+        }
     }
 }
